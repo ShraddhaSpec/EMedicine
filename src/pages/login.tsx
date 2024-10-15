@@ -9,7 +9,7 @@ const Login = () => {
         console.log("login clicked")
     }
   return (
-    <div>
+    <div className='App'>
        <div className="login-container">
                 <div className="image-container">
                     <img src={logo} alt="Logo" className="welcome-logo" />
