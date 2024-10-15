@@ -2,7 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import CartItems from './pages/CartItems';
 import './App.css';
-import Login from './pages/Login';
+import { Home } from './pages/Home';
+import Login from './pages/login';
 
 
 function App() {
