@@ -8,12 +8,12 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Badge from '@mui/material/Badge';
+import logoUrl from '../../Images/download.png';
+import '../../custom.css';
 
 //const pages = ['Home', 'Pricing', 'Blog'];
 const settings = ['Profile', 'My Orders', 'Logout'];
@@ -41,11 +41,11 @@ export const Header = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" className="">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
+          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+          {/* <Typography
             variant="h6"
             noWrap
             component="a"
@@ -61,7 +61,13 @@ export const Header = () => {
             }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
+
+          <Box component="img"
+            src={logoUrl}
+            alt="Logo"
+            sx={{ height: 40, marginRight: 2 }} // Adjust the size and spacing of the logo
+          />
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
