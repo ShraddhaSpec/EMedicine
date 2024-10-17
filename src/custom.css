@@ -110,17 +110,18 @@
   }
   
   .main-container {
-    margin-top: 2%;
-    height: 100%;
-    width: 91vw;
     background-color: #f4f5f8;
-    border-radius: 20px;
-    display: flex;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
   
   .grid-container {
     width: 100%;
     padding: 50px !important;
     
+  }
+
+  .btn-green {
+    color: #ffffff !important; /* Text color */
+    background-color: #679a33 !important; /* Green background color */
+    border: 1px solid #679a33 !important; /* Green border color */
+    width: 22rem;
   }

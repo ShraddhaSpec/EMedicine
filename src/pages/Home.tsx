@@ -7,59 +7,59 @@ import { Product } from '../components/user/Product';
 
 const products = [
   {
-    name: 'Volini Gel 30gm',
+    name: 'LOREM',
     image:   '../Images/SAM1.jpg',
+    description: 'Lorem ipsum is simply dummy text of the printing',
+    price: 56
   },
   {
-    name: 'Head & Shoulders',
-    image: '../Images/SAM1.jpg',
+    name: 'LOREM',
+    image:   '../Images/SAM1.jpg',
+    description: 'Lorem ipsum is simply dummy text of the printing',
+    price: 56
   },
   {
-    name: 'Head & Shoulders 2',
-    image: '../Images/SAM1.jpg',
+    name: 'LOREM',
+    image:   '../Images/SAM1.jpg',
+    description: 'Lorem ipsum is simply dummy text of the printing',
+    price: 56
   },
   {
-    name: 'Pro360 Whey Protein',
-    image: '../Images/SAM1.jpg',
+    name: 'LOREM',
+    image:   '../Images/SAM1.jpg',
+    description: 'Lorem ipsum is simply dummy text of the printing',
+    price: 56
   },
   {
-    name: 'Pro360 Whey Protein',
-    image: '../Images/SAM1.jpg',
+    name: 'LOREM',
+    image:   '../Images/SAM1.jpg',
+    description: 'Lorem ipsum is simply dummy text of the printing',
+    price: 56
   },
   {
-    name: 'Pro360 Whey Protein',
-    image: '../Images/SAM1.jpg',
+    name: 'LOREM',
+    image:   '../Images/SAM1.jpg',
+    description: 'Lorem ipsum is simply dummy text of the printing',
+    price: 56
   },
   {
-    name: 'Pro360 Whey Protein',
-    image: '../Images/SAM1.jpg',
+    name: 'LOREM',
+    image:   '../Images/SAM1.jpg',
+    description: 'Lorem ipsum is simply dummy text of the printing',
+    price: 56
   },
   {
-    name: 'Pro360 Whey Protein',
-    image: '../Images/SAM1.jpg',
+    name: 'LOREM',
+    image:   '../Images/SAM1.jpg',
+    description: 'Lorem ipsum is simply dummy text of the printing',
+    price: 56
   },
   {
-    name: 'Pro360 Whey Protein',
-    image: '../Images/SAM1.jpg',
-  },
-  {
-    name: 'Pro360 Whey Protein',
-    image: '../Images/SAM1.jpg',
-  },
-  {
-    name: 'Pro360 Whey Protein',
-    image: '../Images/SAM1.jpg',
-  },
-  {
-    name: 'Pro360 Whey Protein',
-    image: '../Images/SAM1.jpg',
-  },
-   {
-    name: 'Pro360 Whey Protein',
-    image: '../Images/SAM1.jpg',
-  },
-
-
+    name: 'LOREM',
+    image:   '../Images/SAM1.jpg',
+    description: 'Lorem ipsum is simply dummy text of the printing',
+    price: 56
+  }
 ];
 
 export const Home = () => {

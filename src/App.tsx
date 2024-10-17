@@ -6,14 +6,16 @@ import { Home } from './pages/Home';
 import Login from './pages/login';
 import { Header } from './components/user/Header';
 import Signup from './pages/Signup';
+import { ProductDetails } from './components/user/ProductDetails';
 
 function App() {
   return (
     <div >
       <Header />
-      <div className='App'>
+      <div className=''>
         <div className="main-container">
-         <Home />
+         {/* <Home /> */}
+         <ProductDetails />
         </div>
       </div>
       {/* <Login /> */}
