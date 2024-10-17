@@ -5,7 +5,7 @@ import './App.css';
 import { Home } from './pages/Home';
 import Login from './pages/login';
 import { Header } from './components/user/Header';
-import Signup from './pages/Signup';
+import Signup from './pages/signup';
 import { ProductDetails } from './components/user/ProductDetails';
 
 function App() {
