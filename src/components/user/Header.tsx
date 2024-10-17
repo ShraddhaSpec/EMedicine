@@ -13,7 +13,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Badge from '@mui/material/Badge';
-import logoUrl from '../../Images/logo2.png';
+
 import '../../custom.css';
 
 //const pages = ['Home', 'Pricing', 'Blog'];
@@ -21,6 +21,7 @@ const settings = ['Profile', 'My Orders', 'Logout'];
 
 export const Header = () => {
 
+  const logoUrl = '../Images/logo2.png';
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
