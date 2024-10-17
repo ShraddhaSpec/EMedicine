@@ -1,12 +1,39 @@
 import {  Button, TextField } from '@mui/material';
-import React from 'react'
+import React, { useState } from 'react'
 import '../custom.css'
 
 const Login = () => {
     const logo = '../Images/logo1.png';
+
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState({ username: '', password: '' });
+    
+    const validateForm = () => {
+        let valid = true;
+        const errors = { username: '', password: '' };
+
+        if (!username) {
+            errors.username = 'Username is required';
+            valid = false;
+        }
+
+        if (!password) {
+            errors.password = 'Password is required';
+            valid = false;
+        }
+
+        setErrors(errors);
+        return valid;
+    };
+
     
     const loginHandler =()=>{
-        console.log("login clicked")
+        if (validateForm()) {
+            console.log('Login clicked');
+            // Perform login action here
+        }
     }
   return (
     <div className='App'>
@@ -25,6 +52,10 @@ const Login = () => {
                             color="success"
                             name="name"
                             className='login_text_field'
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            error={!!errors.username}
+                            helperText={errors.username}
                            
                         />
                         <TextField
@@ -37,6 +68,10 @@ const Login = () => {
                             color="success"
                             name="password"
                             className='login_text_field'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            error={!!errors.password}
+                            helperText={errors.password}
                         />
                         <Button
                         variant="contained"
