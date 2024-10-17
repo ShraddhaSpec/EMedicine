@@ -27,11 +27,11 @@ export const ProductDetails = () => {
                         LOREM
                     </Typography>
 
-                    <Typography variant="h5" component="h6">
+                    <Typography variant="h6" component="h4">
                         Aspirin is used to reduce fever and relieve mild to moderate pain from conditions such as muscle aches, toothaches, common cold, and headaches.
                     </Typography>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 'auto' }}>
-                        <Typography variant="h6" component="h3"> Price : 
+                        <Typography variant="h5" component="h3"> Price : 
                             <CurrencyRupeeIcon sx={{ fontSize: '1.2rem', verticalAlign: 'middle' }} /> 56
                         </Typography>
                     </div>

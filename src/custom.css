@@ -125,3 +125,6 @@
     border: 1px solid #679a33 !important; /* Green border color */
     width: 22rem;
   }
+  .btn-green:hover {
+    background-color: #76b937 !important; /* Darker green on hover */
+  }
