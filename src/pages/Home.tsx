@@ -3,6 +3,12 @@ import { Header } from '../components/admin/Header'
 
 export const Home = () => {
   return (
-   <Header />
+    <>
+      <Header />
+      <div className='App'>
+        <div className="main-container">
+        </div>
+      </div>
+    </>
   )
 }

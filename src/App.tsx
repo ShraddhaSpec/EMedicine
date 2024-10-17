@@ -10,11 +10,9 @@ import Signup from './pages/Signup';
 function App() {
   return (
     <div className="App">
-   
-      {/* <Login /> */}
-      <Signup />
       
-      {/* <CartItems/> */}
+      <Login />
+      <CartItems/>
     </div>
 
   );
