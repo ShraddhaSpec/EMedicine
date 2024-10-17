@@ -31,6 +31,7 @@ const Signup = () => {
                   color="success"
                   className='signup_text_field'
                   size='small'
+                  fullWidth
                 />
               </Grid>
               <Grid size={5}>
@@ -40,6 +41,7 @@ const Signup = () => {
                   color="success"
                   className='signup_text_field'
                   size='small'
+                  fullWidth
                 />
               </Grid>
          
@@ -51,6 +53,7 @@ const Signup = () => {
                   className='signup_text_field'
                   placeholder='House Number Street '
                   size='small'
+                  fullWidth
                 />
               </Grid>
 
@@ -61,6 +64,7 @@ const Signup = () => {
                   color="success"
                   className='signup_text_field'
                   size='small'
+                  fullWidth
                 />
               </Grid>
            
@@ -71,6 +75,7 @@ const Signup = () => {
                   color="success"
                   className='signup_text_field'
                   size='small'
+                  fullWidth
                 />
               </Grid>
               <Grid size={5}>
@@ -80,6 +85,7 @@ const Signup = () => {
                   color="success"
                   className='signup_text_field'
                   size='small'
+                  fullWidth
                 />
               </Grid>
          
@@ -90,7 +96,7 @@ const Signup = () => {
                   color="success"
                   className='signup_text_field'
                   size='small'
-
+                  fullWidth
                 />
               </Grid>
               <Grid size={5}>
@@ -101,6 +107,7 @@ const Signup = () => {
                   className='signup_text_field'
                   type='email'
                   size='small'
+                  fullWidth
                 />
               </Grid>
 
