@@ -12,7 +12,7 @@ const Login = () => {
     <div className='App'>
        <div className="login-container">
                 <div className="image-container">
-                    <img src={logo} alt="Logo" className="welcome-logo" />
+                    <img src={logo} alt="Logo" className="welcome-logo" color='white' />
 
                 </div>
              
@@ -22,8 +22,9 @@ const Login = () => {
                             id="standard-basic"
                             label="Enter User Name"
                             variant="outlined"
-                            color="secondary"
+                            color="success"
                             name="name"
+                            className='login_text_field'
                            
                         />
                         <TextField
@@ -33,17 +34,18 @@ const Login = () => {
                             label="Password"
                             type="password"
                             autoComplete="current-password"
-                            color="secondary"
+                            color="success"
                             name="password"
-                           
+                            className='login_text_field'
                         />
-                    <Button
-                      variant="contained"
-                      className="blueButton" 
-                      onClick={loginHandler}
-                      >
-                      Login
-                    </Button>
+                        <Button
+                        variant="contained"
+                        className="blueButton" 
+                        onClick={loginHandler}
+                        
+                        >
+                        Login
+                        </Button>
                         <p>
                             Don't have an Account ?{" "}
                             <span
