@@ -13,7 +13,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Badge from '@mui/material/Badge';
-
 import '../../custom.css';
 
 //const pages = ['Home', 'Pricing', 'Blog'];

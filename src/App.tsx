@@ -5,17 +5,19 @@ import './App.css';
 import { Home } from './pages/Home';
 import Login from './pages/login';
 import { Header } from './components/user/Header';
+import Signup from './pages/Signup';
 
 function App() {
   return (
     <div >
-      <Header />
+      {/* <Header />
       <div className='App'>
         <div className="main-container">
          <Home />
         </div>
-      </div>
+      </div> */}
       {/* <Login /> */}
+      <Signup />
     </div>
 
   );

@@ -99,3 +99,27 @@
   .login_text_field{
     width: 20rem;
   }
+
+  .app-container {
+    background-color: #0059ac !important;
+  }
+  
+  .header-container {
+    padding-left: 6% !important;
+    padding-right: 6% !important;
+  }
+  
+  .main-container {
+    height: 93vh;
+    width: 91vw;
+    background-color: #f4f5f8;
+    border-radius: 20px;
+    display: flex;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+  
+  .grid-container {
+    width: 100%;
+    padding: 50px !important;
+    
+  }

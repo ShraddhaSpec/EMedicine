@@ -1,10 +1,10 @@
 import {  Button, TextField } from '@mui/material';
 import React from 'react'
 import '../custom.css'
-import logo from "../Images/logo1.png";
 
 const Login = () => {
-
+    const logo = '../Images/logo1.png';
+    
     const loginHandler =()=>{
         console.log("login clicked")
     }
