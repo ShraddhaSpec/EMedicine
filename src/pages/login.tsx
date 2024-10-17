@@ -1,18 +1,45 @@
 import {  Button, TextField } from '@mui/material';
-import React from 'react'
+import React, { useState } from 'react'
 import '../custom.css'
-import logo from "../Images/download.png";
 
 const Login = () => {
+    const logo = '../Images/logo1.png';
 
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState({ username: '', password: '' });
+    
+    const validateForm = () => {
+        let valid = true;
+        const errors = { username: '', password: '' };
+
+        if (!username) {
+            errors.username = 'Username is required';
+            valid = false;
+        }
+
+        if (!password) {
+            errors.password = 'Password is required';
+            valid = false;
+        }
+
+        setErrors(errors);
+        return valid;
+    };
+
+    
     const loginHandler =()=>{
-        console.log("login clicked")
+        if (validateForm()) {
+            console.log('Login clicked');
+            // Perform login action here
+        }
     }
   return (
     <div className='App'>
        <div className="login-container">
                 <div className="image-container">
-                    <img src={logo} alt="Logo" className="welcome-logo" />
+                    <img src={logo} alt="Logo" className="welcome-logo" color='white' />
 
                 </div>
              
@@ -22,8 +49,13 @@ const Login = () => {
                             id="standard-basic"
                             label="Enter User Name"
                             variant="outlined"
-                            color="secondary"
+                            color="success"
                             name="name"
+                            className='login_text_field'
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            error={!!errors.username}
+                            helperText={errors.username}
                            
                         />
                         <TextField
@@ -33,17 +65,22 @@ const Login = () => {
                             label="Password"
                             type="password"
                             autoComplete="current-password"
-                            color="secondary"
+                            color="success"
                             name="password"
-                           
+                            className='login_text_field'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            error={!!errors.password}
+                            helperText={errors.password}
                         />
-                    <Button
-                      variant="contained"
-                      className="blueButton" 
-                      onClick={loginHandler}
-                      >
-                      Login
-                    </Button>
+                        <Button
+                        variant="contained"
+                        className="blueButton" 
+                        onClick={loginHandler}
+                        
+                        >
+                        Login
+                        </Button>
                         <p>
                             Don't have an Account ?{" "}
                             <span

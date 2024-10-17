@@ -2,8 +2,43 @@
   height: 20vw;
 }
 
-
 .login-container {
+  height: 90vh;
+  width: 90vw;
+  background-color: #f4f5f8;
+  border-radius: 20px;
+  display: flex;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.image-container {
+  flex: 0.3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-text {
+  font-size: 2vw;
+  padding-bottom: 20px;
+}
+
+.login-box {
+  flex: 0.7;
+  background-color: white;
+  border-radius: 20px;
+  margin: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #005aae;
+  font-weight: bolder;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.login-container{
     height: 90vh;
     width: 90vw;
     background-color: #f4f5f8;
@@ -13,7 +48,7 @@
   }
   
   .image-container {
-    flex: 0.3;
+    flex: 0.5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,13 +74,13 @@
   }
 
 
-  .login-text {
-    font-size: 2vw;
-    padding-bottom: 20px;
-  }
+.login-text {
+  font-size: 2vw;
+  padding-bottom: 20px;
+}
 
   .hyper {
-    color: darkviolet;
+    color: #679a33;
     text-decoration: underline;
     cursor: pointer;
   }
@@ -54,8 +89,39 @@
     color: #ffffff !important; /* Text color */
     background-color: #005aae !important; /* Green background color */
     border: 1px solid #0059ac !important; /* Green border color */
+    width: 20rem;
   }
   
   .blueButton:hover {
     background-color: #789dbf !important; /* Darker green on hover */
+  }
+
+  .login_text_field{
+    width: 20rem;
+  }
+
+  .app-container {
+    background-color: #0059ac !important;
+  }
+  
+  .header-container {
+    padding-left: 6% !important;
+    padding-right: 6% !important;
+  }
+  
+  .main-container {
+    background-color: #f4f5f8;
+  }
+  
+  .grid-container {
+    width: 100%;
+    padding: 50px !important;
+    
+  }
+
+  .btn-green {
+    color: #ffffff !important; /* Text color */
+    background-color: #679a33 !important; /* Green background color */
+    border: 1px solid #679a33 !important; /* Green border color */
+    width: 22rem;
   }

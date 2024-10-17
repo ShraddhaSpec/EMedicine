@@ -4,14 +4,22 @@ import CartItems from './pages/CartItems';
 import './App.css';
 import { Home } from './pages/Home';
 import Login from './pages/login';
-
+import { Header } from './components/user/Header';
+import Signup from './pages/Signup';
+import { ProductDetails } from './components/user/ProductDetails';
 
 function App() {
   return (
-    <div className="">
-      
+    <div >
+      <Header />
+      <div className=''>
+        <div className="main-container">
+         {/* <Home /> */}
+         <ProductDetails />
+        </div>
+      </div>
       {/* <Login /> */}
-      <CartItems/>
+      {/* <Signup /> */}
     </div>
 
   );
