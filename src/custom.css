@@ -13,7 +13,7 @@
   }
   
   .image-container {
-    flex: 0.3;
+    flex: 0.5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +45,7 @@
   }
 
   .hyper {
-    color: darkviolet;
+    color: #679a33;
     text-decoration: underline;
     cursor: pointer;
   }
@@ -54,8 +54,13 @@
     color: #ffffff !important; /* Text color */
     background-color: #005aae !important; /* Green background color */
     border: 1px solid #0059ac !important; /* Green border color */
+    width: 20rem;
   }
   
   .blueButton:hover {
     background-color: #789dbf !important; /* Darker green on hover */
+  }
+
+  .login_text_field{
+    width: 20rem;
   }
