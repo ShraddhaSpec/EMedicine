@@ -21,8 +21,8 @@ const Signup = () => {
           <p className="login-text">Login to your Account</p>
 
           <Grid container size={12} spacing={2}  >
-            <Grid size={2}></Grid>
-            <Grid container size={10} spacing={2}   >
+       
+            <Grid container size={10} spacing={1}  offset={{md:2}} >
               <Grid size={5}>
                 <TextField
                   id="firstname"
@@ -42,11 +42,7 @@ const Signup = () => {
                   size='small'
                 />
               </Grid>
-            </Grid>
-
-
-            <Grid size={2}></Grid>
-            <Grid container size={10} spacing={2}>
+         
               <Grid size={5}>
                 <TextField
                   id="address"
@@ -67,10 +63,7 @@ const Signup = () => {
                   size='small'
                 />
               </Grid>
-            </Grid>
-
-            <Grid size={2}></Grid>
-            <Grid container size={{ xs: 10, md: 10 }} spacing={2}>
+           
               <Grid size={5}>
                 <TextField
                   id="contry"
@@ -89,10 +82,7 @@ const Signup = () => {
                   size='small'
                 />
               </Grid>
-            </Grid>
-
-            <Grid size={2}></Grid>
-            <Grid container size={10} spacing={2} >
+         
               <Grid size={5}>
                 <TextField
                   id="mobileNo"
