@@ -11,8 +11,9 @@ function App() {
   return (
     <div className="App">
       
-      <Login />
-      <CartItems/>
+      {/* <Login /> */}
+      <Signup />
+      {/* <CartItems/> */}
     </div>
 
   );
