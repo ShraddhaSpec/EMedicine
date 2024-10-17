@@ -10,14 +10,14 @@ import Signup from './pages/Signup';
 function App() {
   return (
     <div >
-      {/* <Header />
+      <Header />
       <div className='App'>
         <div className="main-container">
          <Home />
         </div>
-      </div> */}
+      </div>
       {/* <Login /> */}
-      <Signup />
+      {/* <Signup /> */}
     </div>
 
   );

@@ -110,7 +110,8 @@
   }
   
   .main-container {
-    height: 93vh;
+    margin-top: 2%;
+    height: 100%;
     width: 91vw;
     background-color: #f4f5f8;
     border-radius: 20px;

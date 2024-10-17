@@ -8,7 +8,7 @@ import { Product } from '../components/user/Product';
 const products = [
   {
     name: 'Volini Gel 30gm',
-    image:   `${process.env.PUBLIC_URL}/Images/SAM1.jpg`, // replace with the actual image path
+    image:   '../Images/SAM1.jpg',
   },
   {
     name: 'Head & Shoulders',
@@ -22,6 +22,44 @@ const products = [
     name: 'Pro360 Whey Protein',
     image: '../Images/SAM1.jpg',
   },
+  {
+    name: 'Pro360 Whey Protein',
+    image: '../Images/SAM1.jpg',
+  },
+  {
+    name: 'Pro360 Whey Protein',
+    image: '../Images/SAM1.jpg',
+  },
+  {
+    name: 'Pro360 Whey Protein',
+    image: '../Images/SAM1.jpg',
+  },
+  {
+    name: 'Pro360 Whey Protein',
+    image: '../Images/SAM1.jpg',
+  },
+  {
+    name: 'Pro360 Whey Protein',
+    image: '../Images/SAM1.jpg',
+  },
+  {
+    name: 'Pro360 Whey Protein',
+    image: '../Images/SAM1.jpg',
+  },
+  {
+    name: 'Pro360 Whey Protein',
+    image: '../Images/SAM1.jpg',
+  },
+  {
+    name: 'Pro360 Whey Protein',
+    image: '../Images/SAM1.jpg',
+  },
+   {
+    name: 'Pro360 Whey Protein',
+    image: '../Images/SAM1.jpg',
+  },
+
+
 ];
 
 export const Home = () => {
