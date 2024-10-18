@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
-import CartItems from './pages/CartItems';
+import CartItems from './pages/user/CartItems';
 import './App.css';
-import { Home } from './pages/Home';
+import { Home } from './pages/user/Home';
 import Login from './pages/login';
 import { Header } from './components/user/Header';
 import Signup from './pages/Signup';
-import { ProductDetails } from './components/user/ProductDetails';
+import { ProductDetails } from './pages/user/ProductDetails';
 
 function App() {
   return (

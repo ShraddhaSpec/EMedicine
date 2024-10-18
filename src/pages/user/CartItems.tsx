@@ -1,9 +1,9 @@
 import { Box, Button, Input } from '@mui/material';
-import CartItemCard from '../components/user/CartItemCard';
+import CartItemCard from '../../components/user/CartItemCard';
 import React from 'react';
 import Grid from '@mui/material/Grid2';
 import { BorderBottom, CloseFullscreenRounded, CloseOutlined, CloseRounded, FavoriteBorder, Image, Padding, } from '@mui/icons-material';
-import Counter from '../components/user/IncrementQTY';
+import Counter from '../../components/user/IncrementQTY';
 
 const CartItems = () => {
     return (
