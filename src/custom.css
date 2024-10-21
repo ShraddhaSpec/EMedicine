@@ -128,3 +128,7 @@
   .btn-green:hover {
     background-color: #76b937 !important; /* Darker green on hover */
   }
+
+  .active-stepper{
+    color: #679a33 !important;
+  }

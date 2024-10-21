@@ -2,24 +2,13 @@ import { Button, TextField } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import React, { useState } from 'react'
 import '../custom.css'
-
-interface FormValues {
-  firstname: string;
-  lastname: string;
-  address: string;
-  town_city: string;
-  country: string;
-  postcode_zip: string;
-  mobileNo: string;
-  email: string;
-}
-
+import { userType } from '../types/usertype';
 
 const Signup = () => {
   const logo = '../Images/logo1.png';
 
 
-  const [formValues, setFormValues] = useState<FormValues>({
+  const [formValues, setFormValues] = useState<userType>({
     firstname: '',
     lastname: '',
     address: '',
@@ -31,14 +20,14 @@ const Signup = () => {
   });
 
 
-  const [errors, setErrors] =  useState<Partial<FormValues>>({});
+  const [errors, setErrors] =  useState<Partial<userType>>({});
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormValues({ ...formValues, [id]: value });
   };
 
   const validate = () => {
-    let tempErrors: Partial<FormValues>= {};
+    let tempErrors: Partial<userType>= {};
     const nameRegex = /^[a-zA-Z\s]+$/;
     if (!formValues.firstname) {
       tempErrors.firstname = "First Name is required";
