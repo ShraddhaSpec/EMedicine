@@ -20,8 +20,6 @@ const CartItems = () => {
             }}> <h2>Cart</h2></div>
 
 
-
-
             <Box component="section" sx={{ p: 10 }}>
                 <Grid container spacing={2} padding={3} borderBottom={'1px solid black'} fontWeight={'bold'} color={'#747d88'} fontSize={'1rem'} fontFamily={'Open Sans, sans-serif'}>
                     <Grid size={2}>
@@ -74,30 +72,33 @@ const CartItems = () => {
                 </div>
 
             </Box>
-            <Grid container width={'300px'} color={'#45595b'} >
-                <Grid size={12}>
-                    <h1 style={{fontWeight: '800'}}>Cart Total</h1>
-                </Grid>
-                <Grid size={6}>
-                    <h5>Sub Total</h5>
-                </Grid>
-                <Grid size={6}>
-                    <label>$96.00</label>
-                </Grid>
-                
+
+            <div style={{float:'right'}}>
+                <Grid container width={'300px'} color={'#45595b'} >
+                    <Grid size={12}>
+                        <h1 style={{ fontWeight: '800' }}>Cart Total</h1>
+                    </Grid>
+                    <Grid size={6}>
+                        <h5>Sub Total</h5>
+                    </Grid>
+                    <Grid size={6}>
+                        <label>$96.00</label>
+                    </Grid>
+
                     <Grid size={6} borderBottom={'1px solid #45595b'}>
                         <h5>Shipping</h5>
                     </Grid>
                     <Grid size={6} borderBottom={'1px solid #45595b'}>
                         <label>Flat rate: $3.00</label>
                     </Grid>
-                <Grid size={6}>
-                    <h5>Total</h5>
+                    <Grid size={6}>
+                        <h5>Total</h5>
+                    </Grid>
+                    <Grid size={6}>
+                        <label>$99.00</label>
+                    </Grid>
                 </Grid>
-                <Grid size={6}>
-                    <label>$99.00</label>
-                </Grid>
-            </Grid>
+            </div>
 
 
         </div>
