@@ -8,7 +8,7 @@ import { Home } from './pages/user/Home';
 import Login from './pages/login';
 import { Header } from './components/user/Header';
 import { MyOrders } from './pages/user/MyOrders';
-import Signup from './pages/signup';
+// import Signup from './pages/signup';
 import PlaceOrder from './pages/PlaceOrder';
 import PrivateRoute from './components/PrivateRoute';
 import { ProductDetails } from './pages/user/ProductDetails';
@@ -40,7 +40,7 @@ const AuthWrapper: React.FC = () => {
       <div className='main-container'>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          {/* <Route path="/signup" element={<Signup />} /> */}
 
           <Route element={<PrivateRoute roles={['user','admin']} />}>
             <Route path="/" element={<Home />} />
