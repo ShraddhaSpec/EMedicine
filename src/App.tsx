@@ -8,7 +8,7 @@ import { Home } from './pages/user/Home';
 import Login from './pages/login';
 import { Header } from './components/user/Header';
 import { MyOrders } from './pages/user/MyOrders';
-import Signup from './pages/Signup';
+import Signup from './pages/signup';
 import PlaceOrder from './pages/PlaceOrder';
 import PrivateRoute from './components/PrivateRoute';
 import { ProductDetails } from './pages/user/ProductDetails';
