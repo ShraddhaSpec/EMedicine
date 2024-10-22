@@ -3,10 +3,11 @@ import Grid from '@mui/material/Grid2';
 import React, { useState } from 'react'
 import '../custom.css'
 import { userType } from '../types/usertype';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const logo = '../Images/logo1.png';
-
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState<userType>({
     firstname: '',
@@ -86,6 +87,11 @@ const Signup = () => {
         // Proceed with form submission logic
     }
   };
+
+  const navigatetologin = () =>{
+    navigate('/login');
+  }
+
   return (
     <div className='App'>
       <div className="login-container">
@@ -236,6 +242,7 @@ const Signup = () => {
             Already have an Account?{" "}
             <span
               className="hyper"
+              onClick={navigatetologin}
             >
               Login
             </span>

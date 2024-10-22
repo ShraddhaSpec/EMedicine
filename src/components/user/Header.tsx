@@ -9,20 +9,28 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Badge from '@mui/material/Badge';
 import '../../custom.css';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 //const pages = ['Home', 'Pricing', 'Blog'];
-const settings = ['Profile', 'My Orders', 'Logout'];
+// const settings = ['Profile', 'My Orders', 'Logout'];
+
 
 export const Header = () => {
+
+  const { user, logout } = useAuth();
 
   const logoUrl = '../Images/logo2.png';
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
+
+  const settings = user?.role === 'admin'
+  ? ['Profile', 'Manage Products', 'Manage Users', 'Logout']
+  : ['Profile', 'My Orders', 'Logout'];
 
   const cartItemCount = 5;
 
@@ -37,8 +45,31 @@ export const Header = () => {
     setAnchorElNav(null);
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+
+  const getLinkPath = (setting: string) => {
+    switch (setting) {
+      case 'Profile':
+        return '/profile';
+      case 'My Orders':
+        return '/myorders';
+      case 'Manage Products':
+        return '/manage-products';
+      case 'Manage Users':
+        return '/manage-users';
+      case 'Logout':
+        return '/login';
+      default:
+        return '/';
+    }
   };
 
   return (
@@ -50,17 +81,18 @@ export const Header = () => {
             alt="Logo"
             sx={{
               height: 65,
-              width: 65, // Make the width equal to the height
+              width: 65, 
               marginRight: 0,
-              borderRadius: '50%', // This makes it round
-              objectFit: 'cover', // Ensures the image fits inside the circle
+              borderRadius: '50%', 
+              objectFit: 'cover', 
             }}
           />
+          <Link to='/'> 
           <Typography
             variant="h3"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            // href="/"
             sx={{
               mr: 2,
               ml: 1,
@@ -75,17 +107,22 @@ export const Header = () => {
           >
             Medicine
           </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           </Box>
+         
           <Box sx={{ flexGrow: 0 }}>
+          <Link to='/cart' > 
             <IconButton color="inherit" aria-label="shopping cart" sx={{ p: 2 }}>
               <Badge badgeContent={cartItemCount} color="error">
-                <ShoppingCartIcon fontSize="large" />
+                <ShoppingCartIcon fontSize="large" sx={{color:'white'}}/>
               </Badge>
             </IconButton>
+            </Link>
           </Box>
+          
           <Box sx={{ flexGrow: 0 }}>
             <IconButton color="inherit" onClick={handleOpenUserMenu} sx={{ p: 1 }}>
               {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
@@ -108,9 +145,18 @@ export const Header = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                </MenuItem>
+                  <Link to={getLinkPath(setting)} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <MenuItem key={setting}  onClick={() => {
+                    handleCloseUserMenu();
+                    if (setting === 'Logout') {
+                      handleLogout();
+                    } else {
+                      navigate(getLinkPath(setting));
+                    }
+                  }}>
+                  <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>

@@ -1,10 +1,14 @@
 import {  Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
-import '../custom.css'
+import '../custom.css';
+import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const logo = '../Images/logo1.png';
 
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -30,11 +34,16 @@ const Login = () => {
 
     
     const loginHandler =()=>{
-        if (validateForm()) {
-            console.log('Login clicked');
-            // Perform login action here
+        if (validateForm()) {           
+            login('user');
+           navigate('/');
         }
     }
+
+    const signupHandler = () =>{
+        navigate('/signup');
+    }
+    
   return (
     <div className='App'>
        <div className="login-container">
@@ -84,7 +93,8 @@ const Login = () => {
                         <p>
                             Don't have an Account ?{" "}
                             <span
-                                className="hyper"                              
+                                className="hyper"
+                                onClick={signupHandler}                              
                             >
                                 Sign Up
                             </span>
