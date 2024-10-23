@@ -2,25 +2,29 @@ import { Box, Button, Input } from '@mui/material';
 import CartItemCard from '../../components/user/CartItemCard';
 import React from 'react';
 import Grid from '@mui/material/Grid2';
-import { BorderBottom, CloseFullscreenRounded, CloseOutlined, CloseRounded, FavoriteBorder, Image, Padding, } from '@mui/icons-material';
-import Counter from '../../components/user/IncrementQTY';
+import { Breadcrumbs, Link, Typography } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
 
 const CartItems = () => {
     return (
-        <div >
-            <div style={{
-                textAlign: 'center',
-                background: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://thumbs.dreamstime.com/z/top-view-medicines-bottle-cover-cap-colorful-pills-tablets-capsules-isolated-white-background-drug-prescription-use-186306273.jpg)',
-                padding: '75px',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                color: 'White'
+        <>
+            <Box sx={{ padding: '20px' }}>
+                {/* Breadcrumb */}
+                <Breadcrumbs aria-label="breadcrumb" sx={{ marginBottom: '20px' }}>
+                    <Link underline="hover" color="inherit" href="/">
+                        <HomeIcon fontSize="small" sx={{ mr: 0.5 }} />
+                        Home
+                    </Link>
+                    <Typography color="text.primary">Shopping Cart</Typography>
+                </Breadcrumbs>
 
+                {/* Shopping Cart Header */}
+                <Typography variant="h4" component="div" sx={{ color: 'green', fontWeight: 'bold', marginBottom: '10px' }}>
+                    Shopping Cart
+                </Typography>
+            </Box>
 
-            }}> <h2>Cart</h2></div>
-
-
-            <Box component="section" sx={{ p: 10 }}>
+            <Box component="section" sx={{ p: 1 }}>
                 <Grid container spacing={2} padding={3} borderBottom={'1px solid black'} fontWeight={'bold'} color={'#747d88'} fontSize={'1rem'} fontFamily={'Open Sans, sans-serif'}>
                     <Grid size={2}>
                         <label>Product</label>
@@ -65,43 +69,54 @@ const CartItems = () => {
                     ItemName="Sun Pulse Oximeter"
                     Qty={2}
                     ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers" />
-
-                <div style={{ padding: '10px' }}>
-                    <Input placeholder="Coupon Code" />
-                    <Button variant="outlined" style={{ borderRadius: '50rem' }}>Apply Coupon</Button>
-                </div>
-
             </Box>
-
-            <div style={{float:'right'}}>
+            {/* <div style={{ margin: '20px' }}>
+                <Input placeholder="Coupon Code" />
+                <Button variant="outlined" style={{ borderRadius: '50rem' }}>Apply Coupon</Button>
+            </div> */}
+            <div style={{ float: 'right', margin: '10px' }}>
                 <Grid container width={'300px'} color={'#45595b'} >
                     <Grid size={12}>
-                        <h1 style={{ fontWeight: '800' }}>Cart Total</h1>
+                        <Typography variant="h4" component="div" sx={{ color: 'green', fontWeight: 'bold', marginBottom: '10px' }}>
+                            Cart Total
+                        </Typography>
                     </Grid>
                     <Grid size={6}>
-                        <h5>Sub Total</h5>
+                        <Typography variant="h6" component="div" sx={{  fontWeight: 'bold', marginBottom: '10px' }}>
+                            Sub Total
+                        </Typography>
                     </Grid>
                     <Grid size={6}>
-                        <label>$96.00</label>
+                        <Typography variant="h6" component="div" sx={{  marginBottom: '10px' }}>
+                            $96.00
+                        </Typography>
                     </Grid>
 
                     <Grid size={6} borderBottom={'1px solid #45595b'}>
-                        <h5>Shipping</h5>
+                        <Typography variant="h6" component="div" sx={{  fontWeight: 'bold', marginBottom: '10px' }}>
+                            Shipping
+                        </Typography>
                     </Grid>
                     <Grid size={6} borderBottom={'1px solid #45595b'}>
-                        <label>Flat rate: $3.00</label>
+                        <Typography variant="h6" component="div" sx={{  marginBottom: '10px' }}>
+                            Flat rate: $3.00
+                        </Typography>
                     </Grid>
                     <Grid size={6}>
-                        <h5>Total</h5>
+                        <Typography variant="h6" component="div" sx={{  fontWeight: 'bold', marginBottom: '10px' }}>
+                            Total
+                        </Typography>
                     </Grid>
                     <Grid size={6}>
-                        <label>$99.00</label>
+                        <Typography variant="h6" component="div" sx={{  marginBottom: '10px' }}>
+                            $99.00
+                        </Typography>
                     </Grid>
                 </Grid>
             </div>
 
 
-        </div>
+        </>
 
 
     )

@@ -111,12 +111,13 @@
   
   .main-container {
     background-color: #f4f5f8;
+    padding-left: 6% !important;
+    padding-right: 6% !important;
   }
   
   .grid-container {
     width: 100%;
-    padding: 50px !important;
-    
+    /* padding: 50px !important; */
   }
 
   .btn-green {
@@ -132,3 +133,4 @@
   .active-stepper{
     color: #679a33 !important;
   }
+

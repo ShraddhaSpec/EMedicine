@@ -13,6 +13,7 @@ import PrivateRoute from './components/PrivateRoute';
 import { ProductDetails } from './pages/user/ProductDetails';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Signup from './pages/Signup';
+import { Profile } from './pages/user/Profile';
 
 function App() {
   return (
@@ -37,7 +38,7 @@ const AuthWrapper: React.FC = () => {
   return (
     <div>
       {user && <Header />}
-      <div className='main-container'>
+      <div className= {user ? 'main-container' : ''}>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
@@ -47,6 +48,8 @@ const AuthWrapper: React.FC = () => {
             <Route path="/cart" element={<CartItems />} />
             <Route path="/cartitem" element={<CartItems />} />
             <Route path="/myorders" element={<MyOrders />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/productDetails" element={<ProductDetails />} />
           </Route>
         </Routes>
       </div>

@@ -7,6 +7,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { OrderStatus } from '../../components/user/OrderStatus';
 import Button from '@mui/material/Button';
+import { Breadcrumbs, Link } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
 
 const products = [
     {
@@ -27,22 +29,20 @@ export const MyOrders = () => {
     const [activeStep, setActiveStep] = useState<number>(0);
     return (
         <>
-            <Typography variant="h4" gutterBottom sx={{ paddingLeft: '600px', paddingTop:'10px'}}>
-               My Orders
-            </Typography>
-            <Grid container spacing={3} className='grid-container'
-            // sx={{
-            //     '--Grid-borderWidth': '1px',
-            //     borderTop: 'var(--Grid-borderWidth) solid',
-            //     borderLeft: 'var(--Grid-borderWidth) solid',
-            //     borderColor: 'divider',
-            //     '& > div': {
-            //         borderRight: 'var(--Grid-borderWidth) solid',
-            //         borderBottom: 'var(--Grid-borderWidth) solid',
-            //         borderColor: 'divider',
-            //     },
-            // }}
-            >
+            <Box sx={{ padding: '20px' }}>
+                <Breadcrumbs aria-label="breadcrumb" sx={{ marginBottom: '20px' }}>
+                    <Link underline="hover" color="inherit" href="/">
+                        <HomeIcon fontSize="small" sx={{ mr: 0.5 }} />
+                        Home
+                    </Link>
+                    <Typography color="text.primary">My Order</Typography>
+                </Breadcrumbs>
+
+                <Typography variant="h4" component="div" sx={{ color: 'green', fontWeight: 'bold', marginBottom: '10px' }}>
+                    My Order
+                </Typography>
+            </Box>
+            <Grid container spacing={3} className='grid-container'>
                 {products.map((product, index) => (
                     <Grid size={{ md: 4 }} offset={{ md: 4 }} key={index} >
                         <Card sx={{ display: 'flex' }}>
@@ -52,7 +52,7 @@ export const MyOrders = () => {
                                 image={product.image}
                                 alt={product.name}
                             />
-                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', p:1 }}>
                                 <CardContent sx={{ flex: '1 0 auto' }}>
                                     <Typography component="div" variant="h5">
                                         {product.name}

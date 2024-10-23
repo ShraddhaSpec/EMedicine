@@ -1,17 +1,32 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { Breadcrumbs, Link, Box } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
 
 export const ProductDetails = () => {
     return (
-        <Grid container size={10} spacing={2} className='grid-container'>
+        <>
+         <Box sx={{ padding: '20px' }}>
+                {/* Breadcrumb */}
+                <Breadcrumbs aria-label="breadcrumb" sx={{ marginBottom: '20px' }}>
+                    <Link underline="hover" color="inherit" href="/">
+                        <HomeIcon fontSize="small" sx={{ mr: 0.5 }} />
+                        Home
+                    </Link>
+                    <Typography color="text.primary">Product Details</Typography>
+                </Breadcrumbs>
+
+                <Typography variant="h4" component="div" sx={{ color: 'green', fontWeight: 'bold', marginBottom: '10px' }}>
+                Product Details
+                </Typography>
+            </Box>
+            <Grid container size={10} spacing={2} className='grid-container'>
             <Grid size={3} offset={{ md: 3 }}>
                 <Card sx={{ maxWidth: 345 }}>
                     <CardMedia
@@ -43,6 +58,8 @@ export const ProductDetails = () => {
                 </div>
             </Grid>
         </Grid>
+        </>
+      
 
 
 
