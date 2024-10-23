@@ -2,13 +2,11 @@ import React from 'react';
 import './App.css';
 import './custom.css';
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import logo from './logo.svg';
 import CartItems from './pages/user/CartItems';
 import { Home } from './pages/user/Home';
 import Login from './pages/login';
-import { Header } from './components/user/Header';
+import { Header } from './components/Header';
 import { MyOrders } from './pages/user/MyOrders';
-import PlaceOrder from './pages/PlaceOrder';
 import PrivateRoute from './components/PrivateRoute';
 import { ProductDetails } from './pages/user/ProductDetails';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -19,12 +17,9 @@ function App() {
   return (
     <div >
       <AuthProvider >
-
       <Router>
         <AuthWrapper />
       </Router>
-    
-     
       </AuthProvider>
     </div>
    

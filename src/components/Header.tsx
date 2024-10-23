@@ -11,7 +11,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Badge from '@mui/material/Badge';
 import '../../custom.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 //const pages = ['Home', 'Pricing', 'Blog'];
 // const settings = ['Profile', 'My Orders', 'Logout'];
 
