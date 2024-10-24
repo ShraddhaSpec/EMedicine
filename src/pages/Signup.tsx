@@ -14,6 +14,7 @@ const Signup = () => {
     lastname: '',
     address: '',
     town_city: '',
+    state:'',
     country: '',
     postcode_zip: '',
     mobileNo: '',
@@ -52,6 +53,12 @@ const Signup = () => {
       tempErrors.town_city = "Town/City is required";
     } else if (!nameRegex.test(formValues.town_city)) {
       tempErrors.town_city = "Town/City can only contain letters";
+    }
+
+    if (!formValues.state) {
+      tempErrors.state = "Country is required";
+    } else if (!nameRegex.test(formValues.state)) {
+      tempErrors.state = "State can only contain letters";
     }
 
     if (!formValues.country) {
@@ -164,6 +171,21 @@ const Signup = () => {
                   onChange={handleInputChange}
                   error={!!errors.town_city}
                   helperText={errors.town_city}
+                />
+              </Grid>
+
+              <Grid size={5}>
+                <TextField
+                  id="State"
+                  label="State"
+                  color="success"
+                  className='signup_text_field'
+                  size='small'
+                  fullWidth
+                  value={formValues.postcode_zip}
+                  onChange={handleInputChange}
+                  error={!!errors.state}
+                  helperText={errors.state}
                 />
               </Grid>
            
