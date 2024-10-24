@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Badge from '@mui/material/Badge';
-import '../../custom.css';
+import '../custom.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 //const pages = ['Home', 'Pricing', 'Blog'];
