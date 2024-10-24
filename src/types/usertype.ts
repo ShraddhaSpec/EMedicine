@@ -8,6 +8,7 @@ export interface userType {
     postcode_zip: string;
     mobileNo: string;
     email: string;
+    password: string;
   }
   
   

@@ -18,7 +18,8 @@ const Signup = () => {
     country: '',
     postcode_zip: '',
     mobileNo: '',
-    email: ''
+    email: '',
+    password : ''
   });
 
 
@@ -72,17 +73,23 @@ const Signup = () => {
     } else if (!/^\d{6}$/.test(formValues.postcode_zip)) {
       tempErrors.postcode_zip = "Postcode/Zip must be 6 digits";
     }
+
     if (!formValues.mobileNo) {
       tempErrors.mobileNo = "Mobile Number is required";
     } else if (!/^\d{10}$/.test(formValues.mobileNo)) {
       tempErrors.mobileNo = "Mobile Number must be 10 digits";
     }
+
     if (!formValues.email) {
       tempErrors.email = "Email Address is required";
     } else if (!/\S+@\S+\.\S+/.test(formValues.email)) {
       tempErrors.email = "Email is not valid";
     }
-    
+
+    if (!formValues.password) {
+      tempErrors.country = "Password is required";
+    } 
+
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
@@ -232,6 +239,7 @@ const Signup = () => {
                   helperText={errors.mobileNo}
                 />
               </Grid>
+
               <Grid size={5}>
                 <TextField
                   id="email"
@@ -245,6 +253,22 @@ const Signup = () => {
                   onChange={handleInputChange}
                   error={!!errors.email}
                   helperText={errors.email}
+                />
+              </Grid>
+
+              <Grid size={5}>
+                <TextField
+                  id="password"
+                  label="Password"
+                  color="success"
+                  className='signup_text_field'
+                  type='password'
+                  size='small'
+                  fullWidth
+                  value={formValues.password}
+                  onChange={handleInputChange}
+                  error={!!errors.password}
+                  helperText={errors.password}
                 />
               </Grid>
 
