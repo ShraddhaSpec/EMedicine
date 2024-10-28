@@ -13,7 +13,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   
   const login = (role: string) => {
-    role="admin";
     setUser({ role });
   };
 
