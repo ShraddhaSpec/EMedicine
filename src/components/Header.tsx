@@ -26,8 +26,10 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const settings = user?.role === 'admin'
-  ? ['Profile', 'Manage Products', 'Manage Users', 'Logout']
-  : ['Profile', 'My Orders', 'Logout'];
+    ? ['Profile', 'Logout']
+    : ['Profile', 'My Orders', 'Logout'];
+
+  const menuItems = ['Medicines', 'Customers', 'Orders'];
 
   const cartItemCount = 5;
 
@@ -58,10 +60,12 @@ export const Header = () => {
         return '/profile';
       case 'My Orders':
         return '/myorders';
-      case 'Manage Products':
-        return '/manage-products';
-      case 'Manage Users':
-        return '/manage-users';
+      case 'Orders':
+        return '/orders';
+      case 'Customers':
+        return '/customers';
+      case 'Medicines':
+        return '/medicines';
       case 'Logout':
         return '/login';
       default:
@@ -78,48 +82,60 @@ export const Header = () => {
             alt="Logo"
             sx={{
               height: 65,
-              width: 65, 
+              width: 65,
               marginRight: 0,
-              borderRadius: '50%', 
-              objectFit: 'cover', 
+              borderRadius: '50%',
+              objectFit: 'cover',
             }}
           />
-          <Link to='/'> 
-          <Typography
-            variant="h3"
-            noWrap
-            component="a"
-            // href="/"
-            sx={{
-              mr: 2,
-              ml: 1,
-              flexGrow: 1,
-              fontFamily: 'Roboto',
-              fontStyle:'italic',
-              fontWeight: 550,
-              letterSpacing: '.1rem',
-              color: '#669933',
-              textDecoration: 'none',
-            }}
-          >
-            Medicine
-          </Typography>
+          <Link to='/' style={{ textDecoration: 'none', paddingRight: "30px" }}>
+            <Typography
+              variant="h3"
+              noWrap
+              component="a"
+              // href="/"
+              sx={{
+                mr: 2,
+                ml: 1,
+                flexGrow: 1,
+                fontFamily: 'Roboto',
+                fontStyle: 'italic',
+                fontWeight: 550,
+                letterSpacing: '.1rem',
+                color: '#669933',
+              }}
+            >
+              Medicine
+            </Typography>
           </Link>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          </Box>
-         
+          </Box> */}
+
+          {user?.role === 'admin' && menuItems.map((item) => (
+            <Link style={{ textDecoration: 'none' }}
+              key={item}
+              to={getLinkPath(item)}
+            >
+              <Typography variant="h6" sx={{ color: 'white', mr: 3, fontFamily: 'Roboto', fontStyle: 'regulor', fontWeight: 400 }}>
+                {item}
+              </Typography>
+
+            </Link>
+          ))}
+
+          <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ flexGrow: 0 }}>
-          <Link to='/cart' > 
-            <IconButton color="inherit" aria-label="shopping cart" sx={{ p: 2 }}>
-              <Badge badgeContent={cartItemCount} color="error">
-                <ShoppingCartIcon fontSize="large" sx={{color:'white'}}/>
-              </Badge>
-            </IconButton>
+            <Link to='/cart' >
+              <IconButton color="inherit" aria-label="shopping cart" sx={{ p: 2 }}>
+                <Badge badgeContent={cartItemCount} color="error">
+                  <ShoppingCartIcon fontSize="large" sx={{ color: 'white' }} />
+                </Badge>
+              </IconButton>
             </Link>
           </Box>
-          
+
           <Box sx={{ flexGrow: 0 }}>
             <IconButton color="inherit" onClick={handleOpenUserMenu} sx={{ p: 1 }}>
               {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
@@ -142,8 +158,8 @@ export const Header = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                  <Link to={getLinkPath(setting)} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <MenuItem key={setting}  onClick={() => {
+                <Link to={getLinkPath(setting)} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <MenuItem key={setting} onClick={() => {
                     handleCloseUserMenu();
                     if (setting === 'Logout') {
                       handleLogout();
@@ -151,7 +167,7 @@ export const Header = () => {
                       navigate(getLinkPath(setting));
                     }
                   }}>
-                  <Typography textAlign="center">{setting}</Typography>
+                    <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 </Link>
               ))}
