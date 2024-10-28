@@ -12,6 +12,9 @@ import { ProductDetails } from './pages/user/ProductDetails';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Signup from './pages/Signup';
 import { Profile } from './pages/user/Profile';
+import { Medicines } from './pages/admin/Medicines';
+import { Customers } from './pages/admin/Customers';
+import { Orders } from './pages/admin/Orders';
 
 function App() {
   return (
@@ -45,6 +48,9 @@ const AuthWrapper: React.FC = () => {
             <Route path="/myorders" element={<MyOrders />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/productDetails" element={<ProductDetails />} />
+            <Route path="/medicines" element={<Medicines />} />
+            <Route path="/customers" element={<Customers />} />
+            <Route path="/orders" element={<Orders />} />
           </Route>
         </Routes>
       </div>
