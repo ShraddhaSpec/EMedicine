@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import '../custom.css'
 import { userType } from '../types/usertype';
 import { useNavigate } from 'react-router-dom';
+import api from '../API/api';
 
 const Signup = () => {
   const logo = '../Images/logo1.png';
@@ -13,11 +14,11 @@ const Signup = () => {
     firstname: '',
     lastname: '',
     address: '',
-    town_city: '',
+    city: '',
     state:'',
     country: '',
     postcode_zip: '',
-    mobileNo: '',
+    mobileno: '',
     email: '',
     password : ''
   });
@@ -50,14 +51,14 @@ const Signup = () => {
       tempErrors.address = "Address can only contain letters";
     }
 
-    if (!formValues.town_city) {
-      tempErrors.town_city = "Town/City is required";
-    } else if (!nameRegex.test(formValues.town_city)) {
-      tempErrors.town_city = "Town/City can only contain letters";
+    if (!formValues.city) {
+      tempErrors.city = "Town/City is required";
+    } else if (!nameRegex.test(formValues.city)) {
+      tempErrors.city = "Town/City can only contain letters";
     }
 
     if (!formValues.state) {
-      tempErrors.state = "Country is required";
+      tempErrors.state = "State is required";
     } else if (!nameRegex.test(formValues.state)) {
       tempErrors.state = "State can only contain letters";
     }
@@ -74,10 +75,10 @@ const Signup = () => {
       tempErrors.postcode_zip = "Postcode/Zip must be 6 digits";
     }
 
-    if (!formValues.mobileNo) {
-      tempErrors.mobileNo = "Mobile Number is required";
-    } else if (!/^\d{10}$/.test(formValues.mobileNo)) {
-      tempErrors.mobileNo = "Mobile Number must be 10 digits";
+    if (!formValues.mobileno) {
+      tempErrors.mobileno = "Mobile Number is required";
+    } else if (!/^\d{10}$/.test(formValues.mobileno)) {
+      tempErrors.mobileno = "Mobile Number must be 10 digits";
     }
 
     if (!formValues.email) {
@@ -98,7 +99,17 @@ const Signup = () => {
   const signupHandler = () => {
     if (validate()) {
       console.log("Sign-up clicked", formValues);
-        // Proceed with form submission logic
+      const params = formValues;
+      api.post('/users/register', params)
+      .then((res) => {
+        if (res.status === 200) {
+          if(res.data.success === true){
+            navigate('/login');
+          }
+        }
+      }).catch((err )=>{
+        console.log("Error=>", err)
+      });
     }
   };
 
@@ -168,28 +179,28 @@ const Signup = () => {
 
               <Grid size={5}>
                 <TextField
-                  id="town_city"
+                  id="city"
                   label="Town/City"
                   color="success"
                   className='signup_text_field'
                   size='small'
                   fullWidth
-                  value={formValues.town_city}
+                  value={formValues.city}
                   onChange={handleInputChange}
-                  error={!!errors.town_city}
-                  helperText={errors.town_city}
+                  error={!!errors.city}
+                  helperText={errors.city}
                 />
               </Grid>
 
               <Grid size={5}>
                 <TextField
-                  id="State"
+                  id="state"
                   label="State"
                   color="success"
                   className='signup_text_field'
                   size='small'
                   fullWidth
-                  value={formValues.postcode_zip}
+                  value={formValues.state}
                   onChange={handleInputChange}
                   error={!!errors.state}
                   helperText={errors.state}
@@ -227,16 +238,16 @@ const Signup = () => {
          
               <Grid size={5}>
                 <TextField
-                  id="mobileNo"
+                  id="mobileno"
                   label="Mobile"
                   color="success"
                   className='signup_text_field'
                   size='small'
                   fullWidth
-                  value={formValues.mobileNo}
+                  value={formValues.mobileno}
                   onChange={handleInputChange}
-                  error={!!errors.mobileNo}
-                  helperText={errors.mobileNo}
+                  error={!!errors.mobileno}
+                  helperText={errors.mobileno}
                 />
               </Grid>
 

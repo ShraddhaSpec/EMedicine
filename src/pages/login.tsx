@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import '../custom.css';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import api from '../API/api';
 
 const Login = () => {
     const logo = '../Images/logo1.png';
@@ -34,9 +35,25 @@ const Login = () => {
 
     
     const loginHandler =()=>{
-        if (validateForm()) {           
-            login('user');
-           navigate('/');
+        if (validateForm()) { 
+            const params = { email: username, password: password };
+            api.post('/users/login', params)
+            .then((res) => {
+              console.log("res=>", res)
+              if (res.status === 200) {
+                if(res.data.success === true){
+             
+                  login(res.data.data.role);
+                  localStorage.setItem("username",res.data.data.email)
+                  localStorage.setItem("token",res.data.token) 
+                  navigate('/');
+                }
+              }
+            }).catch((err )=>{
+              console.log("Error=>", err)
+            });
+            
+        
         }
     }
 
