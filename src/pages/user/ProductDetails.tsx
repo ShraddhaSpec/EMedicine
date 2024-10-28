@@ -1,4 +1,4 @@
-import * as React from 'react';
+import react,{useEffect} from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
@@ -8,8 +8,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { Breadcrumbs, Link, Box } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
-
 export const ProductDetails = () => {
+    
+   
+    
     return (
         <>
          <Box sx={{ padding: '20px' }}>

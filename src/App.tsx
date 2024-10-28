@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import './custom.css';
-import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import CartItems from './pages/user/CartItems';
 import { Home } from './pages/user/Home';
 import Login from './pages/login';
@@ -14,39 +14,59 @@ import Signup from './pages/Signup';
 import { Profile } from './pages/user/Profile';
 
 function App() {
+
+
   return (
     <div >
       <AuthProvider >
-      <Router>
-        <AuthWrapper />
-      </Router>
+        <Router>
+          <AuthWrapper />
+        </Router>
       </AuthProvider>
+
     </div>
-   
+
   );
 }
 const AuthWrapper: React.FC = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  console.log("user=>",user)
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+
+  //   if (token) {
+
+  //     const role = localStorage.getItem('role') || '';
+  //     // console.log("role =>",role)
+  //     setUser({ role: role });
+  //   }
+  // }, [setUser]);
+
 
   return (
     <div>
-      {user && <Header />}
-      <div className= {user ? 'main-container' : ''}>
+      {user && user.role && user.role !== null && <Header />}
+      <div className={user && user.role && user.role !== null ? 'main-container' : ''}>
+
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-
-          <Route element={<PrivateRoute roles={['user','admin']} />}>
+          <Route element={<PrivateRoute roles={['user', 'admin']} />}>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<CartItems />} />
             <Route path="/cartitem" element={<CartItems />} />
             <Route path="/myorders" element={<MyOrders />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/productDetails" element={<ProductDetails />} />
+
+
           </Route>
+          {/* <Route path="*" element={<Navigate to="/" />} /> */}
+
         </Routes>
+
       </div>
     </div>
   );

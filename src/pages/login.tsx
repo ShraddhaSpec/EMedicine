@@ -15,6 +15,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({ username: '', password: '' });
     
+
+  
     const validateForm = () => {
         let valid = true;
         const errors = { username: '', password: '' };
@@ -41,12 +43,14 @@ const Login = () => {
             .then((res) => {
               console.log("res=>", res)
               if (res.status === 200) {
-                if(res.data.success === true){
-             
+                if(res.data.success === true){  
+                        
                   login(res.data.data.role);
                   localStorage.setItem("username",res.data.data.email)
-                  localStorage.setItem("token",res.data.token) 
-                  navigate('/');
+                    localStorage.setItem("token",res.data.token) 
+                    localStorage.setItem("role",res.data.data.role)   
+                  navigate('/', { replace: true });  
+                   
                 }
               }
             }).catch((err )=>{

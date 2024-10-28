@@ -1,67 +1,37 @@
-import * as React from 'react';
+import react,{useEffect, useState} from 'react';
 import Grid from '@mui/material/Grid2';
 import { Product } from '../../components/user/Product';
 import { Breadcrumbs, Link, Typography, Box } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
+import { useNavigate } from 'react-router-dom';
+import { IProduct } from '../../types/Product';
+import api from '../../API/api';
 
-const products = [
-  {
-    name: 'LOREM',
-    image:   '../Images/SAM1.jpg',
-    description: 'Lorem ipsum is simply dummy text of the printing',
-    price: 56
-  },
-  {
-    name: 'LOREM',
-    image:   '../Images/SAM1.jpg',
-    description: 'Lorem ipsum is simply dummy text of the printing',
-    price: 56
-  },
-  {
-    name: 'LOREM',
-    image:   '../Images/SAM1.jpg',
-    description: 'Lorem ipsum is simply dummy text of the printing',
-    price: 56
-  },
-  {
-    name: 'LOREM',
-    image:   '../Images/SAM1.jpg',
-    description: 'Lorem ipsum is simply dummy text of the printing',
-    price: 56
-  },
-  {
-    name: 'LOREM',
-    image:   '../Images/SAM1.jpg',
-    description: 'Lorem ipsum is simply dummy text of the printing',
-    price: 56
-  },
-  {
-    name: 'LOREM',
-    image:   '../Images/SAM1.jpg',
-    description: 'Lorem ipsum is simply dummy text of the printing',
-    price: 56
-  },
-  {
-    name: 'LOREM',
-    image:   '../Images/SAM1.jpg',
-    description: 'Lorem ipsum is simply dummy text of the printing',
-    price: 56
-  },
-  {
-    name: 'LOREM',
-    image:   '../Images/SAM1.jpg',
-    description: 'Lorem ipsum is simply dummy text of the printing',
-    price: 56
-  },
-  {
-    name: 'LOREM',
-    image:   '../Images/SAM1.jpg',
-    description: 'Lorem ipsum is simply dummy text of the printing',
-    price: 56
-  }
-];
+
 
 export const Home = () => {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const navigate = useNavigate();
+  useEffect(() => {   
+      const token = localStorage.getItem("token");
+      console.log("Token:", token);  
+      const params = {Email :localStorage.getItem("username")};
+
+      if (!token || token == null || token == "" ) {
+        navigate('/login');
+      } else {
+        api.post('/users/getprofile',params)
+        .then(response =>{
+
+          console.log("respone=>",response)
+        }) 
+        .catch((err)=>{
+          console.log("Error=>", err)
+        });
+      }
+ 
+  }, []);
+
   return (
     <>
     <Box sx={{ padding: '20px' }}>

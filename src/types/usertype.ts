@@ -10,5 +10,15 @@ export interface userType {
     email: string;
     password: string;
   }
+
+
+   interface RoleType {
+    role: string; 
+  }
+  export type AuthRole = RoleType | null;
+
+
+
+  
   
   
