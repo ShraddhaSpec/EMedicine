@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,21 +11,16 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Badge from '@mui/material/Badge';
 import '../custom.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-//const pages = ['Home', 'Pricing', 'Blog'];
-// const settings = ['Profile', 'My Orders', 'Logout'];
 
 
 export const Header = () => {
-
-  const { user, logout } = useAuth();
-
+  const  role  = localStorage.getItem("role");
   const logoUrl = '../Images/logo2.png';
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
 
-  const settings = user?.role === 'admin'
+  const settings = role === 'admin'
     ? ['Profile', 'Logout']
     : ['Profile', 'My Orders', 'Logout'];
 
@@ -45,8 +40,10 @@ export const Header = () => {
   };
 
   const handleLogout = () => {
-    logout();
-    navigate('/login');
+    console.log("Navigating to /login");
+    localStorage.clear();
+    //navigate('/login');
+    window.location.href = '/login';
   };
 
   const handleCloseUserMenu = () => {
@@ -113,7 +110,7 @@ export const Header = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           </Box> */}
 
-          {user?.role === 'admin' && menuItems.map((item) => (
+          {role === 'admin' && menuItems.map((item) => (
             <Link style={{ textDecoration: 'none' }}
               key={item}
               to={getLinkPath(item)}

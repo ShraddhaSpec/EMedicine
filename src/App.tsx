@@ -9,70 +9,53 @@ import { Header } from './components/Header';
 import { MyOrders } from './pages/user/MyOrders';
 import PrivateRoute from './components/PrivateRoute';
 import { ProductDetails } from './pages/user/ProductDetails';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Signup from './pages/Signup';
-import { Profile } from './pages/user/Profile';
+import { Profile } from './pages/Profile';
 import { Medicines } from './pages/admin/Medicines';
 import { Customers } from './pages/admin/Customers';
 import { Orders } from './pages/admin/Orders';
 
 function App() {
-
-
   return (
-    <div >
-      <AuthProvider >
-        <Router>
-          <AuthWrapper />
-        </Router>
-      </AuthProvider>
-
-    </div>
-
+      <Router>
+        <AuthWrapper />
+      </Router>
   );
 }
 const AuthWrapper: React.FC = () => {
-  const { user, setUser } = useAuth();
-  const navigate =useNavigate()
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   const role = localStorage.getItem('role')|| ''
-  //   if (!token && !role) {
-  //     navigate('/login')
-   
-  //   }else{
-  //     setUser({ role });
-  //   }
-  // }, []);
 
+  const user = localStorage.getItem("username");
+  //const token = localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null;
 
   return (
     <div>
       {user && <Header />}
-      <div className={user  ? 'main-container' : ''}>
-
+      <div className={user ? 'main-container' : ''}>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route element={<PrivateRoute roles={['user', 'admin']} />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<CartItems />} />
-            <Route path="/cartitem" element={<CartItems />} />
-            <Route path="/myorders" element={<MyOrders />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/productDetails" element={<ProductDetails />} />
+          {user ? (
+            <Route element={<PrivateRoute roles={['user', 'admin']} />}>
+              <Route path="/" index element={<Home />} />
+              <Route path="/cart" element={<CartItems />} />
+              <Route path="/cartitem" element={<CartItems />} />
+              <Route path="/myorders" element={<MyOrders />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/productDetails" element={<ProductDetails />} />
 
-
-            <Route path="/medicines" element={<Medicines />} />
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/orders" element={<Orders />} />
-          </Route>
-          {/* <Route path="*" element={<Navigate to="/" />} /> */}
-
+              <Route path="/medicines" element={<Medicines />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/orders" element={<Orders />} />
+            </Route>
+          ) : (
+            <>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </>
+          )}
+          <Route path="*" element={<Navigate to={user ? "/" : "/login"} />} />
         </Routes>
 
       </div>
-    </div>
+    </div >
   );
 }
 export default App;
