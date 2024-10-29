@@ -8,6 +8,7 @@ interface PrivateRouteProps {
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ roles }) => {
   const { user } = useAuth();
+  
 
   console.log("sdcsbjcsbcjbs=>",user)
 

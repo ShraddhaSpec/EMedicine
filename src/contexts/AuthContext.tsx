@@ -1,12 +1,19 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { AuthRole, userType } from '../types/usertype';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+
+// interface AuthContextType {
+//   user: AuthRole; // Use the AuthUser type here
+//   login: (loginData: any) => void;
+//   logout: () => void;
+//   setUser: React.Dispatch<React.SetStateAction<AuthRole>>; // Type for setUser function
+// }
 
 interface AuthContextType {
-  user: AuthRole; // Use the AuthUser type here
-  login: (loginData: any) => void;
+ user: { role: string } | null;
+  login: (role: string) => void;
   logout: () => void;
-  setUser: React.Dispatch<React.SetStateAction<AuthRole>>; // Type for setUser function
+  setUser: React.Dispatch<React.SetStateAction<AuthRole>>;
 }
 
 
@@ -16,22 +23,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<AuthRole>(null);
 
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const role = localStorage.getItem('role') || '';
-      setUser({ role });
-    }
-  }, []);  
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   const role = localStorage.getItem('role');
+    
+  //   if (token && role) {
+  //     setUser({ role });
+  //   }
+    
+  //    // Set loading to false after checking localStorage
+  // }, []); 
   
   const login = (role: string) => { 
-    console.log("loginData =>",role) 
-   
-    // localStorage.setItem("username",loginData.data.email)
-    // localStorage.setItem("token",loginData.token) 
-    // localStorage.setItem("role",loginData.data.role) 
-    setUser({ role });
-    //navigate('/', { replace: true });  
+    console.log("loginData =>",role)
+    setUser({ role: role });  
   };
 
   const logout = () => {

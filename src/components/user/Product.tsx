@@ -21,20 +21,20 @@ export const Product: React.FC<Props> = ({ product }) => {
         <Card sx={{ maxWidth: 345, margin: 'auto' }}>
           <CardMedia
             sx={{ height: 150 }}
-            image={product.image}
-            title={product.name}
+            image={`/ProductImage/${product.ImageURL}`}
+            title={product.Name}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {product.name}
+              {product.Name}
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {product.description}
+              {product.Description}
             </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography variant="h6" component="h3" sx={{ flexGrow: 1 }}>
-              <CurrencyRupeeIcon sx={{ fontSize: '1.2rem', verticalAlign: 'middle' }} />{product.price}
+              <CurrencyRupeeIcon sx={{ fontSize: '1.2rem', verticalAlign: 'middle' }} />{product.UnitPrice}
             </Typography>
             <Button size="small" startIcon={<ShoppingCartIcon />}>
               Add to cart

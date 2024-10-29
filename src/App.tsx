@@ -33,25 +33,23 @@ function App() {
 }
 const AuthWrapper: React.FC = () => {
   const { user, setUser } = useAuth();
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-
+  const navigate =useNavigate()
   // useEffect(() => {
   //   const token = localStorage.getItem('token');
-
-  //   if (token) {
-
-  //     const role = localStorage.getItem('role') || '';
-  //     // console.log("role =>",role)
-  //     setUser({ role: role });
+  //   const role = localStorage.getItem('role')|| ''
+  //   if (!token && !role) {
+  //     navigate('/login')
+   
+  //   }else{
+  //     setUser({ role });
   //   }
-  // }, [setUser]);
+  // }, []);
 
 
   return (
     <div>
-      {user && user.role && user.role !== null && <Header />}
-      <div className={user && user.role && user.role !== null ? 'main-container' : ''}>
+      {user && <Header />}
+      <div className={user  ? 'main-container' : ''}>
 
         <Routes>
           <Route path="/login" element={<Login />} />
