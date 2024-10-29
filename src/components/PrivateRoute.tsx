@@ -1,21 +1,20 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 
 interface PrivateRouteProps {
-  roles?: string[];
+  roles: string[];
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ roles }) => {
-  const { user } = useAuth();
 
-  console.log("sdcsbjcsbcjbs=>",user)
-
+  const role = localStorage.getItem("role") ?? "";
+  const user = localStorage.getItem("username");
+  console.log("PrivateRoute");
   if (!user) {
-    return <Navigate to="/login" replace />;
+     return <Navigate to="/login" replace />;
   }
 
-  if (roles && !roles.includes(user.role)) {
+  if (!role && !roles.includes(role)) {
     return <Navigate to="/" replace />;
   }
 

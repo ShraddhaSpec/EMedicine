@@ -51,6 +51,7 @@ export const MyOrders = () => {
                                 sx={{ width: 170, p: 1 }}
                                 image={product.image}
                                 alt={product.name}
+                                width={'100%'}
                             />
                             <Box sx={{ display: 'flex', flexDirection: 'column', p:1 }}>
                                 <CardContent sx={{ flex: '1 0 auto' }}>
