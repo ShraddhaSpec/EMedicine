@@ -17,7 +17,7 @@ export const Home = () => {
       console.log("Token:", token);  
       const params = {Email :localStorage.getItem("username")};
 
-      if (!token || token == null || token == "" ) {
+      if (!token || token === null || token === "" ) {
         navigate('/login');
       } else {
         api.post('/users/getprofile',params)

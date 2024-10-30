@@ -40,7 +40,6 @@ const AuthWrapper: React.FC = () => {
               <Route path="/myorders" element={<MyOrders />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/productDetails" element={<ProductDetails />} />
-
               <Route path="/medicines" element={<Medicines />} />
               <Route path="/customers" element={<Customers />} />
               <Route path="/orders" element={<Orders />} />
