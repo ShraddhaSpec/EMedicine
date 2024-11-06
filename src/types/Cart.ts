@@ -1,11 +1,9 @@
 export interface ICart {
     _id: string, 
-    Name: string,
-    Description:string,
-    Manufacturer:string,
-    UnitPrice: number,
+    UserId: string,
+    ProductId:string,
+    UnitPrice: number ,
     Discount: number,
     Quantity: number,
-    ImageURL: string,
-    Status: true
+    TotalPrice: number,
 }
