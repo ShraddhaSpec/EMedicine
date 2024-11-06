@@ -17,13 +17,13 @@ type Props = {
 export const Product: React.FC<Props> = ({ product }) => {
   return (
     <div>
-      <Link to={`/productDetails/${product._id}`} style={{ textDecoration: 'none' }}>
-        <Card sx={{ maxWidth: 345, margin: 'auto' }}>
-          <CardMedia
-            sx={{ height: 150 }}
-            image={`/ProductImage/${product.ImageURL}`}
-            title={product.Name}
-          />
+      <Card sx={{ maxWidth: 345, margin: 'auto' }}>
+        <CardMedia
+          sx={{ height: 150 }}
+          image={`/ProductImage/${product.ImageURL}`}
+          title={product.Name}
+        />
+        <Link to={`/productDetails/${product._id}`} style={{ textDecoration: 'none' }}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {product.Name}
@@ -32,16 +32,17 @@ export const Product: React.FC<Props> = ({ product }) => {
               {product.Description}
             </Typography>
           </CardContent>
-          <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="h6" component="h3" sx={{ flexGrow: 1 }}>
-              <CurrencyRupeeIcon sx={{ fontSize: '1.2rem', verticalAlign: 'middle' }} />{product.UnitPrice}
-            </Typography>
-            <Button size="small" startIcon={<ShoppingCartIcon />}>
-              Add to cart
-            </Button>
-          </CardActions>
-        </Card>
-      </Link>
-    </div>
+        </Link>
+        <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography variant="h6" component="h3" sx={{ flexGrow: 1 }}>
+            <CurrencyRupeeIcon sx={{ fontSize: '1.2rem', verticalAlign: 'middle' }} />{product.UnitPrice}
+          </Typography>
+          <Button size="small" startIcon={<ShoppingCartIcon />}>
+            Add to cart
+          </Button>
+        </CardActions>
+      </Card>
+
+    </div >
   )
 }
