@@ -1,11 +1,36 @@
 import { Box, Button, Input } from '@mui/material';
 import CartItemCard from '../../components/user/CartItemCard';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid2';
 import { Breadcrumbs, Link, Typography } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
+import { useNavigate } from 'react-router-dom';
+import api from '../../API/api';
+import { ICart } from '../../types/Cart';
 
 const CartItems = () => {
+
+    const [CartDeatail, setCartDeatail] = useState<ICart[]>([]);
+    const navigate = useNavigate();
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if (!token || token === null || token === "") {
+            navigate('/login');
+        } else {
+            api.get('/carts/getCarts')
+                .then(response => {
+                    setCartDeatail(response.data.data)
+
+                })
+                .catch((err) => {
+                    console.log("Error=>", err)
+                });
+        }
+
+    }, []);
+
+
     return (
         <>
             <Box sx={{ padding: '20px' }}>
@@ -46,34 +71,21 @@ const CartItems = () => {
                     </Grid>
                 </Grid>
 
-                <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
-                    ItemName="Sun Pulse Oximeter"
-                    Qty={2}
-                    ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers" />
+                <div>
+                    {CartDeatail.map((CartItem, Index) => (
+                        <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
+                        ItemName="Sun Pulse Oximeter"
+                        Qty={CartItem.Quantity}
+                        ProductID={CartItem.ProductId}
+                        ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers" />
+                    ))}</div>
 
-                <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
-                    ItemName="Sun Pulse Oximeter"
-                    Qty={2}
-                    ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers" />
 
-                <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
-                    ItemName="Sun Pulse Oximeter"
-                    Qty={2}
-                    ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers" />
 
-                <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
-                    ItemName="Sun Pulse Oximeter"
-                    Qty={2}
-                    ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers" />
-                <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
-                    ItemName="Sun Pulse Oximeter"
-                    Qty={2}
-                    ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers" />
+
+
             </Box>
-            {/* <div style={{ margin: '20px' }}>
-                <Input placeholder="Coupon Code" />
-                <Button variant="outlined" style={{ borderRadius: '50rem' }}>Apply Coupon</Button>
-            </div> */}
+            
             <div style={{ float: 'right', margin: '10px' }}>
                 <Grid container width={'300px'} color={'#45595b'} >
                     <Grid size={12}>
@@ -82,33 +94,33 @@ const CartItems = () => {
                         </Typography>
                     </Grid>
                     <Grid size={6}>
-                        <Typography variant="h6" component="div" sx={{  fontWeight: 'bold', marginBottom: '10px' }}>
+                        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
                             Sub Total
                         </Typography>
                     </Grid>
                     <Grid size={6}>
-                        <Typography variant="h6" component="div" sx={{  marginBottom: '10px' }}>
+                        <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
                             $96.00
                         </Typography>
                     </Grid>
 
                     <Grid size={6} borderBottom={'1px solid #45595b'}>
-                        <Typography variant="h6" component="div" sx={{  fontWeight: 'bold', marginBottom: '10px' }}>
+                        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
                             Shipping
                         </Typography>
                     </Grid>
                     <Grid size={6} borderBottom={'1px solid #45595b'}>
-                        <Typography variant="h6" component="div" sx={{  marginBottom: '10px' }}>
+                        <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
                             Flat rate: $3.00
                         </Typography>
                     </Grid>
                     <Grid size={6}>
-                        <Typography variant="h6" component="div" sx={{  fontWeight: 'bold', marginBottom: '10px' }}>
+                        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
                             Total
                         </Typography>
                     </Grid>
                     <Grid size={6}>
-                        <Typography variant="h6" component="div" sx={{  marginBottom: '10px' }}>
+                        <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
                             $99.00
                         </Typography>
                     </Grid>
