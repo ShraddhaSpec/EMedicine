@@ -12,30 +12,15 @@ import { useNavigate } from 'react-router-dom';
 import { IProduct } from '../../types/Product';
 import api from '../../API/api';
 import { useParams } from 'react-router-dom';
+import { ProductService } from '../../services/ProductService';
 
 
 export const ProductDetails = () => {
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
     const [product, setProduct] = useState<IProduct>();
     const navigate = useNavigate();
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        console.log("Product id:", id);
-        console.log("Token:", token);
-
-        if (!token || token === null || token === "") {
-            navigate('/login');
-        } else {
-            api.get(`/products/getproduct/${id}`)
-                .then(response => {
-                    console.log("product details respone=>", response)
-                    setProduct(response.data.data)
-                })
-                .catch((err) => {
-                    console.log("Error=>", err)
-                });
-        }
-
+        ProductService.getproductDetails(id).then((data) => setProduct(data));
     }, []);
 
     return (

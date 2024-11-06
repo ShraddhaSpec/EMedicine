@@ -6,6 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
 import { IProduct } from '../../types/Product';
 import api from '../../API/api';
+import { ProductService } from '../../services/ProductService';
 
 
 
@@ -13,22 +14,7 @@ export const Home = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const navigate = useNavigate();
   useEffect(() => {   
-      const token = localStorage.getItem("token");
-      console.log("Token:", token); 
-
-      if (!token || token === null || token === "" ) {
-        navigate('/login');
-      } else {
-        api.get('/products/getproducts')
-        .then(response =>{
-          console.log("respone=>",response)
-          setProducts(response.data.data)
-        }) 
-        .catch((err)=>{
-          console.log("Error=>", err)
-        });
-      }
- 
+        ProductService.getproducts().then((data) => setProducts(data));
   }, []);
 
   return (

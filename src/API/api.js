@@ -6,29 +6,31 @@ import 'react-toastify/dist/ReactToastify.css';
 const name = localStorage.getItem("name");
 const api = axios.create({
     baseURL: 'http://localhost:3004/api',
-  });
+});
 
 
 const requestArray = [];
-let newToken ="";
+let newToken = "";
 let tokenSetSuccess = false;
 
 api.interceptors.request.use(function (config) {
     const token = localStorage.getItem("token");
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
+    } else {
+        // Redirect to login if token is missing
+        window.location.href = '/login';
     }
-    console.log("config", config)
+
     return config;
 }, function (error) {
-   
     return Promise.reject(error);
 });
 
 // Add a response interceptor
 api.interceptors.response.use(function (response) {
-    console.log("response=>",response)
-  
+    console.log("response=>", response)
+
     if (response.status === 200) {
         if (response.data.success === false) {
             toast.error(response.data.message)
