@@ -18,7 +18,6 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID }: { Image
     }, []);
 
     useEffect(() => {
-      alert("caleed");
     }, [Qty]);
 
 

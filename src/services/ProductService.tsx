@@ -12,7 +12,6 @@ export const ProductService = {
         console.log(id);
         return api.get(`/products/getproduct/${id}`)
             .then(response => {
-                debugger
                 return response.data.data;
             })
             .catch((error) => console.error('Error fetching data:', error))

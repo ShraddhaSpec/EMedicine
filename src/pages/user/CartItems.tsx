@@ -7,27 +7,14 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
 import api from '../../API/api';
 import { ICart } from '../../types/Cart';
+import { CartService } from '../../services/CartService';
 
 const CartItems = () => {
 
     const [CartDeatail, setCartDeatail] = useState<ICart[]>([]);
     const navigate = useNavigate();
     useEffect(() => {
-        const token = localStorage.getItem("token");
-
-        if (!token || token === null || token === "") {
-            navigate('/login');
-        } else {
-            api.get('/carts/getCarts')
-                .then(response => {
-                    setCartDeatail(response.data.data)
-
-                })
-                .catch((err) => {
-                    console.log("Error=>", err)
-                });
-        }
-
+        CartService.getCarts().then((data) => setCartDeatail(data));
     }, []);
 
 
