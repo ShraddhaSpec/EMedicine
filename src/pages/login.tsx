@@ -3,18 +3,15 @@ import React, { useState, useEffect } from 'react'
 import '../custom.css';
 import { useNavigate } from 'react-router-dom';
 import api from '../API/api';
+import { UserService } from '../services/UserService';
 
 const Login = () => {
     const logo = '../Images/logo1.png';
-
     const navigate = useNavigate();
-
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({ username: '', password: '' });
-    const [redirect, setRedirect] = useState(false);
-
 
     const validateForm = () => {
         let valid = true;
@@ -36,26 +33,16 @@ const Login = () => {
 
 
     const loginHandler = (event: any) => {
-        console.log("handleSubmit");
         event.preventDefault();
         if (validateForm()) {
             const params = { email: username, password: password };
-            api.post('/users/login', params)
-                .then((res) => {
-                    console.log("res=>", res)
-                    if (res.status === 200) {
-                        if (res.data.success === true) {
-                            localStorage.setItem("username", res.data.data.email)
-                            localStorage.setItem("token", res.data.token)
-                            localStorage.setItem("role", res.data.data.role)
-
-                            //navigate('/');
-                            window.location.href = '/';
-                        }
-                    }
-                }).catch((err) => {
-                    console.log("Error=>", err)
-                });
+            UserService.login(params).then((data) => {
+                localStorage.setItem("username", data.data.email)
+                localStorage.setItem("token", data.token)
+                localStorage.setItem("role", data.data.role)
+                //navigate('/');
+                window.location.href = '/';
+            });
         }
     }
 

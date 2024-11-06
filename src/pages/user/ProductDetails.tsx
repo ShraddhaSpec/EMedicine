@@ -18,7 +18,6 @@ import { ProductService } from '../../services/ProductService';
 export const ProductDetails = () => {
     const { id } = useParams<{ id: string }>();
     const [product, setProduct] = useState<IProduct>();
-    const navigate = useNavigate();
     useEffect(() => {
         ProductService.getproductDetails(id).then((data) => setProduct(data));
     }, []);

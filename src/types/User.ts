@@ -1,4 +1,4 @@
-export interface userType {
+export interface IUser {
     firstname: string;
     lastname: string;
     address: string;
@@ -11,11 +11,10 @@ export interface userType {
     password: string;
   }
 
-
-   interface RoleType {
-    role: string; 
+  export interface ILogin {
+    email: string;
+    password: string;
   }
-  export type AuthRole = RoleType | null;
 
 
 
