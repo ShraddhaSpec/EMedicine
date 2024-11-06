@@ -4,8 +4,8 @@ import AddIcon from '@mui/icons-material/Add';
 import Grid from '@mui/material/Grid2';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-const Counter = () => {
-  const [count, setCount] = useState(1);
+const Counter = ({Qty} : {Qty : number}) => {
+  const [count, setCount] = useState(Qty);
 
   const handleIncrement = () => {
     setCount(count + 1);
