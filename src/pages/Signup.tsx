@@ -2,36 +2,37 @@ import { Button, TextField } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import React, { useState } from 'react'
 import '../custom.css'
-import { userType } from '../types/usertype';
+import { IUser } from '../types/User';
 import { useNavigate } from 'react-router-dom';
 import api from '../API/api';
+import { UserService } from '../services/UserService';
 
 const Signup = () => {
   const logo = '../Images/logo1.png';
   const navigate = useNavigate();
 
-  const [formValues, setFormValues] = useState<userType>({
+  const [formValues, setFormValues] = useState<IUser>({
     firstname: '',
     lastname: '',
     address: '',
     city: '',
-    state:'',
+    state: '',
     country: '',
     postcode_zip: '',
     mobileno: '',
     email: '',
-    password : ''
+    password: ''
   });
 
 
-  const [errors, setErrors] =  useState<Partial<userType>>({});
+  const [errors, setErrors] = useState<Partial<IUser>>({});
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormValues({ ...formValues, [id]: value });
   };
 
   const validate = () => {
-    let tempErrors: Partial<userType>= {};
+    let tempErrors: Partial<IUser> = {};
     const nameRegex = /^[a-zA-Z\s]+$/;
     if (!formValues.firstname) {
       tempErrors.firstname = "First Name is required";
@@ -89,7 +90,7 @@ const Signup = () => {
 
     if (!formValues.password) {
       tempErrors.country = "Password is required";
-    } 
+    }
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -98,22 +99,27 @@ const Signup = () => {
 
   const signupHandler = () => {
     if (validate()) {
-      console.log("Sign-up clicked", formValues);
       const params = formValues;
       api.post('/users/register', params)
-      .then((res) => {
-        if (res.status === 200) {
-          if(res.data.success === true){
-            navigate('/login');
+        .then((res) => {
+          if (res.status === 200) {
+            if (res.data.success === true) {
+              navigate('/login');
+            }
           }
+        }).catch((err) => {
+          console.log("Error=>", err)
+        });
+
+      UserService.signup(params).then((data) => {
+        if (data.success === true) {
+          navigate('/login');
         }
-      }).catch((err )=>{
-        console.log("Error=>", err)
       });
     }
   };
 
-  const navigatetologin = () =>{
+  const navigatetologin = () => {
     navigate('/login');
   }
 
@@ -129,8 +135,8 @@ const Signup = () => {
           <p className="login-text">Sign up to your Account</p>
 
           <Grid container size={12} spacing={2}  >
-       
-            <Grid container size={10} spacing={1}  offset={{md:2}} >
+
+            <Grid container size={10} spacing={1} offset={{ md: 2 }} >
               <Grid size={5}>
                 <TextField
                   id="firstname"
@@ -160,7 +166,7 @@ const Signup = () => {
                   helperText={errors.lastname}
                 />
               </Grid>
-         
+
               <Grid size={5}>
                 <TextField
                   id="address"
@@ -206,9 +212,9 @@ const Signup = () => {
                   helperText={errors.state}
                 />
               </Grid>
-           
+
               <Grid size={5}>
-              <TextField
+                <TextField
                   id="country"
                   label="Country"
                   color="success"
@@ -235,7 +241,7 @@ const Signup = () => {
                   helperText={errors.postcode_zip}
                 />
               </Grid>
-         
+
               <Grid size={5}>
                 <TextField
                   id="mobileno"

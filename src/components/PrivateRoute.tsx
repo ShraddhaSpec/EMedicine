@@ -10,7 +10,6 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ roles }) => {
   const role = localStorage.getItem("role") ?? "";
   const user = localStorage.getItem("username");
   
-  console.log("PrivateRoute");
   if (!user) {
      return <Navigate to="/login" replace />;
   }

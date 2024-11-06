@@ -1,17 +1,18 @@
 import api from '../API/api';
+import { ILogin, IUser } from '../types/User';
 
 export const UserService = {
-    getproducts ()  {
-        return api.get('/products/getproducts')
+    login (params: ILogin)  {
+        return api.post('/users/login', params)
             .then(response => {
-                return response.data.data;
+                return response.data;
             })
             .catch((error) => console.error('Error fetching data:', error))
     },
-    getproductDetails(id : string | undefined) {
-        return api.get(`/products/getproduct/${id}`)
+    signup (params: IUser)  {
+        return api.post('/users/register', params)
             .then(response => {
-                return response.data.data;
+                return response.data;
             })
             .catch((error) => console.error('Error fetching data:', error))
     }

@@ -10,8 +10,6 @@ const api = axios.create({
 
 
 const requestArray = [];
-let newToken = "";
-let tokenSetSuccess = false;
 
 api.interceptors.request.use(function (config) {
     const token = localStorage.getItem("token");
@@ -29,8 +27,6 @@ api.interceptors.request.use(function (config) {
 
 // Add a response interceptor
 api.interceptors.response.use(function (response) {
-    console.log("response=>", response)
-
     if (response.status === 200) {
         if (response.data.success === false) {
             toast.error(response.data.message)
