@@ -1,4 +1,5 @@
 export interface IProduct {
+    _id: string, 
     Name: string,
     Description:string,
     Manufacturer:string,

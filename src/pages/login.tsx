@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Box } from '@mui/material';
 import React, { useState, useEffect } from 'react'
 import '../custom.css';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,6 @@ const Login = () => {
     const [errors, setErrors] = useState({ username: '', password: '' });
     const [redirect, setRedirect] = useState(false);
 
- 
 
     const validateForm = () => {
         let valid = true;
@@ -36,7 +35,9 @@ const Login = () => {
     };
 
 
-    const loginHandler = () => {
+    const loginHandler = (event: any) => {
+        console.log("handleSubmit");
+        event.preventDefault();
         if (validateForm()) {
             const params = { email: username, password: password };
             api.post('/users/login', params)
@@ -47,9 +48,9 @@ const Login = () => {
                             localStorage.setItem("username", res.data.data.email)
                             localStorage.setItem("token", res.data.token)
                             localStorage.setItem("role", res.data.data.role)
-                             
+
                             //navigate('/');
-                             window.location.href = '/';
+                            window.location.href = '/';
                         }
                     }
                 }).catch((err) => {
@@ -67,10 +68,15 @@ const Login = () => {
             <div className="login-container">
                 <div className="image-container">
                     <img src={logo} alt="Logo" className="welcome-logo" color='white' />
-
                 </div>
 
-                <div className="login-box">
+                <Box
+                    component="form"
+                    onSubmit={loginHandler}
+                    className="login-box"
+                //   sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: 300 }}
+                >
+                    {/* <div className="login-box"> */}
                     <p className="login-text">Login to your Account</p>
                     <TextField
                         id="standard-basic"
@@ -103,7 +109,8 @@ const Login = () => {
                     <Button
                         variant="contained"
                         className="blueButton"
-                        onClick={loginHandler}
+                        type='submit'
+                    // onClick={loginHandler}
 
                     >
                         Login
@@ -121,8 +128,8 @@ const Login = () => {
                             <Toaster key={logInStatus.key} message={logInStatus.msg} />
                         )} */}
 
-                </div>
-
+                    {/* </div> */}
+                </Box>
             </div>
         </div>
     )

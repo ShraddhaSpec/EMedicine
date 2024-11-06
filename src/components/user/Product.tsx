@@ -17,7 +17,7 @@ type Props = {
 export const Product: React.FC<Props> = ({ product }) => {
   return (
     <div>
-      {/* <Link to={`/product/${product.id}`} style={{ textDecoration: 'none' }}> */}
+      <Link to={`/productDetails/${product._id}`} style={{ textDecoration: 'none' }}>
         <Card sx={{ maxWidth: 345, margin: 'auto' }}>
           <CardMedia
             sx={{ height: 150 }}
@@ -41,7 +41,7 @@ export const Product: React.FC<Props> = ({ product }) => {
             </Button>
           </CardActions>
         </Card>
-      {/* </Link> */}
+      </Link>
     </div>
   )
 }

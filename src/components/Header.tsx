@@ -16,7 +16,6 @@ import { Link, useNavigate } from 'react-router-dom';
 export const Header = () => {
   const  role  = localStorage.getItem("role");
   const logoUrl = '../Images/logo2.png';
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
 
@@ -28,22 +27,15 @@ export const Header = () => {
 
   const cartItemCount = 5;
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleLogout = () => {
     console.log("Navigating to /login");
     localStorage.clear();
     //navigate('/login');
-    window.location.href = '/login';
+     window.location.href = '/login';
   };
 
   const handleCloseUserMenu = () => {
