@@ -1,18 +1,18 @@
 import api from '../API/api';
+import { ICart } from '../types/Cart';
 
-export const ProductService = {
-    getproducts ()  {
-        return api.get('/products/getproducts')
+export const CartService = {
+    getCarts() {
+        return api.get('/carts/getCarts')
             .then(response => {
                 return response.data.data;
             })
             .catch((error) => console.error('Error fetching data:', error))
     },
-    getproductDetails(id : string | undefined) {
-        console.log(id);
-        return api.get(`/products/getproduct/${id}`)
+    addToCart(cart: ICart) {
+        return api.post('/carts/addToCart', cart)
             .then(response => {
-                return response.data.data;
+                return response.data;
             })
             .catch((error) => console.error('Error fetching data:', error))
     }

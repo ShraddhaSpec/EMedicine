@@ -37,6 +37,7 @@ const Login = () => {
         if (validateForm()) {
             const params = { email: username, password: password };
             UserService.login(params).then((data) => {
+                localStorage.setItem("userId", data.data._id)
                 localStorage.setItem("username", data.data.email)
                 localStorage.setItem("token", data.token)
                 localStorage.setItem("role", data.data.role)
