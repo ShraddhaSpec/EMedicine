@@ -11,6 +11,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Badge from '@mui/material/Badge';
 import '../custom.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../Context/CartContext';
 
 
 export const Header = () => {
@@ -24,8 +25,9 @@ export const Header = () => {
     : ['Profile', 'My Orders', 'Logout'];
 
   const menuItems = ['Medicines', 'Customers', 'Orders'];
+  const { quantity } = useCart();
 
-  const cartItemCount = 5;
+  // const cartItemCount = { quantity };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -118,7 +120,7 @@ export const Header = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Link to='/cart' >
               <IconButton color="inherit" aria-label="shopping cart" sx={{ p: 2 }}>
-                <Badge badgeContent={cartItemCount} color="error">
+                <Badge badgeContent={ quantity } color="error">
                   <ShoppingCartIcon fontSize="large" sx={{ color: 'white' }} />
                 </Badge>
               </IconButton>

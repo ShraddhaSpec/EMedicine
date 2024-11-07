@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconButton, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Grid from '@mui/material/Grid2';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-const Counter = ({Qty} : {Qty : number}) => {
+const Counter = ({Qty, onQtyChange} : {Qty : number, onQtyChange: (newQty: number) => void;}) => {
   const [count, setCount] = useState(Qty);
 
   const handleIncrement = () => {
@@ -14,6 +14,10 @@ const Counter = ({Qty} : {Qty : number}) => {
   const handleDecrement = () => {
     if (count > 1) setCount(count - 1);
   };
+
+  useEffect(() => {
+    onQtyChange(count);
+  }, [count, onQtyChange]);
 
   return (
     <Grid container alignItems="center" justifyContent="left" spacing={2}>

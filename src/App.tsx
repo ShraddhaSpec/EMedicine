@@ -14,12 +14,15 @@ import { Profile } from './pages/Profile';
 import { Medicines } from './pages/admin/Medicines';
 import { Customers } from './pages/admin/Customers';
 import { Orders } from './pages/admin/Orders';
+import { CartProvider } from './Context/CartContext';
 
 function App() {
   return (
-      <Router>
+    <Router>
+      <CartProvider>
         <AuthWrapper />
-      </Router>
+      </CartProvider>
+    </Router>
   );
 }
 const AuthWrapper: React.FC = () => {

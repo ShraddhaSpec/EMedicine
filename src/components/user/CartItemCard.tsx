@@ -10,16 +10,15 @@ import { ProductService } from '../../services/ProductService';
 
 const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID }: { ImageName: string; ItemName: string; ItemDesc: string; Qty: number; ProductID: string }) => {
 
-  console.log(ProductID);
-
   const [product, setProduct] = useState<IProduct>();
+  const [total, setTotal] = useState<number>(0);
     useEffect(() => {
       ProductService.getproductDetails(ProductID).then((data) => setProduct(data));
     }, []);
 
-    useEffect(() => {
-      alert("caleed");
-    }, [Qty]);
+    const handleQtyChange = (newQty: number) => {
+      setTotal((product?.UnitPrice ?? 0) * newQty);
+    };
 
 
   return (
@@ -35,10 +34,10 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID }: { Image
           <label>$ {product?.UnitPrice}</label>
         </Grid>
         <Grid size={2} alignContent={'center'}>
-          <Counter  Qty={Qty}/>
+          <Counter  Qty={Qty} onQtyChange={handleQtyChange}/>
         </Grid>
         <Grid size={1} alignContent={'center'}>
-        <label>${product?.UnitPrice ? (product.UnitPrice * Qty).toFixed(2) : '0.00'}</label>
+        <label>{total}</label>
         </Grid>
         <Grid size={1} alignContent={'center'}>
           <IconButton style={{ color: 'red', transform: 'scale(0.7)', border: '1px solid #747d88', backgroundColor: '#f4f6f8' }}>
