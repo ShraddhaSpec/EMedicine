@@ -12,6 +12,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [quantity, setQuantity] = useState<number>(1);
 
   const addToCart = () => {
+    debugger
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
 

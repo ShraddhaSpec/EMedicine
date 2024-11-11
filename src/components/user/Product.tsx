@@ -11,13 +11,14 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { Link } from 'react-router-dom';
 import { ICart } from '../../types/Cart';
 import { CartService } from '../../services/CartService';
+import { useCart } from '../../Context/CartContext';
 
 type Props = {
   product: IProduct;
 };
 
 export const Product: React.FC<Props> = ({ product }) => {
-
+  const { addToCart } = useCart();
   const addToCartHandler = () => {
     const cart :  ICart  = {
        UserId: localStorage.getItem("userId")?.toString() ?? "", 
@@ -28,7 +29,14 @@ export const Product: React.FC<Props> = ({ product }) => {
        TotalPrice : product.UnitPrice * product.Quantity
        };
 
-       CartService.addToCart(cart).then((data) => console.log("add to cart",data) );
+       
+       CartService.addToCart(cart).then(
+        (data) => {
+          console.log("add to cart",data);
+          addToCart();
+          
+        }
+      );
   }
 
   return (

@@ -27,8 +27,6 @@ export const Header = () => {
   const menuItems = ['Medicines', 'Customers', 'Orders'];
   const { quantity } = useCart();
 
-  // const cartItemCount = { quantity };
-
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };

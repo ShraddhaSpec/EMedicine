@@ -8,7 +8,7 @@ import api from '../../API/api';
 import { IProduct } from '../../types/Product';
 import { ProductService } from '../../services/ProductService';
 
-const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID }: { ImageName: string; ItemName: string; ItemDesc: string; Qty: number; ProductID: string }) => {
+const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete }: { ImageName: string; ItemName: string; ItemDesc: string; Qty: number; ProductID: string; onDelete: (id: string) => void;}) => {
 
   const [product, setProduct] = useState<IProduct>();
   const [total, setTotal] = useState<number>(0);
@@ -34,13 +34,13 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID }: { Image
           <label>$ {product?.UnitPrice}</label>
         </Grid>
         <Grid size={2} alignContent={'center'}>
-          <Counter  Qty={Qty} onQtyChange={handleQtyChange}/>
+          <Counter Qty={Qty} onQtyChange={handleQtyChange}/>
         </Grid>
         <Grid size={1} alignContent={'center'}>
         <label>{total}</label>
         </Grid>
         <Grid size={1} alignContent={'center'}>
-          <IconButton style={{ color: 'red', transform: 'scale(0.7)', border: '1px solid #747d88', backgroundColor: '#f4f6f8' }}>
+          <IconButton onClick={() => onDelete(ProductID)} style={{ color: 'red', transform: 'scale(0.7)', border: '1px solid #747d88', backgroundColor: '#f4f6f8' }}>
             <CloseRounded  />
           </IconButton>
         </Grid>

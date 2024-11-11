@@ -15,7 +15,12 @@ const CartItems = () => {
     const navigate = useNavigate();
     useEffect(() => {
         CartService.getCarts().then((data) => setCartDeatail(data));
+        
     }, []);
+
+    const handleDelete = (ProductID: string) => {
+        setCartDeatail((prev) => prev.filter((item) => item.ProductId != ProductID));
+      };
 
 
     return (
@@ -64,13 +69,9 @@ const CartItems = () => {
                         ItemName="Sun Pulse Oximeter"
                         Qty={CartItem.Quantity}
                         ProductID={CartItem.ProductId}
-                        ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers" />
+                        ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers" 
+                        onDelete={handleDelete}/>
                     ))}</div>
-
-
-
-
-
             </Box>
             
             <div style={{ float: 'right', margin: '10px' }}>
