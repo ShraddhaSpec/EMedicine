@@ -15,13 +15,20 @@ const CartItems = () => {
     const navigate = useNavigate();
     useEffect(() => {
         CartService.getCarts().then((data) => setCartDeatail(data));
-        
     }, []);
 
     const handleDelete = (ProductID: string) => {
-        setCartDeatail((prev) => prev.filter((item) => item.ProductId != ProductID));
-      };
+        const data = {ItemId: ProductID};
 
+      api.post('/carts/deleteCartItem', data)
+            .then(response => {
+                if(response.data.success){
+                    CartService.getCarts().then((data) => setCartDeatail(data));
+                }
+            })
+            .catch((error) => console.error('Error fetching data:', error))
+      };
+      localStorage.setItem("CartQty", CartDeatail.length + "");
 
     return (
         <>

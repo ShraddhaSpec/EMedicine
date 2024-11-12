@@ -18,6 +18,13 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete 
 
     const handleQtyChange = (newQty: number) => {
       setTotal((product?.UnitPrice ?? 0) * newQty);
+      const data = {Id: product?._id, UpdatedQty: newQty};
+
+      api.post('/carts/manageCartQty', data)
+            .then(response => {
+                return response.data;
+            })
+            .catch((error) => console.error('Error fetching data:', error))
     };
 
 

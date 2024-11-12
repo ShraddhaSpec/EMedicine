@@ -25,11 +25,10 @@ export const Product: React.FC<Props> = ({ product }) => {
        ProductId : product._id,
        UnitPrice: product.UnitPrice,
        Discount :product.Discount,
-       Quantity : product.Quantity,
+       Quantity : 1,
        TotalPrice : product.UnitPrice * product.Quantity
        };
 
-       
        CartService.addToCart(cart).then(
         (data) => {
           console.log("add to cart",data);
