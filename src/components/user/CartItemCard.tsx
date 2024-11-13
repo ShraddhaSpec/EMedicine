@@ -7,12 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../API/api';
 import { IProduct } from '../../types/Product';
 import { ProductService } from '../../services/ProductService';
+import { Console } from 'console';
 
 const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete }: { ImageName: string; ItemName: string; ItemDesc: string; Qty: number; ProductID: string; onDelete: (id: string) => void;}) => {
 
   const [product, setProduct] = useState<IProduct>();
   const [total, setTotal] = useState<number>(0);
     useEffect(() => {
+      console.log(ProductID);
       ProductService.getproductDetails(ProductID).then((data) => setProduct(data));
     }, []);
 

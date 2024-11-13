@@ -29,10 +29,11 @@ export const Product: React.FC<Props> = ({ product }) => {
        TotalPrice : product.UnitPrice * product.Quantity
        };
 
+       
        CartService.addToCart(cart).then(
         (data) => {
           console.log("add to cart",data);
-          addToCart();
+          addToCart({ op: "add" });
           
         }
       );

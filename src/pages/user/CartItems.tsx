@@ -8,27 +8,30 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../API/api';
 import { ICart } from '../../types/Cart';
 import { CartService } from '../../services/CartService';
+import { useCart } from '../../Context/CartContext';
 
 const CartItems = () => {
 
     const [CartDeatail, setCartDeatail] = useState<ICart[]>([]);
     const navigate = useNavigate();
+    const { addToCart } = useCart();
     useEffect(() => {
         CartService.getCarts().then((data) => setCartDeatail(data));
     }, []);
 
     const handleDelete = (ProductID: string) => {
-        const data = {ItemId: ProductID};
+        const data = { ItemId: ProductID };
 
-      api.post('/carts/deleteCartItem', data)
+        api.post('/carts/deleteCartItem', data)
             .then(response => {
-                if(response.data.success){
+                if (response.data.success) {
                     CartService.getCarts().then((data) => setCartDeatail(data));
+                    addToCart({ op: "minus" });
                 }
             })
             .catch((error) => console.error('Error fetching data:', error))
-      };
-      localStorage.setItem("CartQty", CartDeatail.length + "");
+    };
+    localStorage.setItem("CartQty", CartDeatail.length + "");
 
     return (
         <>
@@ -72,15 +75,15 @@ const CartItems = () => {
 
                 <div>
                     {CartDeatail.map((CartItem, Index) => (
-                        <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
-                        ItemName="Sun Pulse Oximeter"
-                        Qty={CartItem.Quantity}
-                        ProductID={CartItem.ProductId}
-                        ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers" 
-                        onDelete={handleDelete}/>
+                        <CartItemCard ImageName="aa"
+                            ItemName="Sun Pulse Oximeter"
+                            Qty={CartItem.Quantity}
+                            ProductID={CartItem.ProductId}
+                            ItemDesc="aa"
+                            onDelete={handleDelete} />
                     ))}</div>
             </Box>
-            
+
             <div style={{ float: 'right', margin: '10px' }}>
                 <Grid container width={'300px'} color={'#45595b'} >
                     <Grid size={12}>

@@ -77,8 +77,5 @@ export const ProductDetails = () => {
             </Grid>
         </>
 
-
-
-
     )
 }
