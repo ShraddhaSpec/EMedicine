@@ -24,9 +24,9 @@ export const Product: React.FC<Props> = ({ product }) => {
        UserId: localStorage.getItem("userId")?.toString() ?? "", 
        ProductId : product._id,
        UnitPrice: product.UnitPrice,
-       Discount :product.Discount,
-       Quantity : product.Quantity,
-       TotalPrice : product.UnitPrice * product.Quantity
+      //  Discount :product.Discount,
+       Quantity : 1,
+       TotalPrice : product.UnitPrice * 1
        };
 
        
