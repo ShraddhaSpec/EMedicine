@@ -4,6 +4,7 @@ import '../custom.css';
 import { useNavigate } from 'react-router-dom';
 import api from '../API/api';
 import { UserService } from '../services/UserService';
+import { DataArrayOutlined } from '@mui/icons-material';
 
 const Login = () => {
     const logo = '../Images/logo1.png';
@@ -37,6 +38,8 @@ const Login = () => {
         if (validateForm()) {
             const params = { email: username, password: password };
             UserService.login(params).then((data) => {
+                              
+                if(data && data.success == true){
                 localStorage.setItem("userId", data.data._id)
                 localStorage.setItem("username", data.data.email)
                 localStorage.setItem("token", data.token)
@@ -44,6 +47,7 @@ const Login = () => {
                 localStorage.setItem("CartQty", "0")
                 //navigate('/');
                 window.location.href = '/';
+                }
             });
         }
     }

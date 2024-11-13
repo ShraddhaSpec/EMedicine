@@ -14,10 +14,18 @@ const CartItems = () => {
 
     const [CartDeatail, setCartDeatail] = useState<ICart[]>([]);
     const navigate = useNavigate();
+    const { addToCart } = useCart();
+    const username = localStorage.getItem("username");
+    const UserID = localStorage.getItem("userId");
     const [CartTotal, setCartTotal] = useState<number>(0);
     // const EmptyCartUrl = '../Images/emptycart.png';
     const EmptyCartUrl = '../Images/emptybag.jpg';
+    const cartparams = { userId: UserID};
     useEffect(() => {
+    
+        CartService.getCarts(cartparams).then((data) => setCartDeatail(data));
+    }, [username,UserID]);
+
         CartService.getCarts().then((data) => setCartDeatail(data));
     }, []);
  
@@ -48,7 +56,7 @@ const CartItems = () => {
         api.post('/carts/deleteCartItem', data)
             .then(response => {
                 if (response.data.success) {
-                    CartService.getCarts().then((data) => setCartDeatail(data));
+                    CartService.getCarts(cartparams).then((data) => setCartDeatail(data));
                     addToCart({ op: "minus" });
                 }
             })
@@ -132,6 +140,9 @@ const CartItems = () => {
                          variant="contained"
                          className="blueButton"
                          sx = {{display:'flex',justifySelf:'center'}}
+                         onClick={()=>{
+                            navigate("/")
+                         }}
                      >
                        Continue Shopping
                      </Button>

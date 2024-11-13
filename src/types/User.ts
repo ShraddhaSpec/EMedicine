@@ -21,6 +21,10 @@ export interface IUser {
     Email: string
   }
 
+  export interface UserID {
+    userId: string | null
+  }
+
 
 
   
