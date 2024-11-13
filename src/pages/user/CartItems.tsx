@@ -26,8 +26,7 @@ const CartItems = () => {
         CartService.getCarts(cartparams).then((data) => setCartDeatail(data));
     }, [username,UserID]);
 
-        CartService.getCarts().then((data) => setCartDeatail(data));
-    }, []);
+   
  
 
     useEffect(() => {
@@ -49,7 +48,7 @@ const CartItems = () => {
         });
     }
    
-    const { addToCart } = useCart();
+    
     const handleDelete = (ProductID: string) => {
         const data = { ItemId: ProductID };
         
