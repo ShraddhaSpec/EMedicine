@@ -14,21 +14,25 @@ const CartItems = () => {
 
     const [CartDeatail, setCartDeatail] = useState<ICart[]>([]);
     const navigate = useNavigate();
+    const [CartTotal, setCartTotal] = useState<number>(0);
     // const EmptyCartUrl = '../Images/emptycart.png';
     const EmptyCartUrl = '../Images/emptybag.jpg';
     useEffect(() => {
         CartService.getCarts().then((data) => setCartDeatail(data));
-
     }, []);
-
+ 
 
     useEffect(() => {
         if(CartDeatail)
         localStorage.setItem("CartQty", CartDeatail.length + "");
+        const total = CartDeatail.reduce((acc, item) => acc + item.TotalPrice * item.Quantity, 0);
+        setCartTotal(total);
     }, [CartDeatail])
-    
 
-    
+    const handleCartTotal = ({cartDetail} : {cartDetail :ICart[]}) =>{
+        
+    }
+
     const handlePlaceOrder =()=>{
         navigate('/placeorder', {
             state: {
@@ -37,10 +41,10 @@ const CartItems = () => {
         });
     }
    
-
+    const { addToCart } = useCart();
     const handleDelete = (ProductID: string) => {
         const data = { ItemId: ProductID };
-
+        
         api.post('/carts/deleteCartItem', data)
             .then(response => {
                 if (response.data.success) {
@@ -50,7 +54,7 @@ const CartItems = () => {
             })
             .catch((error) => console.error('Error fetching data:', error))
       };
-    //   localStorage.setItem("CartQty", CartDeatail.length + "");
+     
 
     return (
         <>
@@ -100,7 +104,8 @@ const CartItems = () => {
                             Qty={CartItem.Quantity}
                             ProductID={CartItem.ProductId}
                             ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers"
-                            onDelete={handleDelete} />
+                            onDelete={handleDelete}
+                            CartTotal = {CartTotal} />
                     ))
                     :
                 (
@@ -149,7 +154,7 @@ const CartItems = () => {
                      </Grid>
                      <Grid size={6}>
                          <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
-                             $96.00
+                             {CartTotal}
                          </Typography>
                      </Grid>
  

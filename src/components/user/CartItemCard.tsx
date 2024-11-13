@@ -9,7 +9,7 @@ import { IProduct } from '../../types/Product';
 import { ProductService } from '../../services/ProductService';
 import { Console } from 'console';
 
-const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete }: { ImageName: string; ItemName: string; ItemDesc: string; Qty: number; ProductID: string; onDelete: (id: string) => void;}) => {
+const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete, CartTotal }: { ImageName: string; ItemName: string; ItemDesc: string; Qty: number; ProductID: string; onDelete: (id: string) => void; CartTotal : number}) => {
 
   const [product, setProduct] = useState<IProduct>();
   const [total, setTotal] = useState<number>(0);
@@ -21,7 +21,7 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete 
     const handleQtyChange = (newQty: number) => {
       setTotal((product?.UnitPrice ?? 0) * newQty);
       const data = {Id: product?._id, UpdatedQty: newQty};
-
+      
       api.post('/carts/manageCartQty', data)
             .then(response => {
                 return response.data;
