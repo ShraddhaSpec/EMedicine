@@ -9,11 +9,14 @@ interface CartContextProps {
 const CartContext = createContext<CartContextProps | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState<number>(parseInt(localStorage.getItem("CartQty") || "0"));
 
   const addToCart = () => {
     debugger
     setQuantity((prevQuantity) => prevQuantity + 1);
+    var CartQTY = parseInt(localStorage.getItem("CartQty") || "0");
+    CartQTY += 1;
+    localStorage.setItem("CartQty",CartQTY + "");
   };
 
   return (
