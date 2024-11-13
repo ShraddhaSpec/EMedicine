@@ -26,7 +26,8 @@ export const Product: React.FC<Props> = ({ product }) => {
        UnitPrice: product.UnitPrice,
       //  Discount :product.Discount,
        Quantity : 1,
-       TotalPrice : product.UnitPrice * 1
+       TotalPrice : product.UnitPrice * 1,
+      //  isAddedtocart : true
        };
 
        

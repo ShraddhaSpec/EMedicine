@@ -15,10 +15,11 @@ api.interceptors.request.use(function (config) {
     const token = localStorage.getItem("token");
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
-    } else {
-        // Redirect to login if token is missing
-        window.location.href = '/login';
-    }
+    } 
+    // else {
+    //     // Redirect to login if token is missing
+    //     window.location.href = '/login';
+    // }
 
     return config;
 }, function (error) {
@@ -27,11 +28,12 @@ api.interceptors.request.use(function (config) {
 
 // Add a response interceptor
 api.interceptors.response.use(function (response) {
+    console.log("apires->",response)
     if (response.status === 200) {
-        if (response.data.success === false) {
+        if (response.data.success == false) {
             toast.error(response.data.message)
         }
-        if (response.data.success === true) {
+        if (response.data.success == true) {
             return response;
         }
 

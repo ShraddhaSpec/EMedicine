@@ -4,5 +4,5 @@ export interface ICart {
     UnitPrice: number ,
     // Discount: number,
     Quantity: number,
-    TotalPrice: number,
+    TotalPrice: number,    
 }

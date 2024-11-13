@@ -1,9 +1,10 @@
 import api from '../API/api';
 import { ICart } from '../types/Cart';
+import { UserID } from '../types/User';
 
 export const CartService = {
-    getCarts() {
-        return api.get('/carts/getCarts')
+    getCarts(cartparams: UserID) {
+        return api.post('/carts/getCarts',cartparams)
             .then(response => {
                 console.log(response)
                 return response.data.data;

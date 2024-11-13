@@ -25,6 +25,7 @@ const PlaceOrder = () => {
       });
     const [errors, setErrors] = useState<Partial<IUser>>({});
     const username = localStorage.getItem("username");
+    const userId = localStorage.getItem("userId");
     const navigate = useNavigate();
     const [CartDeatail, setCartDeatail] = useState<ICart[]>([]);
     const location = useLocation();
@@ -33,10 +34,11 @@ const PlaceOrder = () => {
     useEffect(() => {
         if(username){
         const params = { Email: username};
+        const cartparams = { userId: userId};
         UserService.getprofile(params).then((data) => setUserData(data.data));
-        CartService.getCarts().then((data) => setCartDeatail(data));
+        CartService.getCarts(cartparams).then((data) => setCartDeatail(data));
         }
-    }, [username])
+    }, [username,userId])
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
