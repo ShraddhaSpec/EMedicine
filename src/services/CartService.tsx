@@ -5,6 +5,7 @@ export const CartService = {
     getCarts() {
         return api.get('/carts/getCarts')
             .then(response => {
+                console.log(response)
                 return response.data.data;
             })
             .catch((error) => console.error('Error fetching data:', error))

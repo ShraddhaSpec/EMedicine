@@ -13,12 +13,12 @@ const CartItems = () => {
 
     const [CartDeatail, setCartDeatail] = useState<ICart[]>([]);
     const navigate = useNavigate();
+    const username = localStorage.getItem("username");
     // const EmptyCartUrl = '../Images/emptycart.png';
     const EmptyCartUrl = '../Images/emptybag.jpg';
     useEffect(() => {
         CartService.getCarts().then((data) => setCartDeatail(data));
-
-    }, []);
+    }, [username]);
 
 
     useEffect(() => {
@@ -125,6 +125,9 @@ const CartItems = () => {
                          variant="contained"
                          className="blueButton"
                          sx = {{display:'flex',justifySelf:'center'}}
+                         onClick={()=>{
+                            navigate("/")
+                         }}
                      >
                        Continue Shopping
                      </Button>
