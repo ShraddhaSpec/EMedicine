@@ -20,6 +20,13 @@ const CartItems = () => {
 
     }, []);
 
+
+    useEffect(() => {
+        if(CartDeatail)
+        localStorage.setItem("CartQty", CartDeatail.length + "");
+    }, [CartDeatail])
+    
+
     
     const handlePlaceOrder =()=>{
         navigate('/placeorder', {
@@ -41,7 +48,7 @@ const CartItems = () => {
             })
             .catch((error) => console.error('Error fetching data:', error))
       };
-      localStorage.setItem("CartQty", CartDeatail.length + "");
+    //   localStorage.setItem("CartQty", CartDeatail.length + "");
 
     return (
         <>
@@ -85,7 +92,7 @@ const CartItems = () => {
                 </Grid>
             }
                 <div>
-                    {CartDeatail.length > 0 ? CartDeatail.map((CartItem, Index) => (
+                    {CartDeatail && CartDeatail.length > 0 ? CartDeatail.map((CartItem, Index) => (
                         <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
                             ItemName="Sun Pulse Oximeter"
                             Qty={CartItem.Quantity}
