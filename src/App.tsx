@@ -15,6 +15,7 @@ import { Medicines } from './pages/admin/Medicines';
 import { Customers } from './pages/admin/Customers';
 import { Orders } from './pages/admin/Orders';
 import { CartProvider } from './Context/CartContext';
+import PlaceOrder from './pages/user/PlaceOrder';
 
 function App() {
   return (
@@ -45,7 +46,8 @@ const AuthWrapper: React.FC = () => {
               <Route path="/productDetails/:id" element={<ProductDetails />} />
               <Route path="/medicines" element={<Medicines />} />
               <Route path="/customers" element={<Customers />} />
-              <Route path="/orders" element={<Orders />} />
+              <Route path="/orders" element={<Orders />} /> 
+              <Route path="/placeorder" element={<PlaceOrder />} />
             </Route>
           ) : (
             <>

@@ -100,21 +100,13 @@ const Signup = () => {
   const signupHandler = () => {
     if (validate()) {
       const params = formValues;
-      api.post('/users/register', params)
-        .then((res) => {
-          if (res.status === 200) {
-            if (res.data.success === true) {
-              navigate('/login');
-            }
-          }
-        }).catch((err) => {
-          console.log("Error=>", err)
-        });
 
       UserService.signup(params).then((data) => {
         if (data.success === true) {
           navigate('/login');
         }
+      }).catch((err) => {
+        console.log("Error=>", err)
       });
     }
   };

@@ -1,5 +1,5 @@
 import api from '../API/api';
-import { ILogin, IUser } from '../types/User';
+import { ILogin, IUser, UserName } from '../types/User';
 
 export const UserService = {
     login (params: ILogin)  {
@@ -15,5 +15,12 @@ export const UserService = {
                 return response.data;
             })
             .catch((error) => console.error('Error fetching data:', error))
+    },
+    getprofile(params: UserName){
+        return api.post('/users/getprofile', params)
+        .then(response => {
+            return response.data;
+        })
+        .catch((error) => console.error('Error fetching data:', error))
     }
 }
