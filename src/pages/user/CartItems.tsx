@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../API/api';
 import { ICart } from '../../types/Cart';
 import { CartService } from '../../services/CartService';
+import { useCart } from '../../Context/CartContext';
 
 const CartItems = () => {
 
@@ -38,12 +39,13 @@ const CartItems = () => {
    
 
     const handleDelete = (ProductID: string) => {
-        const data = {ItemId: ProductID};
+        const data = { ItemId: ProductID };
 
-      api.post('/carts/deleteCartItem', data)
+        api.post('/carts/deleteCartItem', data)
             .then(response => {
-                if(response.data.success){
+                if (response.data.success) {
                     CartService.getCarts().then((data) => setCartDeatail(data));
+                    addToCart({ op: "minus" });
                 }
             })
             .catch((error) => console.error('Error fetching data:', error))

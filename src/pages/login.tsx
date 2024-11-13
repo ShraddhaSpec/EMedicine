@@ -41,7 +41,7 @@ const Login = () => {
                 localStorage.setItem("username", data.data.email)
                 localStorage.setItem("token", data.token)
                 localStorage.setItem("role", data.data.role)
-                localStorage.setItem("CartQty", "1")
+                localStorage.setItem("CartQty", "0")
                 //navigate('/');
                 window.location.href = '/';
             });
