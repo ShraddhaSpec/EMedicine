@@ -4,5 +4,19 @@ export interface IOrder{
         UserID: string | undefined;               
         OrderTotal: number;            
         ShippingAddress: string;      
-        OrderItems: ICart[];        
+        OrderItems: ICart[];    
+
+}
+
+export interface IOrderItems {
+        UserId: string,
+        ProductId:string,
+        UnitPrice: number ,
+        // Discount: number,
+        Quantity: number,
+        TotalPrice: number,   
+        OrderStatus : number,
+        imageURL ?:string,
+        productname ?: string,
+        description ?:string
 }
