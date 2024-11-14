@@ -9,16 +9,16 @@ import { IProduct } from '../../types/Product';
 import { ProductService } from '../../services/ProductService';
 import { Console } from 'console';
 
-const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete, CartTotal }: { ImageName: string; ItemName: string; ItemDesc: string; Qty: number; ProductID: string; onDelete: (id: string) => void; CartTotal : number}) => {
+const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete, CartTotal }: { ImageName: string; ItemName: string; ItemDesc: string; Qty: number; ProductID: string; onDelete: (id: string) => void; CartTotal : (OldTotal :number, newTotal: number) => void}) => {
 
   const [product, setProduct] = useState<IProduct>();
   const [total, setTotal] = useState<number>(0);
     useEffect(() => {
-      console.log(ProductID);
-      ProductService.getproductDetails(ProductID).then((data) => setProduct(data));
+       ProductService.getproductDetails(ProductID).then((data) => setProduct(data));
     }, []);
 
     const handleQtyChange = (newQty: number) => {
+      CartTotal(total,(product?.UnitPrice ?? 0) * newQty);
       setTotal((product?.UnitPrice ?? 0) * newQty);
       const data = {Id: product?._id, UpdatedQty: newQty};
       
@@ -28,6 +28,7 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete,
             })
             .catch((error) => console.error('Error fetching data:', error))
     };
+
 
 
   return (
@@ -46,7 +47,7 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete,
           <Counter Qty={Qty} onQtyChange={handleQtyChange}/>
         </Grid>
         <Grid size={1} alignContent={'center'}>
-        <label>{total}</label>
+        <label>{total.toFixed(2)}</label>
         </Grid>
         <Grid size={1} alignContent={'center'}>
           <IconButton onClick={() => onDelete(ProductID)} style={{ color: 'red', transform: 'scale(0.7)', border: '1px solid #747d88', backgroundColor: '#f4f6f8' }}>
