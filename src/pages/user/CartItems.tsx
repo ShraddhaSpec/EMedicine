@@ -30,10 +30,11 @@ const CartItems = () => {
  
 
     useEffect(() => {
-        if(CartDeatail)
+        if(CartDeatail && CartDeatail.length >0){
         localStorage.setItem("CartQty", CartDeatail.length + "");
         const total = CartDeatail.reduce((acc, item) => acc + item.TotalPrice * item.Quantity, 0);
         setCartTotal(total);
+        }
     }, [CartDeatail])
 
     const handleCartTotal = ({cartDetail} : {cartDetail :ICart[]}) =>{
