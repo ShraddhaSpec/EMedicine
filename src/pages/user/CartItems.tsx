@@ -26,20 +26,20 @@ const CartItems = () => {
         CartService.getCarts(cartparams).then((data) => setCartDeatail(data));
     }, [username,UserID]);
 
-   
- 
-
     useEffect(() => {
         if(CartDeatail && CartDeatail.length >0){
         localStorage.setItem("CartQty", CartDeatail.length + "");
-        const total = CartDeatail.reduce((acc, item) => acc + item.TotalPrice * item.Quantity, 0);
-        setCartTotal(total);
-        }
+        //const total = CartDeatail.reduce((acc, item) => acc + item.TotalPrice * item.Quantity, 0);
+        //setCartTotal(total);
     }, [CartDeatail])
 
-    const handleCartTotal = ({cartDetail} : {cartDetail :ICart[]}) =>{
-        
-    }
+    const handleCartTotal = (OldTotal : number, NewTotal: number) => {
+        var TempTotal = CartTotal;
+        TempTotal -= OldTotal;
+        TempTotal += NewTotal;
+        setCartTotal(TempTotal);
+    };
+
 
     const handlePlaceOrder =()=>{
         navigate('/placeorder', {
@@ -113,7 +113,7 @@ const CartItems = () => {
                             ProductID={CartItem.ProductId}
                             ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers"
                             onDelete={handleDelete}
-                            CartTotal = {CartTotal} />
+                            CartTotal = {handleCartTotal} />
                     ))
                     :
                 (
@@ -165,7 +165,7 @@ const CartItems = () => {
                      </Grid>
                      <Grid size={6}>
                          <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
-                             {CartTotal}
+                             $ {CartTotal}
                          </Typography>
                      </Grid>
  
@@ -186,7 +186,7 @@ const CartItems = () => {
                      </Grid>
                      <Grid size={6}>
                          <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
-                             $99.00
+                         $ {CartTotal + 3}
                          </Typography>
                      </Grid>
                      <Grid size={6}>                      
