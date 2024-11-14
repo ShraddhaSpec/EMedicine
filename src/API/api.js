@@ -30,10 +30,10 @@ api.interceptors.request.use(function (config) {
 api.interceptors.response.use(function (response) {
     console.log("apires->",response)
     if (response.status === 200) {
-        if (response.data.success == false) {
+        if (response.data.success === false) {
             toast.error(response.data.message)
         }
-        if (response.data.success == true) {
+        if (response.data.success === true) {
             return response;
         }
 

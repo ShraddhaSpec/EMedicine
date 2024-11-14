@@ -31,7 +31,7 @@ const CartItems = () => {
         localStorage.setItem("CartQty", CartDeatail.length + "");
         //const total = CartDeatail.reduce((acc, item) => acc + item.TotalPrice * item.Quantity, 0);
         //setCartTotal(total);
-    }}, [CartDeatail])
+    }}, [CartDeatail]);
 
     const handleCartTotal = (OldTotal : number, NewTotal: number) => {
         var TempTotal = CartTotal;
