@@ -18,7 +18,10 @@ type Props = {
 };
 
 export const Product: React.FC<Props> = ({ product }) => {
-  const { addToCart } = useCart();
+  // const { addToCart } = useCart();
+  const { setQty } = useCart();
+  const UserID = localStorage.getItem("userId");
+  const cartparams = { userId: UserID };
   const addToCartHandler = () => {
     const cart :  ICart  = {
        UserId: localStorage.getItem("userId")?.toString() ?? "", 
@@ -33,8 +36,12 @@ export const Product: React.FC<Props> = ({ product }) => {
        
        CartService.addToCart(cart).then(
         (data) => {
-          console.log("add to cart",data);
-          addToCart({ op: "add" });
+          //console.log("add to cart",data);
+          // addToCart({ op: "add" });
+          CartService.getCarts(cartparams).then((data) => {
+            localStorage.setItem("CartQty", data.length);
+            setQty(data.length);
+          });
           
         }
       );
