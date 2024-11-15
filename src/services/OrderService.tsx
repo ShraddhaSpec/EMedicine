@@ -1,5 +1,5 @@
 import api from '../API/api';
-import { IOrder } from '../types/Order';
+import { IOrder, IOrderItemsId } from '../types/Order';
 import { UserID } from '../types/User';
 
 export const OrderService = {
@@ -20,8 +20,8 @@ export const OrderService = {
        
     },
 
-    cancelOrder(orderId: string | null){
-        return api.post('/orders/cancelorder',orderId)
+    cancelOrder(orderItemParam: IOrderItemsId){
+        return api.post('/orders/cancelorder',orderItemParam)
         .then(response => {
             return response.data;
         })
