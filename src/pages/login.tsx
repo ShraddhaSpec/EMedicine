@@ -51,7 +51,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 localStorage.setItem("CartQty", "0")
                 onLogin(data.data.email)
                 navigate('/');
-                // window.location.href = '/';
                 }
             });
         }
