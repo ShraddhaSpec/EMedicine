@@ -13,8 +13,11 @@ import '../custom.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../Context/CartContext';
 
+interface HeaderProps {
+  onLogOut: () => void; // Add this
+}
 
-export const Header = () => {
+export const Header : React.FC<HeaderProps> = ({ onLogOut }) => {
   const  role  = localStorage.getItem("role");
   const logoUrl = '../Images/logo2.png';
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -34,8 +37,9 @@ export const Header = () => {
   const handleLogout = () => {
     console.log("Navigating to /login");
     localStorage.clear();
-    //navigate('/login');
-     window.location.href = '/login';
+    onLogOut();
+    navigate('/login');
+     //window.location.href = '/login';
   };
 
   const handleCloseUserMenu = () => {

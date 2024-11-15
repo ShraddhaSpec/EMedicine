@@ -22,7 +22,4 @@ export interface IOrderItems {
         _id:string
 }
 
-export interface IOrderItemsId {
-        orderId: string | null,
-      }
     

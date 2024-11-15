@@ -31,7 +31,7 @@ export const MyOrders = () => {
     const handleOrderCancel =(orderitemID: string): void =>{
             console.log("productID=>",orderitemID)
             let orderItemParam = {orderId:orderitemID}
-            OrderService.cancelOrder(orderItemParam).then((data) => {
+            OrderService.cancelOrder(orderitemID).then((data) => {
                 setUpdateMyOrder(!updateMyOrder);
             });
     }
