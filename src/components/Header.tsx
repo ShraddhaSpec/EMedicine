@@ -39,7 +39,6 @@ export const Header : React.FC<HeaderProps> = ({ onLogOut }) => {
     localStorage.clear();
     onLogOut();
     navigate('/login');
-     //window.location.href = '/login';
   };
 
   const handleCloseUserMenu = () => {
