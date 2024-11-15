@@ -28,9 +28,9 @@ export const MyOrders = () => {
         });
     }, [username,UserID,updateMyOrder]);
 
-    const handleOrderCancel =(orderitemID: string): void =>{
+    const handleOrderCancel =(orderitemID: string,productID : string,qty : number): void =>{
             console.log("productID=>",orderitemID)
-            let orderItemParam = {orderId:orderitemID}
+            let orderItemParam = { orderId : orderitemID, productId : productID, quantity: qty }
             OrderService.cancelOrder(orderItemParam).then((data) => {
                 setUpdateMyOrder(!updateMyOrder);
             });
@@ -77,6 +77,13 @@ export const MyOrders = () => {
                                         Order ID: {product._id}
                                     </Typography>
                                     <Typography
+                                        variant="subtitle2"
+                                        component="div"
+                                        sx={{ color: 'text.secondary' }}
+                                    >
+                                        Quantity: {product.Quantity}
+                                    </Typography>
+                                    <Typography
                                         variant="subtitle1"
                                         component="div"
                                         sx={{ color: 'text.secondary' }}
@@ -96,7 +103,7 @@ export const MyOrders = () => {
                                         key={product._id}
                                         variant="outlined" 
                                         sx={{ alignSelf: 'flex-end' }}
-                                        onClick={() => handleOrderCancel(product._id)}
+                                        onClick={() => handleOrderCancel(product._id,product.ProductId,product.Quantity)}
                                         >
                                             Cancel
                                         </Button>

@@ -23,7 +23,7 @@ const CustomStepIcon = (props: StepIconProps & { index: number; activeStep: numb
 
 
     let IconComponent = CheckCircleIcon;
-    if (index === 1) {
+    if (index === 1 && activeStep === 1) {
         IconComponent = CancelIcon;
     } else if (index === 0) {
         IconComponent = ShoppingCartIcon;
@@ -42,6 +42,7 @@ const CustomStepIcon = (props: StepIconProps & { index: number; activeStep: numb
 export const OrderStatus: React.FC<OrderStatusProps> = ({ activeStep }) => {
     const steps = [
         { label: 'Order Placed' },
+        // { label: 'Cancelled' },
         ...(activeStep === 1 ? [{ label: 'Cancelled' }] : []),
         { label: 'Shipped' },
         { label: 'Delivered' },
