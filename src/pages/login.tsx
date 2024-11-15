@@ -6,7 +6,11 @@ import api from '../API/api';
 import { UserService } from '../services/UserService';
 import { DataArrayOutlined } from '@mui/icons-material';
 
-const Login = () => {
+interface LoginProps {
+    onLogin: (username: string) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
     const logo = '../Images/logo1.png';
     const navigate = useNavigate();
 
@@ -45,8 +49,9 @@ const Login = () => {
                 localStorage.setItem("token", data.token)
                 localStorage.setItem("role", data.data.role)
                 localStorage.setItem("CartQty", "0")
-                //navigate('/');
-                window.location.href = '/';
+                onLogin(data.data.email)
+                navigate('/');
+                // window.location.href = '/';
                 }
             });
         }

@@ -40,7 +40,6 @@ const CartItems = () => {
         setCartTotal(TempTotal);
     };
 
-
     const handlePlaceOrder =()=>{
         navigate('/placeorder', {
             state: {

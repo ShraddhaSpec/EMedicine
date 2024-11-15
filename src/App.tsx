@@ -18,18 +18,21 @@ import { CartProvider } from './Context/CartContext';
 import PlaceOrder from './pages/user/PlaceOrder';
 
 function App() {
+  const [user, setUser] = useState<string | null>(localStorage.getItem("username"));
+
+  const onLoginSuccess = (username: string) => {
+    setUser(username);
+  };
+
   return (
     <Router>
       <CartProvider>
-        <AuthWrapper />
+        <AuthWrapper user={user} onLogin={onLoginSuccess} />
       </CartProvider>
     </Router>
   );
 }
-const AuthWrapper: React.FC = () => {
-
-  const user = localStorage.getItem("username");
-  //const token = localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null;
+const AuthWrapper: React.FC<{ user: string | null, onLogin: (username: string) => void }> = ({ user, onLogin }) => {
 
   return (
     <div>
@@ -51,7 +54,7 @@ const AuthWrapper: React.FC = () => {
             </Route>
           ) : (
             <>
-              <Route path="/login" element={<Login />} />
+              <Route path="/login"  element={<Login onLogin={onLogin} />} />
               <Route path="/signup" element={<Signup />} />
             </>
           )}

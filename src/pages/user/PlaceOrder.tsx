@@ -111,30 +111,30 @@ const PlaceOrder = () => {
   };
 
 
-    const handlePlaceOrder = () =>{
-      
-            if (validate()) {
-              const uData = userData;
-              console.log("cartdata->",CartDeatail)
-                console.log("data->",uData)
-                const placeorderObj : IOrder = {
-                    UserID: uData._id,
-                    OrderTotal : orderTotal,
-                    ShippingAddress : `${uData.address},${uData.city},${uData.state},${uData.country},${uData.postcode_zip}`,
-                    OrderItems : CartDeatail
+  const handlePlaceOrder = () =>{
+    
+          if (validate()) {
+            const uData = userData;
+            console.log("cartdata->",CartDeatail)
+              console.log("data->",uData)
+              const placeorderObj : IOrder = {
+                  UserID: uData._id,
+                  OrderTotal : orderTotal,
+                  ShippingAddress : `${uData.address},${uData.city},${uData.state},${uData.country},${uData.postcode_zip}`,
+                  OrderItems : CartDeatail
 
-                }
-        
-              OrderService.placeOrder(placeorderObj).then((data) => {
-                console.log("success order",data)
-                if (data.success === true) {
-                  navigate('/');
-                }
-              }).catch((err) => {
-                console.log("Error=>", err)
-              });
-            }
-    }
+              }
+      
+            OrderService.placeOrder(placeorderObj).then((data) => {
+              console.log("success order",data)
+              if (data.success === true) {
+                navigate('/');
+              }
+            }).catch((err) => {
+              console.log("Error=>", err)
+            });
+          }
+  }
 
     
     

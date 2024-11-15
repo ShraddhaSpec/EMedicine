@@ -12,25 +12,11 @@ import HomeIcon from '@mui/icons-material/Home';
 import { IOrder, IOrderItems } from '../../types/Order';
 import { OrderService } from '../../services/OrderService';
 
-// const products = [
-//     {
-//         name: 'LOREM',
-//         image: '../Images/SAM1.jpg',
-//         description: 'Lorem ipsum is simply dummy text of the printing',
-//         price: 56
-//     },
-//     {
-//         name: 'LOREM',
-//         image: '../Images/SAM1.jpg',
-//         description: 'Lorem ipsum is simply dummy text of the printing',
-//         price: 56
-//     }
-// ];
 
 export const MyOrders = () => {
     // const [activeStep, setActiveStep] = useState<number>(0);
     const [orderList,setOrderList] = useState<IOrderItems[]>([]);
-
+    const [updateMyOrder,setUpdateMyOrder] = useState<boolean>(false);
     const username = localStorage.getItem("username");
     const UserID = localStorage.getItem("userId");
     const orderparams = { userId: UserID};
@@ -39,12 +25,17 @@ export const MyOrders = () => {
     
         OrderService.getMyOrder(orderparams).then((data) => {
             setOrderList(data.data);
-          
-
         });
-    }, [username,UserID]);
+    }, [username,UserID,updateMyOrder]);
 
-    console.log("orderlist=>",orderList)
+    const handleOrderCancel =(orderitemID: string): void =>{
+            console.log("productID=>",orderitemID)
+            let orderItemParam = {orderId:orderitemID}
+            OrderService.cancelOrder(orderItemParam).then((data) => {
+                setUpdateMyOrder(!updateMyOrder);
+            });
+    }
+
     return (
         <>
             <Box sx={{ padding: '20px' }}>
@@ -63,7 +54,7 @@ export const MyOrders = () => {
             <Grid container spacing={3} className='grid-container'>
                 {orderList && orderList.length> 0 && orderList.map((product, index) => (
                   
-                    <Grid size={{ md: 6}} offset={{ md: 4 }} key={index} >                          
+                    <Grid size={{ md: 6}} offset={{ md: 4 }} key={index}>                          
                         <Card sx={{ display: 'flex',justifySelf:'center' }}>
                             <CardMedia
                                 component="img"
@@ -77,6 +68,13 @@ export const MyOrders = () => {
                                 <CardContent sx={{ flex: '1 0 auto' }}>
                                     <Typography component="div" variant="h5">
                                         {product.productname}
+                                    </Typography>
+                                    <Typography
+                                        variant="subtitle2"
+                                        component="div"
+                                        sx={{ color: 'text.secondary' }}
+                                    >
+                                        Order ID: {product._id}
                                     </Typography>
                                     <Typography
                                         variant="subtitle1"
@@ -94,7 +92,12 @@ export const MyOrders = () => {
                                         <OrderStatus activeStep={product.OrderStatus-1} />
                                     </Typography>                                  
                                     {(product.OrderStatus-1) <= 0 && (
-                                        <Button variant="outlined" sx={{ alignSelf: 'flex-end' }}>
+                                        <Button 
+                                        key={product._id}
+                                        variant="outlined" 
+                                        sx={{ alignSelf: 'flex-end' }}
+                                        onClick={() => handleOrderCancel(product._id)}
+                                        >
                                             Cancel
                                         </Button>
                                     )}
