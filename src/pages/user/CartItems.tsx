@@ -121,9 +121,9 @@ const CartItems = () => {
                                 <Box
                                     component="img"
                                     sx={{
-                                        height: 350,
-                                        width: 350,
-                                        maxHeight: { xs: 233, md: 500 },
+                                        height: '100%',
+                                        width: '100%',
+                                        maxHeight: { xs: 233, md: 400 },
                                         maxWidth: { xs: 350, md: 500 },
                                         justifySelf: 'center',
                                         display: 'flex'

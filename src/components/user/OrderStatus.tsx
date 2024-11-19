@@ -11,25 +11,27 @@ interface OrderStatusProps {
     activeStep: number;
 }
 
-const CustomStepIcon = (props: StepIconProps & { index: number; activeStep: number }) => {
-    const { active, completed, className, index, activeStep } = props;
-    let color = '#e0e0e0'; 
+const CustomStepIcon = (props: StepIconProps & { index: number; activeStep: number,step :any}) => {
+    const { active, completed, className, index, activeStep,step} = props;
+
+    let color = '#e0e0e0'; // Default color
     if (active || completed) {
-        color = 'green'; 
+        color = 'green'; // Green for active or completed steps
     }
-    if (index === 1 && activeStep === 1) {
-        color = 'red'; 
+    if (step.id === 4 && activeStep === 3) {
+        color = 'red'; // Red for "Cancelled" step when activeStep is 3
     }
 
-
-    let IconComponent = CheckCircleIcon;
-    if (index === 1 && activeStep === 1) {
+    let IconComponent = CheckCircleIcon; // Default icon
+    if (step.id === 4 && activeStep === 3) {
         IconComponent = CancelIcon;
-    } else if (index === 0) {
+    } else if (step.id === 1) {
         IconComponent = ShoppingCartIcon;
-    } else if (index === 2) {
+    } else if (step.id === 2) {
         IconComponent = LocalShippingIcon;
     }
+
+
 
     return (
         <IconComponent
@@ -41,23 +43,30 @@ const CustomStepIcon = (props: StepIconProps & { index: number; activeStep: numb
 
 export const OrderStatus: React.FC<OrderStatusProps> = ({ activeStep }) => {
     const steps = [
-        { label: 'Order Placed' },
-        // { label: 'Cancelled' },
-        ...(activeStep === 1 ? [{ label: 'Cancelled' }] : []),
-        { label: 'Shipped' },
-        { label: 'Delivered' },
+        { id: 1, label: 'Order Placed' },
+        { id: 2, label: 'Shipped' },
+        { id: 3, label: 'Delivered' },
+        { id: 4, label: 'Cancelled' },
     ];
-  
-    const filteredSteps = activeStep === 1 ? steps.slice(0, 2) : steps;
+
+
+    let finalSteps;
+    if (activeStep === 3) {
+        finalSteps = steps.filter(step => step.id !== 2 && step.id !== 3);
+    } else {
+        finalSteps = steps.filter(step => step.id !== 4); 
+    }
+
+
     return (
         <Box sx={{ width: '100%', mt: 4 }}>
             <Stepper activeStep={activeStep} alternativeLabel >
-            {filteredSteps.map((step, index) => (
+            {finalSteps.map((step, index) => (
                     <Step key={index}>
                         <StepLabel
-                            StepIconComponent={(props) => <CustomStepIcon {...props} index={index} activeStep={activeStep} />}
+                            StepIconComponent={(props) => <CustomStepIcon {...props} index={index} activeStep={activeStep} step ={step} />}
                             style={{
-                                color: index === 1 && activeStep === 1 ? 'red' : 'inherit' // Change label color for cancelled step
+                                color: step.id === 4 && activeStep === 3 ? 'red' : 'inherit' 
                             }}
                         >
                             {step.label}
