@@ -12,8 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import { IProduct } from '../../types/Product';
 import api from '../../API/api';
 import { useParams } from 'react-router-dom';
+import { ICart } from '../../types/Cart';
 import { ProductService } from '../../services/ProductService';
-
+import { CartService } from '../../services/CartService';
+import { useCart } from '../../Context/CartContext';
 
 export const ProductDetails = () => {
     const { id } = useParams<{ id: string }>();
@@ -22,6 +24,35 @@ export const ProductDetails = () => {
         ProductService.getproductDetails(id).then((data) => setProduct(data));
     }, []);
 
+
+    const { setQty } = useCart();
+    const UserID = localStorage.getItem("userId");
+    const cartparams = { userId: UserID };
+    const addToCartHandler = () => {
+        if(product != null && product !== undefined){
+            const cart: ICart = {
+                UserId: localStorage.getItem("userId")?.toString() ?? "",
+                ProductId: product._id,
+                UnitPrice: product.UnitPrice,
+                //  Discount :product.Discount,
+                Quantity: 1,
+                TotalPrice: product.UnitPrice * 1,
+                //  isAddedtocart : true
+            };
+    
+            CartService.addToCart(cart).then(
+                (data) => {
+                    //console.log("add to cart",data);
+                    // addToCart({ op: "add" });
+                    CartService.getCarts(cartparams).then((data) => {
+                        localStorage.setItem("CartQty", data.length);
+                        setQty(data.length);
+                    });
+    
+                }
+            );
+        }
+    }
     return (
         <>
             <Box sx={{ padding: '20px' }}>
@@ -68,7 +99,7 @@ export const ProductDetails = () => {
 
                         {/* Add to Cart Button at the Bottom */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
-                            <Button className='btn-green' startIcon={<ShoppingCartIcon />}>
+                            <Button className='btn-green' startIcon={<ShoppingCartIcon />} onClick={addToCartHandler}>
                                 Add to cart
                             </Button>
                         </div>

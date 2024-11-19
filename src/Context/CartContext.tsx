@@ -15,11 +15,11 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const addToCart = ({ op }: { op: string }) => {
 
     var CartQTY = parseInt(localStorage.getItem("CartQty") || "0");
-    if (op == "add") {
+    if (op === "add") {
       CartQTY += 1;
       setQuantity((prevQuantity) => prevQuantity + 1);
     }
-    else if (op == "minus") {
+    else if (op === "minus") {
       CartQTY -= 1;
       setQuantity((prevQuantity) => prevQuantity - 1);
     }

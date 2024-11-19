@@ -15,31 +15,30 @@ const CartItems = () => {
     const [CartDeatail, setCartDeatail] = useState<ICart[]>([]);
     const navigate = useNavigate();
     const { addToCart } = useCart();
-    const username = localStorage.getItem("username");
     const UserID = localStorage.getItem("userId");
     const [CartTotal, setCartTotal] = useState<number>(0);
     // const EmptyCartUrl = '../Images/emptycart.png';
     const EmptyCartUrl = '../Images/emptybag.jpg';
-    const cartparams = { userId: UserID};
+    const cartparams = { userId: UserID };
+
     useEffect(() => {
-    
         CartService.getCarts(cartparams).then((data) => setCartDeatail(data));
-    }, [username,UserID]);
+    }, []);
 
     useEffect(() => {
-        if(CartDeatail && CartDeatail.length >0){
-        localStorage.setItem("CartQty", CartDeatail.length + "");
-        //const total = CartDeatail.reduce((acc, item) => acc + item.TotalPrice * item.Quantity, 0);
-        //setCartTotal(total);
-    }}, [CartDeatail]);
+        if (CartDeatail && CartDeatail.length > 0) {
+            localStorage.setItem("CartQty", CartDeatail.length + "");
+            //const total = CartDeatail.reduce((acc, item) => acc + item.TotalPrice * item.Quantity, 0);
+            //setCartTotal(total);
+        }
+    }, [CartDeatail]);
 
-    const handleCartTotal = (OldTotal : number, NewTotal: number) => {
+    const handleCartTotal = (OldTotal: number, NewTotal: number) => {
         var TempTotal = CartTotal;
         TempTotal -= OldTotal;
         TempTotal += NewTotal;
         setCartTotal(TempTotal);
     };
-
 
     const handlePlaceOrder =()=>{
         navigate('/placeorder', {
@@ -48,11 +47,11 @@ const CartItems = () => {
             }
         });
     }
-   
-    
+
+
     const handleDelete = (ProductID: string) => {
         const data = { ItemId: ProductID };
-        
+
         api.post('/carts/deleteCartItem', data)
             .then(response => {
                 if (response.data.success) {
@@ -61,8 +60,8 @@ const CartItems = () => {
                 }
             })
             .catch((error) => console.error('Error fetching data:', error))
-      };
-     
+    };
+
 
     return (
         <>
@@ -83,28 +82,28 @@ const CartItems = () => {
             </Box>
 
             <Box component="section" sx={{ p: 1 }}>
-            {CartDeatail && CartDeatail.length > 0 && 
-                <Grid container spacing={2} padding={3} borderBottom={'1px solid black'} fontWeight={'bold'} color={'#747d88'} fontSize={'1rem'} fontFamily={'Open Sans, sans-serif'}>
-                    <Grid size={2}>
-                        <label>Product</label>
+                {CartDeatail && CartDeatail.length > 0 &&
+                    <Grid container spacing={2} padding={3} borderBottom={'1px solid black'} fontWeight={'bold'} color={'#747d88'} fontSize={'1rem'} fontFamily={'Open Sans, sans-serif'}>
+                        <Grid size={2}>
+                            <label>Product</label>
+                        </Grid>
+                        <Grid size={2}>
+                            <label>Name</label>
+                        </Grid>
+                        <Grid size={1}>
+                            <label>Price</label>
+                        </Grid>
+                        <Grid size={2}>
+                            <label>Quantity</label>
+                        </Grid>
+                        <Grid size={1}>
+                            <label>Total</label>
+                        </Grid>
+                        <Grid size={1}>
+                            <label>Handle</label>
+                        </Grid>
                     </Grid>
-                    <Grid size={2}>
-                        <label>Name</label>
-                    </Grid>
-                    <Grid size={1}>
-                        <label>Price</label>
-                    </Grid>
-                    <Grid size={2}>
-                        <label>Quantity</label>
-                    </Grid>
-                    <Grid size={1}>
-                        <label>Total</label>
-                    </Grid>
-                    <Grid size={1}>
-                        <label>Handle</label>
-                    </Grid>
-                </Grid>
-            }
+                }
                 <div>
                     {CartDeatail && CartDeatail.length > 0 ? CartDeatail.map((CartItem, Index) => (
                         <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
@@ -113,95 +112,95 @@ const CartItems = () => {
                             ProductID={CartItem.ProductId}
                             ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers"
                             onDelete={handleDelete}
-                            CartTotal = {handleCartTotal} />
+                            CartTotal={handleCartTotal} />
                     ))
-                    :
-                (
-                    <>
-                   
-                    <Box
-                        component="img"
-                        sx={{
-                            height: 350,
-                            width: 350,
-                            maxHeight: { xs: 233, md: 500 },
-                            maxWidth: { xs: 350, md: 500 },
-                            justifySelf : 'center',
-                            display:'flex'
-                        }}
-                        alt="EmptyCart image."
-                        src={EmptyCartUrl}
-                        />                       
-                        <Typography variant="h6" sx={{ color: 'text.secondary',display:'flex',justifySelf:'center' }}>
-                        Add something to make me happy 😄
-                        </Typography>
-                        <Button
-                         size='small'
-                         variant="contained"
-                         className="blueButton"
-                         sx = {{display:'flex',justifySelf:'center'}}
-                         onClick={()=>{
-                            navigate("/")
-                         }}
-                     >
-                       Continue Shopping
-                     </Button>
-                    
-                    </>
-                )}</div>
+                        :
+                        (
+                            <>
+
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: '100%',
+                                        width: '100%',
+                                        maxHeight: { xs: 233, md: 400 },
+                                        maxWidth: { xs: 350, md: 500 },
+                                        justifySelf: 'center',
+                                        display: 'flex'
+                                    }}
+                                    alt="EmptyCart image."
+                                    src={EmptyCartUrl}
+                                />
+                                <Typography variant="h6" sx={{ color: 'text.secondary', display: 'flex', justifySelf: 'center' }}>
+                                    Add something to make me happy 😄
+                                </Typography>
+                                <Button
+                                    size='small'
+                                    variant="contained"
+                                    className="blueButton"
+                                    sx={{ display: 'flex', justifySelf: 'center' }}
+                                    onClick={() => {
+                                        navigate("/")
+                                    }}
+                                >
+                                    Continue Shopping
+                                </Button>
+
+                            </>
+                        )}</div>
             </Box>
-                {CartDeatail && CartDeatail.length > 0 &&
-                 <div style={{ float: 'right', margin: '10px' }}>
-                 <Grid container width={'300px'} color={'#45595b'} >
-                     <Grid size={12}>
-                         <Typography variant="h4" component="div" sx={{ color: 'green', fontWeight: 'bold', marginBottom: '10px' }}>
-                             Cart Total
-                         </Typography>
-                     </Grid>
-                     <Grid size={6}>
-                         <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
-                             Sub Total
-                         </Typography>
-                     </Grid>
-                     <Grid size={6}>
-                         <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
-                             $ {CartTotal}
-                         </Typography>
-                     </Grid>
- 
-                     <Grid size={6} borderBottom={'1px solid #45595b'}>
-                         <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
-                             Shipping
-                         </Typography>
-                     </Grid>
-                     <Grid size={6} borderBottom={'1px solid #45595b'}>
-                         <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
-                             Flat rate: $3.00
-                         </Typography>
-                     </Grid>
-                     <Grid size={6}>
-                         <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
-                             Total
-                         </Typography>
-                     </Grid>
-                     <Grid size={6}>
-                         <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
-                         $ {CartTotal + 3}
-                         </Typography>
-                     </Grid>
-                     <Grid size={6}>                      
-                         <Button
-                         size='small'
-                         variant="contained"
-                         className="blueButton"
-                         onClick={handlePlaceOrder}
-                     >
-                         Place Order
-                     </Button>
-                     </Grid>
-                 </Grid>
-             </div> }
-           
+            {CartDeatail && CartDeatail.length > 0 &&
+                <div style={{ float: 'right', margin: '10px' }}>
+                    <Grid container width={'300px'} color={'#45595b'} >
+                        <Grid size={12}>
+                            <Typography variant="h4" component="div" sx={{ color: 'green', fontWeight: 'bold', marginBottom: '10px' }}>
+                                Cart Total
+                            </Typography>
+                        </Grid>
+                        <Grid size={6}>
+                            <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
+                                Sub Total
+                            </Typography>
+                        </Grid>
+                        <Grid size={6}>
+                            <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
+                                $ {CartTotal.toFixed(2)}
+                            </Typography>
+                        </Grid>
+
+                        <Grid size={6} borderBottom={'1px solid #45595b'}>
+                            <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
+                                Shipping
+                            </Typography>
+                        </Grid>
+                        <Grid size={6} borderBottom={'1px solid #45595b'}>
+                            <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
+                                Flat rate: $3.00
+                            </Typography>
+                        </Grid>
+                        <Grid size={6}>
+                            <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
+                                Total
+                            </Typography>
+                        </Grid>
+                        <Grid size={6}>
+                            <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
+                                $ {CartTotal.toFixed(2) + 3}
+                            </Typography>
+                        </Grid>
+                        <Grid size={6}>
+                            <Button
+                                size='small'
+                                variant="contained"
+                                className="blueButton"
+                                onClick={handlePlaceOrder}
+                            >
+                                Place Order
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </div>}
+
 
 
         </>

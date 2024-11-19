@@ -18,5 +18,13 @@ export interface IOrderItems {
         OrderStatus : number,
         imageURL ?:string,
         productname ?: string,
-        description ?:string
+        description ?:string,
+        _id:string
 }
+
+export interface IOrderItemsId {
+        orderId: string | null,
+        productId: string | null,
+        quantity : number
+      }
+    
