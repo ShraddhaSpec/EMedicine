@@ -23,5 +23,12 @@ export const UserService = {
             return response.data;
         })
         .catch((error) => console.error('Error fetching data:', error))
+    },
+    updateprofile(params: IUser){
+        return api.post('/users/updateprofile', params)
+        .then(response => {
+            return response.data;
+        })
+        .catch((error) => console.error('Error fetching data:', error))
     }
 }
