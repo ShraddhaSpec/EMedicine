@@ -118,6 +118,7 @@ export const Header : React.FC<HeaderProps> = ({ onLogOut }) => {
           ))}
 
           <Box sx={{ flexGrow: 1 }} />
+           {role === 'user' &&(
           <Box sx={{ flexGrow: 0 }}>
             <Link to='/cart' >
               <IconButton color="inherit" aria-label="shopping cart" sx={{ p: 2 }}>
@@ -126,7 +127,7 @@ export const Header : React.FC<HeaderProps> = ({ onLogOut }) => {
                 </Badge>
               </IconButton>
             </Link>
-          </Box>
+          </Box>)}
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton color="inherit" onClick={handleOpenUserMenu} sx={{ p: 1 }}>

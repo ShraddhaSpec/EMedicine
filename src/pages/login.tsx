@@ -7,7 +7,7 @@ import { UserService } from '../services/UserService';
 import { DataArrayOutlined } from '@mui/icons-material';
 
 interface LoginProps {
-    onLogin: (username: string) => void;
+    onLogin: (username: string,role:string) => void;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
@@ -49,7 +49,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 localStorage.setItem("token", data.token)
                 localStorage.setItem("role", data.data.role)
                 localStorage.setItem("CartQty", "0")
-                onLogin(data.data.email)
+                onLogin(data.data.email,data.data.role)
                 navigate('/');
                 }
             });
