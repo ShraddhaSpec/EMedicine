@@ -48,9 +48,7 @@ const Signup = () => {
 
     if (!formValues.address) {
       tempErrors.address = "Address is required";
-    } else if (!nameRegex.test(formValues.address)) {
-      tempErrors.address = "Address can only contain letters";
-    }
+    } 
 
     if (!formValues.city) {
       tempErrors.city = "Town/City is required";
