@@ -18,8 +18,8 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete,
     }, []);
 
     const handleQtyChange = (newQty: number) => {
-      CartTotal(total,(product?.UnitPrice ?? 0) * newQty);
-      setTotal((product?.UnitPrice ?? 0) * newQty);
+      CartTotal(total,(product?.unitPrice ?? 0) * newQty);
+      setTotal((product?.unitPrice ?? 0) * newQty);
       const data = {Id: product?._id, UpdatedQty: newQty};
       
       api.post('/carts/manageCartQty', data)
@@ -35,13 +35,13 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete,
     <>
       <Grid container spacing={2} marginTop={2} borderBottom={'1px solid #747d88'} color={'#747d88'} fontSize={'1rem'} fontFamily={'Open Sans, sans-serif'} >
         <Grid size={2}>
-          <img src={`/ProductImage/${product?.ImageURL}`} width="80" height="80"></img>
+          <img src={`/ProductImage/${product?.imageURL}`} width="80" height="80"></img>
         </Grid>
         <Grid size={2} alignContent={'center'}>
-          <label>{product?.Name}</label>
+          <label>{product?.name}</label>
         </Grid>
         <Grid size={1} alignContent={'center'}>
-          <label>$ {product?.UnitPrice}</label>
+          <label>$ {product?.unitPrice}</label>
         </Grid>
         <Grid size={2} alignContent={'center'}>
           <Counter Qty={Qty} onQtyChange={handleQtyChange}/>

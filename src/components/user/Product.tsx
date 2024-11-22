@@ -26,10 +26,10 @@ export const Product: React.FC<Props> = ({ product }) => {
     const cart :  ICart  = {
        UserId: localStorage.getItem("userId")?.toString() ?? "", 
        ProductId : product._id,
-       UnitPrice: product.UnitPrice,
+       UnitPrice: product.unitPrice,
       //  Discount :product.Discount,
        Quantity : 1,
-       TotalPrice : product.UnitPrice * 1,
+       TotalPrice : product.unitPrice * 1,
       //  isAddedtocart : true
        };
 
@@ -52,22 +52,22 @@ export const Product: React.FC<Props> = ({ product }) => {
       <Card sx={{ maxWidth: 345, margin: 'auto' }}>
         <CardMedia
           sx={{ height: 150 }}
-          image={`/ProductImage/${product.ImageURL}`}
-          title={product.Name}
+          image={`/ProductImage/${product.imageURL}`}
+          title={product.name}
         />
         <Link to={`/productDetails/${product._id}`} style={{ textDecoration: 'none' }}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {product.Name}
+              {product.name}
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {product.Description}
+              {product.description}
             </Typography>
           </CardContent>
         </Link>
         <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h6" component="h3" sx={{ flexGrow: 1 }}>
-            <CurrencyRupeeIcon sx={{ fontSize: '1.2rem', verticalAlign: 'middle' }} />{product.UnitPrice}
+            <CurrencyRupeeIcon sx={{ fontSize: '1.2rem', verticalAlign: 'middle' }} />{product.unitPrice}
           </Typography>
           <Button size="small" startIcon={<ShoppingCartIcon />} onClick={addToCartHandler}>
             Add to cart

@@ -1,11 +1,11 @@
 export interface IProduct {
     _id: string, 
-    Name: string,
-    Description:string,
-    Manufacturer:string,
-    UnitPrice: number,
-    Discount: number,
-    Quantity: number,
-    ImageURL: string,
-    Status: true
+    name: string,
+    description:string,
+    manufacturer:string,
+    unitPrice: number,
+    discount: number,
+    quantity: number,
+    imageURL: string,
+    status: true
 }

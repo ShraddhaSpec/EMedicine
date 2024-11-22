@@ -33,10 +33,10 @@ export const ProductDetails = () => {
             const cart: ICart = {
                 UserId: localStorage.getItem("userId")?.toString() ?? "",
                 ProductId: product._id,
-                UnitPrice: product.UnitPrice,
+                UnitPrice: product.unitPrice,
                 //  Discount :product.Discount,
                 Quantity: 1,
-                TotalPrice: product.UnitPrice * 1,
+                TotalPrice: product.unitPrice * 1,
                 //  isAddedtocart : true
             };
     
@@ -74,7 +74,7 @@ export const ProductDetails = () => {
                     <Card sx={{ maxWidth: 345 }}>
                         <CardMedia
                             sx={{ height: 350 }}
-                            image={`/ProductImage/${product?.ImageURL}`}
+                            image={`/ProductImage/${product?.imageURL}`}
                             title="green iguana"
                         />
                     </Card>
@@ -82,18 +82,18 @@ export const ProductDetails = () => {
                 <Grid size={4} sx={{ display: 'flex', flexDirection: 'column', maxWidth: 400, height: 350 }}>
                     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                         <Typography variant="h3" component="h4">
-                            {product?.Name.toUpperCase()}
+                            {product?.name.toUpperCase()}
                         </Typography>
 
                         <Typography variant="h6" component="h4">
-                            {product?.Description}
+                            {product?.description}
                         </Typography>
 
                         {/* Price Section with Auto Margin Top */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 'auto' }}>
                             <Typography variant="h5" component="h3">
                                 Price :
-                                <CurrencyRupeeIcon sx={{ fontSize: '1.2rem', verticalAlign: 'middle' }} /> {product?.UnitPrice}
+                                <CurrencyRupeeIcon sx={{ fontSize: '1.2rem', verticalAlign: 'middle' }} /> {product?.unitPrice}
                             </Typography>
                         </div>
 
