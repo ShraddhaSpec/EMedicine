@@ -65,9 +65,8 @@ const PlaceOrder = () => {
 
     if (!userData.address) {
       tempErrors.address = "Address is required";
-    } else if (!nameRegex.test(userData.address)) {
-      tempErrors.address = "Address can only contain letters";
-    }
+    } 
+
 
     if (!userData.city) {
       tempErrors.city = "Town/City is required";

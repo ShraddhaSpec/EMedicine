@@ -30,5 +30,14 @@ export const UserService = {
             return response.data;
         })
         .catch((error) => console.error('Error fetching data:', error))
-    }
+    },
+
+    getallusers(){
+        return api.get('/users/getalluser')
+        .then(response => {
+            return response.data;
+        })
+        .catch((error) => console.error('Error fetching data:', error))
+    },
+
 }
