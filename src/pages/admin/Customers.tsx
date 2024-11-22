@@ -10,6 +10,7 @@ import { UserService } from '../../services/UserService';
 export const Customers = () => {
 const [customer, setcustomer] = useState<any[]>([])
 const username = localStorage.getItem("username");
+
   useEffect(() => {
     UserService.getallusers().then((data) => {
         if(data && data.success == true){

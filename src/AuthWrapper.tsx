@@ -14,6 +14,7 @@ import { Customers } from './pages/admin/Customers';
 import { Orders } from './pages/admin/Orders';
 import PlaceOrder from './pages/user/PlaceOrder';
 import AdminHome from './pages/admin/AdminHome';
+import MedicineManage from './pages/admin/MedicineManage';
 
 interface AuthWrapperProps {
     user: string | null;
@@ -41,7 +42,7 @@ export const AuthWrapper: React.FC<AuthWrapperProps> = ({ user,userRole, onLogin
                 <Route path="/placeorder" element={<PlaceOrder />} />
                 {userRole === 'admin' && (
                 <>
-                <Route path="/medicines" element={<Medicines />} />
+                <Route path="/medicines" element={<MedicineManage />} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/orders" element={<Orders />} /> 
                 </>
