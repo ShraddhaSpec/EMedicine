@@ -9,7 +9,6 @@ import PrivateRoute from './components/PrivateRoute';
 import { ProductDetails } from './pages/user/ProductDetails';
 import Signup from './pages/Signup';
 import { Profile } from './pages/Profile';
-import { Medicines } from './pages/admin/Medicines';
 import { Customers } from './pages/admin/Customers';
 import { Orders } from './pages/admin/Orders';
 import PlaceOrder from './pages/user/PlaceOrder';
