@@ -27,4 +27,9 @@ export interface IOrderItemsId {
         productId: string | null,
         quantity : number
       }
+
+ export interface IOrderStatus {
+        orderid: string | null,
+        status : number
+ }
     
