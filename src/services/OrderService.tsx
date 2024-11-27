@@ -1,5 +1,5 @@
 import api from '../API/api';
-import { IOrder, IOrderItemsId } from '../types/Order';
+import { IOrder, IOrderItemsId, IOrderStatus } from '../types/Order';
 import { UserID } from '../types/User';
 
 export const OrderService = {
@@ -26,6 +26,27 @@ export const OrderService = {
             return response.data;
         })
         .catch((error) => console.error('Error fetching data:', error))
-    }
+    },
    
+    getAllOrder(){
+        return api.get('/orders/allorders')
+        .then(response => {
+            return response.data;
+        })
+        .catch((error) => console.error('Error fetching data:', error))
+    },
+    updateOrderStatus(params: IOrderStatus){
+        return api.post('/orders/updateorder',params)
+        .then(response => {
+            return response.data;
+        })
+        .catch((error) => console.error('Error fetching data:', error))
+    },
+    getOrderDetail(id:string){
+        return api.get(`/orders/orderdetail/${id}`)
+        .then(response => {
+            return response.data;
+        })
+        .catch((error) => console.error('Error fetching data:', error))
+    }
 }

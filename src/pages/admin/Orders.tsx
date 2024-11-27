@@ -1,4 +1,4 @@
-import * as React from 'react';
+import react, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -14,50 +14,53 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-
-
-const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
-
-const paginationModel = { page: 0, pageSize: 5 };
+import { OrderService } from '../../services/OrderService';
+import { IOrderItems } from '../../types/Order';
+import { toast } from "react-toastify";
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 
 
 export const Orders = () => {
-    const [open, setOpen] = React.useState(false);
-    const [status, setStatus] = React.useState('');
+    const [orders, setOrders] = useState<any[]>([])
+    const username = localStorage.getItem("username");
+    const [open, setOpen] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState<IOrderItems | null>(null);
+    const [orderStatus, setOrderStatus] = useState<string>('');
+    const [updateOrder,setUpdateOrder] = useState<boolean>(false);
+    const [openorderDialog, setOpenorderDialog] = useState(false);
+    const [selectedOrderDetail, setSelectedOrderDetail] =useState<any>(null);
 
+    useEffect(() => {
+        OrderService.getAllOrder().then((data) => {
+            if(data && data.success == true){
+                setOrders(data.data)
+            }
+        })
+        }, [username,updateOrder])
 
     const columns: GridColDef[] = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'firstName', headerName: 'First name', width: 130 },
-        { field: 'lastName', headerName: 'Last name', width: 130 },
+        { field: '_id', headerName: 'ID', width: 70},
+        { field: 'ProductId', headerName: 'ProductID', width: 130 },
+        { field: 'UserId', headerName: 'UserId', width: 130 },
+        { field: 'Quantity', headerName: 'Quantity', width: 130 },
         {
-            field: 'age',
-            headerName: 'Age',
+            field: 'TotalPrice',
+            headerName: 'Total Price',
             type: 'number',
             width: 90,
         },
         {
-            field: 'fullName',
-            headerName: 'Full name',
-            description: 'This column has a value getter and is not sortable.',
+            field: 'OrderStatus',
+            headerName: 'Order Status',
+            // description: 'This column has a value getter and is not sortable.',
             sortable: false,
-            width: 160,
-            // valueGetter: (params) => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+            width: 160,           
         },
         {
-            field: 'Update Status',
-            headerName: 'Update Status',
+            field: 'Action',
+            headerName: 'Action',
             width: 120,
             sortable: false,
             renderCell: (params) => (
@@ -67,19 +70,45 @@ export const Orders = () => {
                         onClick={() => handleUpdate(params.row)}
                         aria-label="edit"
                     >
-                        <EditIcon onClick={handleClickOpen} />
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton
+                        color="error"
+                        onClick={() => handleOrderDetail(params.row._id)}
+                        aria-label="delete"
+                    >
+                        <VisibilityIcon color='primary' />
                     </IconButton>
                 </Box>
             ),
         },
     ];
 
-    const handleUpdate = (row: any) => {
-        console.log('Edit row:', row);
-        // Add edit logic here
+    const rows: {
+         _id: string;
+          ProductId: string; 
+          UserId: string; 
+          Quantity:number;
+          TotalPrice:number; 
+          OrderStatus: number }[] = orders.map((order) => ({
+            _id: order._id,
+            ProductId: order.ProductId,
+            UserId: order.UserId,
+            Quantity: order.Quantity,
+            TotalPrice:order.TotalPrice,
+            OrderStatus : order.OrderStatus
+    }));
+
+ const paginationModel = { page: 0, pageSize: 5 };
+
+    const handleUpdate = (order: any) => {
+        handleClickOpen(order);
+     
     };
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (order: IOrderItems) => {
+        setSelectedOrder(order);
+        setOrderStatus(order.OrderStatus.toString());
         setOpen(true);
     };
 
@@ -87,10 +116,49 @@ export const Orders = () => {
         setOpen(false);
     };
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setStatus(event.target.value as string);
+    const handleStatusChange = (event: SelectChangeEvent) => {
+        setOrderStatus(event.target.value as string);
     };
 
+    const handleStausSave = () =>{
+       
+        if (selectedOrder) {
+            const params = {
+                orderid:selectedOrder._id,
+                status: parseInt(orderStatus) 
+            }
+            OrderService.updateOrderStatus(params).then((data) => {
+                if(data && data.success == true){                    
+                    setUpdateOrder(!updateOrder);
+                    toast.success(data.message)
+                    handleClose();
+                }
+            })
+        }
+    }
+
+    const handleOrderDetail = (orderid: string) =>{
+        handleorderDetailOpen(orderid);
+    }
+
+    const handleorderDetailOpen=(orderid: string)=>{
+        OrderService.getOrderDetail(orderid).then((data) => {
+            if(data && data.success == true){
+                data.data[0].UnitPrice = parseFloat(data.data[0].UnitPrice.$numberDecimal);
+                data.data[0].TotalPrice = parseFloat(data.data[0].TotalPrice.$numberDecimal);
+
+             setSelectedOrderDetail(data.data[0])
+             setOpenorderDialog(true);
+            }
+        })
+       
+        
+    }
+
+    console.log("selectedorderdetail->",selectedOrderDetail)
+    const handleCloseorderDialog = ()=>{
+        setOpenorderDialog(false)
+    }
     return (
         <>
             <Box sx={{ flexGrow: 0, paddingTop: 3 }}>
@@ -98,11 +166,12 @@ export const Orders = () => {
                     <DataGrid
                         rows={rows}
                         columns={columns}
+                        getRowId={(row) => row._id}
                         initialState={{ pagination: { paginationModel } }}
                         pageSizeOptions={[5, 10]}
                         sx={{ border: 0 }}
                     />
-                </Paper>
+                </Paper>               
             </Box>
 
             <Dialog
@@ -112,33 +181,100 @@ export const Orders = () => {
                 aria-describedby="alert-dialog-description"
                 sx={{ minWidth: 320 }}
             >
-                <DialogTitle id="alert-dialog-title">
+                <DialogTitle id="alert-dialog-title" >
                     {"Update Status"}
                 </DialogTitle>
                 <DialogContent>
-                    <Box sx={{ minWidth: 320 }}>
+                    <Box sx={{ minWidth: 320,paddingTop:'10px' }}>
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Status</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={status}
+                                value={orderStatus}
                                 label="Status"
-                                onChange={handleChange}
+                                onChange={handleStatusChange}
                             >
-                                <MenuItem value={1}>Cancel</MenuItem>
-                                <MenuItem value={2}>Dispathced</MenuItem>
-                                <MenuItem value={3}>Shipped</MenuItem>
-                                <MenuItem value={4}>Delivered</MenuItem>
+                                <MenuItem value={1}>Order Placed</MenuItem>
+                                <MenuItem value={2}>Shipped</MenuItem>
+                                <MenuItem value={3}>Delivered</MenuItem>
+                                <MenuItem value={4}>Cancelled</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>cancel</Button>
-                    <Button onClick={handleClose} autoFocus>
+                    <Button onClick={handleStausSave} autoFocus>
                         Save
                     </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog
+                open={openorderDialog}
+                onClose={handleCloseorderDialog}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                sx={{ minWidth: 320 }}
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Order Detail"}
+                </DialogTitle>
+                <DialogContent>
+                <Box sx={{ minWidth: 320 }}>
+                {selectedOrderDetail && (                  
+                            <TableContainer component={Paper}>
+                                <Table aria-label="order details table">
+                                  
+                                    <TableBody>
+                                    <TableRow>
+                                            <TableCell>Customer Name</TableCell>
+                                            <TableCell>{selectedOrderDetail.username}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Order Date</TableCell>
+                                            <TableCell>{selectedOrderDetail.createdAt}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Product Name</TableCell>
+                                            <TableCell>{selectedOrderDetail.productName}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Order ID</TableCell>
+                                            <TableCell>{selectedOrderDetail._id}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Order Status</TableCell>
+                                            <TableCell>{selectedOrderDetail.OrderStatus}</TableCell>
+                                        </TableRow>  
+                                        <TableRow>
+                                            <TableCell>Quantity</TableCell>
+                                            <TableCell>{selectedOrderDetail.Quantity}</TableCell>
+                                        </TableRow>                                       
+                                       
+                                        <TableRow>
+                                            <TableCell>UnitPrice</TableCell>
+                                            <TableCell>{selectedOrderDetail.UnitPrice}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Total Price</TableCell>
+                                            <TableCell>{selectedOrderDetail.TotalPrice}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Shipping Address</TableCell>
+                                            <TableCell>{selectedOrderDetail.ShippingAddress}</TableCell>
+                                        </TableRow>
+                                       
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        )}
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseorderDialog}>cancel</Button>
+                   
                 </DialogActions>
             </Dialog>
         </>
