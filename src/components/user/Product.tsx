@@ -52,7 +52,7 @@ export const Product: React.FC<Props> = ({ product }) => {
       <Card sx={{ maxWidth: 345, margin: 'auto' }}>
         <CardMedia
           sx={{ height: 150 }}
-          image={`/ProductImage/${product.imageURL}`}
+          image={`${product.imageURL}`}
           title={product.name}
         />
         <Link to={`/productDetails/${product._id}`} style={{ textDecoration: 'none' }}>

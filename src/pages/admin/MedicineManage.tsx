@@ -5,12 +5,20 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { AppBar, Button, Dialog, duration, Input, Slide, TextField, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, Dialog, duration, FilledTextFieldProps, Input, OutlinedTextFieldProps, Slide, StandardTextFieldProps, TextField, TextFieldVariants, Toolbar, Typography } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import { ProductService } from '../../services/ProductService';
 import { IProduct } from '../../types/Product';
 import { Product } from '../../components/user/Product';
 import { toast } from 'react-toastify';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import dayjs, { Dayjs } from 'dayjs';
+import { Padding } from '@mui/icons-material';
+import { JSX } from 'react/jsx-runtime';
+import axios from 'axios';
+import api from '../../API/api';
 
 
 const MedicineManage = () => {
@@ -20,6 +28,11 @@ const MedicineManage = () => {
     const [ProductDetail, setProductDetail] = useState<IProduct>();
     const username = localStorage.getItem("username");
     const [Operation, setOperation] = useState('');
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [filePath, setFilePath] = useState<string | null>(null);
+    const [file, setFile] = useState<File | null>(null);
+    const [uploadedUrl, setUploadedUrl] = useState<string>("");
+    const [message, setMessage] = useState("");
     const [ProductFormDetail, setProductFormDetail] = useState<IProduct>(
         {
             _id: '',
@@ -30,7 +43,8 @@ const MedicineManage = () => {
             discount: 0,
             quantity: 0,
             imageURL: '',
-            status: true
+            status: true,
+            expiryDate: new Date()
         }
     );
 
@@ -84,9 +98,9 @@ const MedicineManage = () => {
         status: prod.status
     }));
 
-    const handleDelete = (id: string, status:boolean) => {
+    const handleDelete = (id: string, status: boolean) => {
         debugger
-        var data = {"Id" : id, "Status" : status};
+        var data = { "Id": id, "Status": status };
         ProductService.statusChangeProduct(data).then((data) => {
             if (data.success === true) {
                 toast.success("Product Status has been change.");
@@ -122,7 +136,7 @@ const MedicineManage = () => {
     const handleSaveProduct = () => {
         debugger
         setOpen(false);
-        if (Operation == 'Update'){
+        if (Operation == 'Update') {
             ProductService.updateProductDetail(ProductFormDetail).then((data) => {
                 if (data.success === true) {
                     toast.success("Product Updated Successfully.");
@@ -132,7 +146,7 @@ const MedicineManage = () => {
                 console.log("Error=>", err)
             });
         }
-        else if(Operation == 'Add'){
+        else if (Operation == 'Add') {
             ProductService.addProductDetail(ProductFormDetail).then((data) => {
                 if (data.success === true) {
                     toast.success("Product Added Successfully.");
@@ -142,13 +156,48 @@ const MedicineManage = () => {
                 console.log("Error=>", err)
             });
         }
-        
+
 
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         setProductFormDetail({ ...ProductFormDetail, [id]: value });
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setFile(e.target.files[0]);
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        debugger
+        if (!file) {
+            setMessage("Please select a file to upload.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+
+            const r = api.post('/products/uploadproductimage', formData)
+                .then(response => {
+                    setMessage(response.data.message);
+                    setUploadedUrl(response.data.url); // URL from the server
+                    setProductFormDetail({ ...ProductFormDetail, ['imageURL']: response.data.url });
+                })
+                .catch((error) => console.error('Error fetching data:', error))
+
+            
+
+            
+        } catch (error) {
+            // setMessage(error.message);
+        }
     };
 
 
@@ -263,6 +312,34 @@ const MedicineManage = () => {
                         value={ProductFormDetail.quantity || ''}
                         onChange={handleInputChange}
                     />
+                    <div style={{ paddingTop: "10px" }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label="Product Expiry Date"
+                                value={dayjs(ProductFormDetail.expiryDate)}
+
+                                onChange={(newValue) => {
+                                    setProductFormDetail({ ...ProductFormDetail, expiryDate: newValue ? newValue.toDate() : new Date(), });
+                                }}
+
+                            />
+                        </LocalizationProvider>
+                    </div>
+
+                    <div>
+                        <form onSubmit={handleSubmit}>
+                            <input type="file" onChange={handleFileChange} />
+                            <button type="submit">Upload</button>
+                        </form>
+                        {message && <p>{message}</p>}
+                        {uploadedUrl && (
+                            <div>
+                                <p>Uploaded Image:</p>
+                                <img src={uploadedUrl} alt="Uploaded" style={{ width: "200px" }} />
+                            </div>
+                        )}
+                    </div>
+
                 </Box>
 
             </Dialog>

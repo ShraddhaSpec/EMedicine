@@ -35,7 +35,7 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete,
     <>
       <Grid container spacing={2} marginTop={2} borderBottom={'1px solid #747d88'} color={'#747d88'} fontSize={'1rem'} fontFamily={'Open Sans, sans-serif'} >
         <Grid size={2}>
-          <img src={`/ProductImage/${product?.imageURL}`} width="80" height="80"></img>
+          <img src={`${product?.imageURL}`} width="80" height="80"></img>
         </Grid>
         <Grid size={2} alignContent={'center'}>
           <label>{product?.name}</label>

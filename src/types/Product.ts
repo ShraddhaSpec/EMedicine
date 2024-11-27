@@ -7,5 +7,6 @@ export interface IProduct {
     discount: number,
     quantity: number,
     imageURL: string,
-    status: true
+    status: true,
+    expiryDate: Date
 }

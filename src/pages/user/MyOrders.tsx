@@ -89,7 +89,7 @@ export const MyOrders = () => {
                             <CardMedia
                                 component="img"
                                 sx={{ width: 170, p: 1 }}
-                                image={`/ProductImage/${product.imageURL}`}
+                                image={`${product.imageURL}`}
                                 alt={product.productname}
                                 // width={'100%'}
                                 
