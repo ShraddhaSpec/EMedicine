@@ -156,6 +156,7 @@ const MedicineManage = () => {
                 if (data.success === true) {
                     toast.success("Product Updated Successfully.");
                     ProductService.getproducts().then((data) => setProducts(data));
+                    setUploadedUrl("");
                 }
             }).catch((err) => {
                 console.log("Error=>", err)
@@ -207,9 +208,9 @@ const MedicineManage = () => {
                 })
                 .catch((error) => console.error('Error fetching data:', error))
 
-            
 
-            
+
+
         } catch (error) {
             // setMessage(error.message);
         }
