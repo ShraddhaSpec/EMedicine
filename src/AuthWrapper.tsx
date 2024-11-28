@@ -23,7 +23,7 @@ interface AuthWrapperProps {
   }
 
 export const AuthWrapper: React.FC<AuthWrapperProps> = ({ user,userRole, onLogin, onLogOut }) => {
-  console.log("acnakcnjcj",user)
+  // console.log("acnakcnjcj",user)
     return (
       <div>
         {user && <Header onLogOut={onLogOut} />}

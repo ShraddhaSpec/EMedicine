@@ -33,6 +33,7 @@ const CartItems = () => {
         }
     }, [CartDeatail]);
 
+    console.log("cartdetail==>",CartDeatail)
     const handleCartTotal = (OldTotal: number, NewTotal: number) => {
         var TempTotal = CartTotal;
         TempTotal -= OldTotal;
@@ -106,7 +107,8 @@ const CartItems = () => {
                 }
                 <div>
                     {CartDeatail && CartDeatail.length > 0 ? CartDeatail.map((CartItem, Index) => (
-                        <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
+                        <CartItemCard
+                            ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
                             ItemName="Sun Pulse Oximeter"
                             Qty={CartItem.Quantity}
                             ProductID={CartItem.ProductId}

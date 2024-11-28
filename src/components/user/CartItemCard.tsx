@@ -13,6 +13,7 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete,
 
   const [product, setProduct] = useState<IProduct>();
   const [total, setTotal] = useState<number>(0);
+  
     useEffect(() => {
        ProductService.getproductDetails(ProductID).then((data) => setProduct(data));
     }, []);
