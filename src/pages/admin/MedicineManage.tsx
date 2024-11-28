@@ -131,6 +131,7 @@ const MedicineManage = () => {
 
     const handleClose = () => {
         setOpen(false);
+        setUploadedUrl("");
     };
 
     const handleSaveProduct = () => {
@@ -141,6 +142,7 @@ const MedicineManage = () => {
                 if (data.success === true) {
                     toast.success("Product Updated Successfully.");
                     ProductService.getproducts().then((data) => setProducts(data));
+                    setUploadedUrl("");
                 }
             }).catch((err) => {
                 console.log("Error=>", err)
@@ -192,9 +194,9 @@ const MedicineManage = () => {
                 })
                 .catch((error) => console.error('Error fetching data:', error))
 
-            
 
-            
+
+
         } catch (error) {
             // setMessage(error.message);
         }
@@ -332,10 +334,16 @@ const MedicineManage = () => {
                             <button type="submit">Upload</button>
                         </form>
                         {message && <p>{message}</p>}
-                        {uploadedUrl && (
+                        {uploadedUrl || ProductDetail?.imageURL && (
                             <div>
                                 <p>Uploaded Image:</p>
-                                <img src={uploadedUrl} alt="Uploaded" style={{ width: "200px" }} />
+                                {/* <img src={uploadedUrl ? `${uploadedUrl}` :  `${ProductDetail?.imageURL}`} alt="Uploaded" style={{ width: "200px" }} /> */}
+                                <img
+                                    src={uploadedUrl || ProductDetail?.imageURL}
+                                    alt="Uploaded"
+                                    style={{ width: "200px" }}
+                                />
+
                             </div>
                         )}
                     </div>
