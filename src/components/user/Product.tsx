@@ -22,6 +22,7 @@ export const Product: React.FC<Props> = ({ product }) => {
   const { setQty } = useCart();
   const UserID = localStorage.getItem("userId");
   const cartparams = { userId: UserID };
+  const NoImageUrl = '../Images/no_image.png';
   const addToCartHandler = () => {
     const cart :  ICart  = {
        UserId: localStorage.getItem("userId")?.toString() ?? "", 
@@ -52,7 +53,7 @@ export const Product: React.FC<Props> = ({ product }) => {
       <Card sx={{ maxWidth: 345, margin: 'auto' }}>
         <CardMedia
           sx={{ height: 150 }}
-          image={`${product.imageURL}`}
+          image={`${product.imageURL !== "" ?product.imageURL :NoImageUrl}`}
           title={product.name}
         />
         <Link to={`/productDetails/${product._id}`} style={{ textDecoration: 'none' }}>
