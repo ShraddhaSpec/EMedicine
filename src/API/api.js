@@ -28,7 +28,6 @@ api.interceptors.request.use(function (config) {
 
 // Add a response interceptor
 api.interceptors.response.use(function (response) {
-    console.log("apires->",response)
     if (response.status === 200) {
         if (response.data.success === false) {
             toast.error(response.data.message)

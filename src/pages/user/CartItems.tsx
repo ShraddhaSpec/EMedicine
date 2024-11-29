@@ -23,13 +23,14 @@ const CartItems = () => {
 
     useEffect(() => {
         CartService.getCarts(cartparams).then((data) => setCartDeatail(data));
-    }, []);
+    }, [UserID]);
 
     useEffect(() => {
         if (CartDeatail && CartDeatail.length > 0) {
+            console.log("called from set total cart from cart item")
             localStorage.setItem("CartQty", CartDeatail.length + "");
-            //const total = CartDeatail.reduce((acc, item) => acc + item.TotalPrice * item.Quantity, 0);
-            //setCartTotal(total);
+            const total = CartDeatail.reduce((acc, item) => acc + item.TotalPrice, 0);
+            setCartTotal(total);
         }
     }, [CartDeatail]);
 
@@ -55,7 +56,11 @@ const CartItems = () => {
         api.post('/carts/deleteCartItem', data)
             .then(response => {
                 if (response.data.success) {
-                    CartService.getCarts(cartparams).then((data) => setCartDeatail(data));
+                    CartService.getCarts(cartparams).then((data) =>
+                        {
+                            setCartDeatail([]);
+                            setCartDeatail(data)        
+                        } );
                     addToCart({ op: "minus" });
                 }
             })
@@ -106,13 +111,15 @@ const CartItems = () => {
                 }
                 <div>
                     {CartDeatail && CartDeatail.length > 0 ? CartDeatail.map((CartItem, Index) => (
-                        <CartItemCard ImageName="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Catalogue/sun-pulse-oximeter-for-hospital-14-days20230731090957.jpg"
-                            ItemName="Sun Pulse Oximeter"
-                            Qty={CartItem.Quantity}
-                            ProductID={CartItem.ProductId}
-                            ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers"
+                        <CartItemCard 
+                            // ItemName="Sun Pulse Oximeter"
+                            // Qty={CartItem.Quantity}
+                            // ProductID={CartItem.ProductId}
+                            // ItemDesc="one of Ahmedabad's best Sun Pulse Oximeter, For Hospital, 14 Days sellers"
+                            key={Index}
+                            CartItem={CartItem}
                             onDelete={handleDelete}
-                            CartTotal={handleCartTotal} />
+                            setCartTotal={setCartTotal} />
                     ))
                         :
                         (

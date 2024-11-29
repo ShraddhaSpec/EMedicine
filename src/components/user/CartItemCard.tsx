@@ -8,26 +8,42 @@ import api from '../../API/api';
 import { IProduct } from '../../types/Product';
 import { ProductService } from '../../services/ProductService';
 import { Console } from 'console';
+import { CartService } from '../../services/CartService';
+import { ICart } from '../../types/Cart';
 
-const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete, CartTotal }: { ImageName: string; ItemName: string; ItemDesc: string; Qty: number; ProductID: string; onDelete: (id: string) => void; CartTotal : (OldTotal :number, newTotal: number) => void}) => {
-
+interface CartItemCardProps {
+  key: number;
+  CartItem: ICart;
+  onDelete: (id: string) => void;
+  setCartTotal: React.Dispatch<React.SetStateAction<number>>
+}
+const CartItemCard: React.FC<CartItemCardProps> = ({ key, CartItem, onDelete, setCartTotal }) => {
+  // const CartItemCard = ({ CartItem, onDelete, setCartTotal }: { CartItem : ; onDelete: (id: string) => void; setCartTotal : React.Dispatch<React.SetStateAction<number>>}) => {
   const [product, setProduct] = useState<IProduct>();
   const [total, setTotal] = useState<number>(0);
-    useEffect(() => {
-       ProductService.getproductDetails(ProductID).then((data) => setProduct(data));
-    }, []);
+  useEffect(() => {
+    ProductService.getproductDetails(CartItem.ProductId).then((data) =>{
+      console.log("CartItemcard ->>>>>>>>>>>>>",data);
+      setProduct(data);
+    } );
+  }, []);
 
-    const handleQtyChange = (newQty: number) => {
-      CartTotal(total,(product?.unitPrice ?? 0) * newQty);
-      setTotal((product?.unitPrice ?? 0) * newQty);
-      const data = {Id: product?._id, UpdatedQty: newQty};
-      
-      api.post('/carts/manageCartQty', data)
-            .then(response => {
-                return response.data;
-            })
-            .catch((error) => console.error('Error fetching data:', error))
-    };
+  const handleQtyChange = (newQty: number) => {
+    // CartTotal(total,(product?.unitPrice ?? 0) * newQty);
+    setTotal((product?.unitPrice ?? 0) * newQty);
+    const data = { Id: product?._id, UpdatedQty: newQty, TotalQty: total };
+
+    api.post('/carts/manageCartQty', data)
+      .then(response => {
+        const UserID = localStorage.getItem("userId");
+        const cartparams = { userId: UserID };
+        CartService.getCarts(cartparams).then((data) => {
+          const total = data.reduce((acc: any, item: { TotalPrice: any; }) => acc + item.TotalPrice, 0);
+          setCartTotal(total);
+        })
+      })
+      .catch((error) => console.error('Error fetching data:', error))
+  };
 
 
 
@@ -44,14 +60,14 @@ const CartItemCard = ({ ImageName, ItemName, ItemDesc, Qty, ProductID, onDelete,
           <label>$ {product?.unitPrice}</label>
         </Grid>
         <Grid size={2} alignContent={'center'}>
-          <Counter Qty={Qty} onQtyChange={handleQtyChange}/>
+          <Counter Qty={CartItem.Quantity} onQtyChange={handleQtyChange} />
         </Grid>
         <Grid size={1} alignContent={'center'}>
-        <label>{total.toFixed(2)}</label>
+          <label>{total.toFixed(2)}</label>
         </Grid>
         <Grid size={1} alignContent={'center'}>
-          <IconButton onClick={() => onDelete(ProductID)} style={{ color: 'red', transform: 'scale(0.7)', border: '1px solid #747d88', backgroundColor: '#f4f6f8' }}>
-            <CloseRounded  />
+          <IconButton onClick={() => onDelete(CartItem._id ?? "")} style={{ color: 'red', transform: 'scale(0.7)', border: '1px solid #747d88', backgroundColor: '#f4f6f8' }}>
+            <CloseRounded />
           </IconButton>
         </Grid>
       </Grid>
