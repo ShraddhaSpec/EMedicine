@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { AppBar, Button, Dialog, duration, FilledTextFieldProps, Input, OutlinedTextFieldProps, Slide, StandardTextFieldProps, TextField, TextFieldVariants, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, Dialog, DialogActions, DialogContent, DialogTitle, duration, FilledTextFieldProps, Input, OutlinedTextFieldProps, Slide, StandardTextFieldProps, TextField, TextFieldVariants, Toolbar, Typography } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import { ProductService } from '../../services/ProductService';
 import { IProduct } from '../../types/Product';
@@ -33,6 +33,7 @@ const MedicineManage = () => {
     const [file, setFile] = useState<File | null>(null);
     const [uploadedUrl, setUploadedUrl] = useState<string>("");
     const [message, setMessage] = useState("");
+    const NoImageUrl = '../Images/no_image.png';
     const [ProductFormDetail, setProductFormDetail] = useState<IProduct>(
         {
             _id: '',
@@ -114,9 +115,10 @@ const MedicineManage = () => {
     const handleClickOpen = (id: any) => {
 
         ProductService.getproductDetails(id).then((data) => {
-            console.log("data=>", data)
+            console.log("data=>==>", data)
             setProductDetail(data);
-            setProductFormDetail(data); // Initialize form with product details
+            setProductFormDetail(data); 
+            setUploadedUrl(data.imageURL)// Initialize form with product details
             setOpen(true);
             setOperation('Update');
         }
@@ -131,7 +133,19 @@ const MedicineManage = () => {
 
     const handleClose = () => {
         setOpen(false);
-        setUploadedUrl("");
+        setProductFormDetail( {
+            _id: '',
+            name: '',
+            description: '',
+            manufacturer: '',
+            unitPrice: 0,
+            discount: 0,
+            quantity: 0,
+            imageURL: '',
+            status: true,
+            expiryDate: new Date()
+        }); 
+        setUploadedUrl("")
     };
 
     const handleSaveProduct = () => {
@@ -188,7 +202,7 @@ const MedicineManage = () => {
 
             const r = api.post('/products/uploadproductimage', formData)
                 .then(response => {
-                    setMessage(response.data.message);
+                    // setMessage(response.data.message);
                     setUploadedUrl(response.data.url); // URL from the server
                     setProductFormDetail({ ...ProductFormDetail, ['imageURL']: response.data.url });
                 })
@@ -223,34 +237,30 @@ const MedicineManage = () => {
             <Button variant="contained" onClick={() => handleAddOpen()}>Add Product</Button>
             <Dialog
                 key={open ? 'open' : 'closed'}
-                fullScreen
+                // fullScreen
                 open={open}
                 onClose={handleClose}
+                sx={{ minWidth: 320 }}
             //   TransitionComponent={Transition}
             >
-                <AppBar sx={{ position: 'relative' }}>
-                    <Toolbar>
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            onClick={handleClose}
-                            aria-label="close"
-                        >
-                            <GridCloseIcon />
-                        </IconButton>
-                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            {ProductDetail?.name}
-                        </Typography>
-                        <Button autoFocus color="inherit" onClick={handleSaveProduct}>
-                            save
-                        </Button>
-                    </Toolbar>
-
-
-
-                </AppBar>
-                <Box sx={{ padding: '40px' }}>
-
+                <DialogTitle id="alert-dialog-title" >
+               <Typography fontWeight={'fontWeightBold'} display={'inline'}> Product Name: </Typography> {ProductDetail?.name}
+                </DialogTitle>
+                <DialogContent>
+                <Box sx={{ padding: '1rem',minWidth:320 }}>
+                <div>
+                        <form onSubmit={handleSubmit}>
+                            <input type="file" onChange={handleFileChange} />
+                            <button type="submit">Upload</button>
+                        </form>
+                        {/* {message && <p>{message}</p>} */}
+                        {/* {uploadedUrl && ( */}
+                            <div>
+                                <p>Uploaded Image:</p>
+                                <img src={uploadedUrl !==""  ? uploadedUrl : NoImageUrl} alt="Uploaded" style={{ width: "200px",height:"200px" }} />
+                            </div>
+                        {/* )} */}
+                    </div>
 
                     <TextField
                         label="Product Name"
@@ -328,27 +338,16 @@ const MedicineManage = () => {
                         </LocalizationProvider>
                     </div>
 
-                    <div>
-                        <form onSubmit={handleSubmit}>
-                            <input type="file" onChange={handleFileChange} />
-                            <button type="submit">Upload</button>
-                        </form>
-                        {message && <p>{message}</p>}
-                        {uploadedUrl || ProductDetail?.imageURL && (
-                            <div>
-                                <p>Uploaded Image:</p>
-                                {/* <img src={uploadedUrl ? `${uploadedUrl}` :  `${ProductDetail?.imageURL}`} alt="Uploaded" style={{ width: "200px" }} /> */}
-                                <img
-                                    src={uploadedUrl || ProductDetail?.imageURL}
-                                    alt="Uploaded"
-                                    style={{ width: "200px" }}
-                                />
-
-                            </div>
-                        )}
-                    </div>
+                  
 
                 </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} variant='outlined'>cancel</Button>
+                    <Button onClick={handleSaveProduct} variant='contained' autoFocus>
+                        Save
+                    </Button>
+                </DialogActions>
 
             </Dialog>
         </>
