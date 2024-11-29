@@ -28,7 +28,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ key, CartItem, onDelete, se
   useEffect(() => {
     ProductService.getproductDetails(CartItem.ProductId).then((data) => {
       setProduct(data);
-      // setTotal(data.unitPrice * CartItem.Quantity); // Set initial total based on initial quantity
+      setTotal(data.unitPrice * CartItem.Quantity);
     });
   }, [CartItem.ProductId, CartItem.Quantity]);
 
@@ -39,7 +39,10 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ key, CartItem, onDelete, se
 
     api.post('/carts/manageCartQty', data)
       .then(response => {
+        if(response.data.success){
+        console.log("response ==>",response)
         setIsLoadCart(!isLoadCart);
+        }
       })
       .catch((error) => console.error('Error fetching data:', error));
   }, [product, isLoadCart, setIsLoadCart]);
@@ -61,7 +64,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ key, CartItem, onDelete, se
           <Counter Qty={CartItem.Quantity} onQtyChange={handleQtyChange} />
         </Grid>
         <Grid size={1} alignContent={'center'}>
-          <label>{total.toFixed(2)}</label>
+          <label>{CartItem.TotalPrice}</label>
         </Grid>
         <Grid size={1} alignContent={'center'}>
           <IconButton onClick={() => onDelete(CartItem._id ?? "")} style={{ color: 'red', transform: 'scale(0.7)', border: '1px solid #747d88', backgroundColor: '#f4f6f8' }}>

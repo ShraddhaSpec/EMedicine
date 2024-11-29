@@ -17,7 +17,7 @@ const Counter = ({Qty, onQtyChange} : {Qty : number, onQtyChange: (newQty: numbe
 
   useEffect(() => {
     onQtyChange(count);
-  }, [count, onQtyChange]);
+  }, [count ]);
 
   return (
     <Grid container alignItems="center" justifyContent="left" spacing={2}>
