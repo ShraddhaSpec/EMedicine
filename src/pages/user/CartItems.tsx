@@ -17,13 +17,14 @@ const CartItems = () => {
     const { addToCart } = useCart();
     const UserID = localStorage.getItem("userId");
     const [CartTotal, setCartTotal] = useState<number>(0);
+    const [isLoadCart,setIsLoadCart] = useState<boolean>(false)
     // const EmptyCartUrl = '../Images/emptycart.png';
     const EmptyCartUrl = '../Images/emptybag.jpg';
     const cartparams = { userId: UserID };
 
     useEffect(() => {
         CartService.getCarts(cartparams).then((data) => setCartDeatail(data));
-    }, [UserID]);
+    }, [UserID,isLoadCart]);
 
     useEffect(() => {
         if (CartDeatail && CartDeatail.length > 0) {
@@ -57,12 +58,14 @@ const CartItems = () => {
         api.post('/carts/deleteCartItem', data)
             .then(response => {
                 if (response.data.success) {
-                    CartService.getCarts(cartparams).then((data) =>
-                        {
-                            setCartDeatail([]);
-                            setCartDeatail(data)        
-                        } );
                     addToCart({ op: "minus" });
+                    setIsLoadCart(!isLoadCart)
+                    // CartService.getCarts(cartparams).then((data) =>
+                    //     {
+                    //         setCartDeatail([]);
+                    //         setCartDeatail(data)        
+                    //     } );
+                   
                 }
             })
             .catch((error) => console.error('Error fetching data:', error))
@@ -120,7 +123,11 @@ const CartItems = () => {
                             key={Index}
                             CartItem={CartItem}
                             onDelete={handleDelete}
-                            setCartTotal={setCartTotal} />
+                            setCartTotal={setCartTotal} 
+                            isLoadCart = {isLoadCart}
+                            setIsLoadCart = {setIsLoadCart}
+
+                            />
                     ))
                         :
                         (

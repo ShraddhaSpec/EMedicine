@@ -15,12 +15,15 @@ interface CartItemCardProps {
   key: number;
   CartItem: ICart;
   onDelete: (id: string) => void;
-  setCartTotal: React.Dispatch<React.SetStateAction<number>>
+  setCartTotal: React.Dispatch<React.SetStateAction<number>>;
+  isLoadCart : boolean;
+  setIsLoadCart: React.Dispatch<React.SetStateAction<boolean>>
 }
-const CartItemCard: React.FC<CartItemCardProps> = ({ key, CartItem, onDelete, setCartTotal }) => {
+const CartItemCard: React.FC<CartItemCardProps> = ({ key, CartItem, onDelete, setCartTotal,isLoadCart,setIsLoadCart }) => {
   // const CartItemCard = ({ CartItem, onDelete, setCartTotal }: { CartItem : ; onDelete: (id: string) => void; setCartTotal : React.Dispatch<React.SetStateAction<number>>}) => {
   const [product, setProduct] = useState<IProduct>();
   const [total, setTotal] = useState<number>(0);
+
   useEffect(() => {
     ProductService.getproductDetails(CartItem.ProductId).then((data) =>{
       console.log("CartItemcard ->>>>>>>>>>>>>",data);
@@ -35,12 +38,13 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ key, CartItem, onDelete, se
 
     api.post('/carts/manageCartQty', data)
       .then(response => {
-        const UserID = localStorage.getItem("userId");
-        const cartparams = { userId: UserID };
-        CartService.getCarts(cartparams).then((data) => {
-          const total = data.reduce((acc: any, item: { TotalPrice: any; }) => acc + item.TotalPrice, 0);
-          setCartTotal(total);
-        })
+        setIsLoadCart(!isLoadCart)
+        // const UserID = localStorage.getItem("userId");
+        // const cartparams = { userId: UserID };
+        // CartService.getCarts(cartparams).then((data) => {
+        //   const total = data.reduce((acc: any, item: { TotalPrice: any; }) => acc + item.TotalPrice, 0);
+        //   setCartTotal(total);
+        // })
       })
       .catch((error) => console.error('Error fetching data:', error))
   };
