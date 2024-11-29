@@ -1,5 +1,5 @@
 import api from '../API/api';
-import { ICart } from '../types/Cart';
+import { ICart, IQtyChangeParam } from '../types/Cart';
 import { UserID } from '../types/User';
 
 export const CartService = {
@@ -12,6 +12,13 @@ export const CartService = {
     },
     addToCart(cart: ICart) {
         return api.post('/carts/addToCart', cart)
+            .then(response => {
+                return response.data;
+            })
+            .catch((error) => console.error('Error fetching data:', error))
+    },
+    manageCartQty(cart:IQtyChangeParam){
+        return api.post('/carts/manageCartQty', cart)
             .then(response => {
                 return response.data;
             })
