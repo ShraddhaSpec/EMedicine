@@ -30,6 +30,7 @@ export const MyOrders = () => {
     const orderparams = { userId: UserID};
     const EmptyOrderUrl = '../Images/emptyorder1.jpg';
     const navigate = useNavigate();
+    const NoImageUrl = '../Images/no_image.png';
 
     useEffect(() => {
     
@@ -88,8 +89,8 @@ export const MyOrders = () => {
                         <Card sx={{ display: 'flex',justifySelf:'center' }}>
                             <CardMedia
                                 component="img"
-                                sx={{ width: 170, p: 1 }}
-                                image={`${product.imageURL}`}
+                                sx={{ width: 170,height:200, p: 1 }}
+                                image={`${product?.imageURL !== "" ? product?.imageURL :NoImageUrl}`}
                                 alt={product.productname}
                                 // width={'100%'}
                                 

@@ -222,6 +222,9 @@ const MedicineManage = () => {
     return (
         <>
             <Box sx={{ flexGrow: 0, paddingTop: 3 }} >
+            <div style={{display:'flex',justifyContent:"flex-end",marginRight:'1rem' }}>
+            <Button variant="contained" sx={{marginBottom:'1rem'}} onClick={() => handleAddOpen()}>Add Product</Button>
+            </div>
                 <Paper sx={{ width: '100%' }}>
                     <DataGrid
                         getRowId={(row) => row._id}
@@ -234,7 +237,7 @@ const MedicineManage = () => {
                 </Paper>
             </Box>
 
-            <Button variant="contained" onClick={() => handleAddOpen()}>Add Product</Button>
+           
             <Dialog
                 key={open ? 'open' : 'closed'}
                 // fullScreen
