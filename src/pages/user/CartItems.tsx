@@ -36,7 +36,6 @@ const CartItems = () => {
         }
     }, [CartDeatail]);
 
-    console.log("cartdetail==>",CartDeatail)
     const handleCartTotal = (OldTotal: number, NewTotal: number) => {
         var TempTotal = CartTotal;
         TempTotal -= OldTotal;
