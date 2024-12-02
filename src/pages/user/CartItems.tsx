@@ -21,6 +21,7 @@ const CartItems = () => {
     const [isLoadCart,setIsLoadCart] = useState<boolean>(false);
     const EmptyCartUrl = '../Images/emptybag.jpg';
     const cartparams = { userId: UserID };
+    const shippingCharge = 3
 
     useEffect(() => {
         CartService.getCarts(cartparams).then((data) => setCartDeatail(data));
@@ -46,7 +47,7 @@ const CartItems = () => {
     const handlePlaceOrder =()=>{
         navigate('/placeorder', {
             state: {
-                orderTotal: 99
+                orderTotal: CartTotal
             }
         });
     }
@@ -190,7 +191,7 @@ const CartItems = () => {
                         </Grid>
                         <Grid size={6} borderBottom={'1px solid #45595b'}>
                             <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
-                                Flat rate: $3.00
+                                ${shippingCharge.toFixed(2)}
                             </Typography>
                         </Grid>
                         <Grid size={6}>

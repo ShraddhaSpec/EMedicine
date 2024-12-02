@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../API/api';
 import { IProduct } from '../../types/Product';
 import { ProductService } from '../../services/ProductService';
-import { Console } from 'console';
 import { CartService } from '../../services/CartService';
 import { ICart } from '../../types/Cart';
 
@@ -37,9 +36,8 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ key, CartItem, onDelete, se
     setTotal(updatedTotal);
     const data = { Id: product?._id, UpdatedQty: newQty, TotalQty: updatedTotal };
 
-    api.post('/carts/manageCartQty', data)
-      .then(response => {
-        if(response.data.success){
+    CartService.manageCartQty(data).then(response => {
+        if(response.success){
         console.log("response ==>",response)
         setIsLoadCart(!isLoadCart);
         }
@@ -64,7 +62,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ key, CartItem, onDelete, se
           <Counter Qty={CartItem.Quantity} onQtyChange={handleQtyChange} />
         </Grid>
         <Grid size={1} alignContent={'center'}>
-          <label>{CartItem.TotalPrice}</label>
+          <label>{(CartItem.TotalPrice).toFixed(2)}</label>
         </Grid>
         <Grid size={1} alignContent={'center'}>
           <IconButton onClick={() => onDelete(CartItem._id ?? "")} style={{ color: 'red', transform: 'scale(0.7)', border: '1px solid #747d88', backgroundColor: '#f4f6f8' }}>

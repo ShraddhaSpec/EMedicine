@@ -7,3 +7,9 @@ export interface ICart {
     Quantity: number,
     TotalPrice: number,    
 }
+
+export interface IQtyChangeParam{
+    Id: string | undefined, 
+    UpdatedQty: number, 
+    TotalQty: number 
+}
