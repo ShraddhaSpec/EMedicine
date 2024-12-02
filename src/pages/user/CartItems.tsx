@@ -9,6 +9,7 @@ import api from '../../API/api';
 import { ICart } from '../../types/Cart';
 import { CartService } from '../../services/CartService';
 import { useCart } from '../../Context/CartContext';
+import userEvent from '@testing-library/user-event';
 
 const CartItems = () => {
 
@@ -17,8 +18,7 @@ const CartItems = () => {
     const { addToCart } = useCart();
     const UserID = localStorage.getItem("userId");
     const [CartTotal, setCartTotal] = useState<number>(0);
-    const [isLoadCart,setIsLoadCart] = useState<boolean>(false)
-    // const EmptyCartUrl = '../Images/emptycart.png';
+    const [isLoadCart,setIsLoadCart] = useState<boolean>(false);
     const EmptyCartUrl = '../Images/emptybag.jpg';
     const cartparams = { userId: UserID };
     const shippingCharge = 3
@@ -201,7 +201,7 @@ const CartItems = () => {
                         </Grid>
                         <Grid size={6}>
                             <Typography variant="h6" component="div" sx={{ marginBottom: '10px' }}>
-                            $ {(CartTotal + shippingCharge).toFixed(2)}
+                            ${ (CartTotal + 3).toFixed(2) }
                             </Typography>
                         </Grid>
                         <Grid size={6}>
