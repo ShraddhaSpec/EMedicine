@@ -7,6 +7,11 @@ export interface IProduct {
     discount: number,
     quantity: number,
     imageURL: string,
-    status: true,
+    status: boolean,
     expiryDate: Date
+}
+
+export interface Imedicine{
+    Id: string,
+    Status : boolean
 }

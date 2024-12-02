@@ -5,10 +5,10 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { AppBar, Button, Dialog, DialogActions, DialogContent, DialogTitle, duration, FilledTextFieldProps, Input, OutlinedTextFieldProps, Slide, StandardTextFieldProps, TextField, TextFieldVariants, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, duration, FilledTextFieldProps, Input, OutlinedTextFieldProps, Slide, StandardTextFieldProps, TextField, TextFieldVariants, Toolbar, Typography } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import { ProductService } from '../../services/ProductService';
-import { IProduct } from '../../types/Product';
+import { Imedicine, IProduct } from '../../types/Product';
 import { Product } from '../../components/user/Product';
 import { toast } from 'react-toastify';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -19,6 +19,7 @@ import { Padding } from '@mui/icons-material';
 import { JSX } from 'react/jsx-runtime';
 import axios from 'axios';
 import api from '../../API/api';
+import { stat } from 'fs';
 
 
 const MedicineManage = () => {
@@ -34,6 +35,10 @@ const MedicineManage = () => {
     const [uploadedUrl, setUploadedUrl] = useState<string>("");
     const [message, setMessage] = useState("");
     const NoImageUrl = '../Images/no_image.png';
+    const [medicinetobeDelete,setMedicinetobeDelete] = useState<Imedicine | null>(null);
+    const [openMedicineConfirm,setOpenMedicineConfirm] = useState(false)
+    const [isRender,setIsRender] = useState<boolean>(false);
+
     const [ProductFormDetail, setProductFormDetail] = useState<IProduct>(
         {
             _id: '',
@@ -44,7 +49,7 @@ const MedicineManage = () => {
             discount: 0,
             quantity: 0,
             imageURL: '',
-            status: true,
+            status: false,
             expiryDate: new Date()
         }
     );
@@ -52,21 +57,26 @@ const MedicineManage = () => {
 
     useEffect(() => {
         ProductService.getproducts().then((data) => setProducts(data));
-    }, [username]);
+    }, [username,isRender]);
 
 
     const columns: GridColDef[] = [
         { field: 'name', headerName: 'First name', width: 130 },
         { field: 'description', headerName: 'Description', width: 130 },
         { field: 'manufacturer', headerName: 'Manufacturer', width: 130 },
-        { field: 'unitPrice', headerName: 'Unit Price', width: 130 },
-        { field: 'discount', headerName: 'Discount', width: 130 },
-        { field: 'quantity', headerName: 'Quantity', width: 130 },
-        { field: 'status', headerName: 'Status', width: 130 },
+        { field: 'unitPrice', headerName: 'Unit Price', width: 120 },
+        { field: 'discount', headerName: 'Discount', width: 100 },
+        { field: 'quantity', headerName: 'Quantity', width: 100 },
+        { 
+            field: 'status', 
+            headerName: 'Status', 
+            width: 120,
+            valueFormatter: (params) => params ? 'Active' : 'Deactive'
+        },
         {
             field: 'actions',
             headerName: 'Actions',
-            width: 100,
+            width: 150,
             sortable: false,
             renderCell: (params) => (
                 <Box>
@@ -76,19 +86,32 @@ const MedicineManage = () => {
                         aria-label="edit">
                         <EditIcon />
                     </IconButton>
-                    <IconButton
-                        color="error"
-                        onClick={() => handleDelete(params.row._id, !params.row.status)}
-                        aria-label="delete"
+                    <Button
+                    color="primary"
+                    onClick={() => handleOpenDeleteConfirm(params.row._id,params.row.status)}
+                    aria-label={params.row.status ? "deactivate" : "activate"}
+                    sx={{textTransform: "none"}}
                     >
-                        <DeleteIcon />
-                    </IconButton>
+                        {params.row.status ? "Deactivate" : "Activate"}
+                    </Button>
                 </Box>
             ),
         },
     ];
 
-    const rows: { _id: string; name: string; manufacturer: string; quantity: number }[] = Products.map((prod) => ({
+    console.log("productData=>>>>",Products)
+    // const rows: { _id: string; name: string; description:string;manufacturer: string; quantity: number;unitPrice:number;discount:number;status:boolean}[] = Products.map((prod) => ({
+    //     _id: prod._id,
+    //     name: prod.name,
+    //     description: prod.description,
+    //     manufacturer: prod.manufacturer,
+    //     quantity: prod.quantity,
+    //     unitPrice: prod.unitPrice,
+    //     discount: prod.discount,
+    //     status: prod.status ? "Active":"Deactive"
+    // }));
+
+    const rows = Products.map((prod) => ({
         _id: prod._id,
         name: prod.name,
         description: prod.description,
@@ -96,16 +119,25 @@ const MedicineManage = () => {
         quantity: prod.quantity,
         unitPrice: prod.unitPrice,
         discount: prod.discount,
-        status: prod.status
+        status: prod.status // Keep status as boolean
     }));
 
+    const handleOpenDeleteConfirm = (id: string,status:boolean) =>{
+        setMedicinetobeDelete({Id:id,Status:status});
+        setOpenMedicineConfirm(true);
+    }
+
     const handleDelete = (id: string, status: boolean) => {
-        debugger
-        var data = { "Id": id, "Status": status };
+            
+        let data = { Id: id, Status: !status };
+        console.log("parasms=>",data)
         ProductService.statusChangeProduct(data).then((data) => {
             if (data.success === true) {
-                toast.success("Product Status has been change.");
-                ProductService.getproducts().then((data) => setProducts(data));
+                setOpenMedicineConfirm(false);
+                setIsRender(!isRender)
+                toast.success("Product deleted succesfully.");// product status change to inactive(soft delete) 
+                // ProductService.getproducts().then((data) => setProducts(data));
+                
             }
         }).catch((err) => {
             console.log("Error=>", err)
@@ -129,6 +161,10 @@ const MedicineManage = () => {
     const handleAddOpen = () => {
         setOperation('Add');
         setOpen(true);
+    }
+
+    const handleClosemedicineDialog = () =>{
+        setOpenMedicineConfirm(false);
     }
 
     const handleClose = () => {
@@ -352,6 +388,23 @@ const MedicineManage = () => {
                     </Button>
                 </DialogActions>
 
+            </Dialog>
+
+            <Dialog open={openMedicineConfirm} onClose={handleClosemedicineDialog}>
+                <DialogTitle>  {medicinetobeDelete?.Status ? "Deactivate" : "Activate"} Medicine</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                    Are you sure you want to {medicinetobeDelete?.Status ? "deactivate" : "activate"} this Medicine?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClosemedicineDialog} color="primary">
+                        No
+                    </Button>
+                    <Button onClick={() => medicinetobeDelete && handleDelete(medicinetobeDelete.Id, medicinetobeDelete.Status)} color="primary" autoFocus>
+                        Yes
+                    </Button>
+                </DialogActions>
             </Dialog>
         </>
     )

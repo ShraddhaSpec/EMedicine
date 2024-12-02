@@ -1,5 +1,5 @@
 import api from '../API/api';
-import { IProduct } from '../types/Product';
+import { Imedicine, IProduct } from '../types/Product';
 
 export const ProductService = {
     getproducts ()  {
@@ -30,7 +30,7 @@ export const ProductService = {
             })
             .catch((error) => console.error('Error fetching data:', error))
     },
-    statusChangeProduct(data : any) {
+    statusChangeProduct(data : Imedicine) {
         return api.post(`/products/statuschangeproduct`, data)
             .then(response => {
                 return response.data;
