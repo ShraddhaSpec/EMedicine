@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -22,6 +22,14 @@ export const Header : React.FC<HeaderProps> = ({ onLogOut }) => {
   const logoUrl = '../Images/logo2.png';
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
+  
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Retrieve the username from localStorage
+    const storedUsername = localStorage.getItem("username");
+    setUsername(storedUsername);
+  }, []); // Empty dependency array ensures this runs once when the component mounts
 
   const settings = role === 'admin'
     ? ['Profile', 'Logout']
@@ -133,7 +141,7 @@ export const Header : React.FC<HeaderProps> = ({ onLogOut }) => {
             <IconButton color="inherit" onClick={handleOpenUserMenu} sx={{ p: 1 }}>
               {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
               <AccountCircle fontSize="large" />
-            </IconButton>
+            </IconButton>{username}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
